@@ -22,4 +22,4 @@ Currently this collection includes:
 2. Add *UH-Slices-ECE* and *UH-Slices-SEG*.
 
 [ex-ece-slices]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Slices-ECE/display/uh-ece-2.jpg
-[ex-seg-slices]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Slices-ECE/display/uh-seg-2.jpg
+[ex-seg-slices]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Slices-SEG/display/uh-seg-2.jpg
