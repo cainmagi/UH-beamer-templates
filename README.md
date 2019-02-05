@@ -10,13 +10,16 @@ Currently this collection includes:
 
 | Beamer title | Type | Screenshot|
 | ----- | ----- | ----- |
-| UH-Slices-ECE | Presentation |  |
-| UH-Slices-SEG | Presentation |  |
+| UH-Slices-ECE | Presentation | ![][ex-ece-slices] |
+| UH-Slices-SEG | Presentation | ![][ex-seg-slices] |
 
 ## Update report
 
-### 1.0
+### 1.0 @ 20190205
 
 1. Create this project.
 
 2. Add *UH-Slices-ECE* and *UH-Slices-SEG*.
+
+[ex-ece-slices]:./UH-Slices-ECE/display/uh-ece-2.jpg
+[ex-seg-slices]:./UH-Slices-ECE/display/uh-ece-2.jpg
