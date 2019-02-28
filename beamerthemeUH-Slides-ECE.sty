@@ -1,0 +1,732 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% UH-Slides-ECE
+%%   Revised by Yuchen Jin (cainmagi)
+%%   Feb. 4, 2019
+%% ----------------
+%% - Adapted from the Uppsala Beamer theme example
+%% - Support both 4:3 and 16:9 modes
+%% - Remastered title page
+%% - A totally new thanks page
+%% - Support with necessary packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Uppsala Beamer theme example by Frédéric Haziza <daz@it.uu.se>
+%%
+%% Describing beamerthemeUppsala version 2008/05/15
+%%
+%% If you have more than three sections or more than three subsections in at least
+%% one section, you might want to use the [hideallsubsections] or
+%% [hideothersubsections] switch.  In this case, only the current (sub-) section is
+%% displayed in the sidebar and not the full overview.
+%%
+%% Options are:
+%% ===========
+%% * hideallsubsections, hideothersubsections
+%% * nonumbers,totalnumber
+%% * withnav, mylogo
+%% * grey
+%% * noprogressbar
+%%
+%% For the sidebar layout:
+%% * subsectionsattop, sectionpathattop
+%% 
+%% Removed
+%% =======
+%% * sidebarshades
+%%
+%% Tip
+%% ===
+%% latex this file to see the theme in action
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{beamerthemeUH-Slides-ECE}[2019/02/04]
+
+\RequirePackage{tikz,pgf}
+\usepgflibrary{arrows}
+\usepgflibrary{shapes}
+\usetikzlibrary{%
+  arrows,%
+  calc,%
+  fit,%
+  patterns,%
+  plotmarks,%
+  shapes.geometric,%
+  shapes.misc,%
+  shapes.symbols,%
+  shapes.arrows,%
+  shapes.callouts,%
+  shapes.multipart,%
+  shapes.gates.logic.US,%
+  shapes.gates.logic.IEC,%
+  er,%
+  automata,%
+  backgrounds,%
+  chains,%
+  topaths,%
+  trees,%
+  petri,%
+  mindmap,%
+  matrix,%
+  calendar,%
+  folding,%
+  fadings,%
+  through,%
+  positioning,%
+  scopes,%
+  decorations.fractals,%
+  decorations.shapes,%
+  decorations.text,%
+  decorations.pathmorphing,%
+  decorations.pathreplacing,%
+  decorations.footprints,%
+  decorations.markings,%
+  shadows}
+  
+\newcommand{\titleimage}[1]{\renewcommand{\giventitleimage}{#1}}
+\newcommand{\giventitleimage}{}
+\newcommand{\thanksimage}[1]{\providecommand{\giventhanksimage}{#1}}
+%\newcommand{\giventhanksimage}{\empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Uppsala theme was designed by Frédéric Haziza <daz@it.uu.se>
+%% April 2008
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% -------------------------------------------------------------------
+%% Definitions, Options
+
+%% Should use the provided \logo
+\newif\ifbeamer@mylogo
+\beamer@mylogofalse
+\DeclareOptionBeamer{mylogo}{\beamer@mylogotrue}
+
+%% Options for the numbers
+\newif\ifbeamer@nonumbers
+\beamer@nonumbersfalse
+\DeclareOptionBeamer{nonumbers}{\beamer@nonumberstrue}
+
+\newif\ifbeamer@totalnumber
+\beamer@totalnumberfalse
+\DeclareOptionBeamer{totalnumber}{\beamer@totalnumbertrue}
+
+%% If you don't want the progression bar on the right
+\newif\ifbeamer@progressbar
+\beamer@progressbartrue
+\DeclareOptionBeamer{noprogressbar}{\beamer@progressbarfalse}
+
+%% If you still want the navigation
+\newif\ifbeamer@withnav
+\beamer@withnavfalse
+\DeclareOptionBeamer{withnav}{\beamer@withnavtrue}
+
+%% Options for the numbers
+\newif\ifbeamer@oldmathcal
+\beamer@oldmathcalfalse
+\DeclareOptionBeamer{oldmathcal}{\beamer@oldmathcaltrue}
+
+%% -------------------------------------------------------------------
+\ProcessOptionsBeamer
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Uppsala font theme was designed by Frédéric Haziza <daz@it.uu.se>
+%% April 2008
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setbeamerfont{title}{size=\Large,parent=structure,series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize,parent=title}
+
+%\setbeamerfont{author}{}
+\setbeamerfont{author in head/foot}{size=\tiny}
+\setbeamerfont{institute in head/foot}{size=\tiny}
+\setbeamerfont{date in head/foot}{series=\bfseries}
+
+%\setbeamerfont{footline}{parent={tiny structure}}
+
+\setbeamerfont{frametitle}{parent=structure,size=\Large,series=\bfseries}
+\setbeamerfont{framesubtitle}{parent=frametitle,size=\footnotesize}%,series={}}
+
+
+\setbeamerfont{section in toc}{parent=structure,series=\bfseries}
+\setbeamerfont{section in sidebar}{parent=structure,series=\bfseries}
+
+\setbeamerfont{subtitle in head/foot}{size=\tiny}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Uppsala color theme was designed by Frédéric Haziza <daz@it.uu.se>
+%% April 2008
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Copyright 2003 by Till Tantau   <tantau@users.sourceforge.net>
+%       and 2007 by Frédéric Haziza <daz@it.uu.se>
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+
+%% ------------------------------------------------------
+%% Outer theme colors
+%% ------------------------------------------------------
+
+%% Info taken from:
+%% http://info.uu.se/profil.nsf/sidor/farger.id41.html
+
+\definecolor{uured}{RGB}{153,0,0}
+\definecolor{uulightgrey}{RGB}{230,230,230}
+\definecolor{uumidgrey}{RGB}{190,190,190}
+\definecolor{uudarkgrey}{RGB}{50,50,50}
+
+\usecolortheme[RGB={153,0,0}]{structure}
+
+%% ------------------------------------------------------
+%% Inner theme colors
+%% ------------------------------------------------------
+\usecolortheme{orchid}
+
+\setbeamercolor*{title}{fg=uured,bg=white}
+
+\setbeamercolor{date in head/foot}{fg=white,bg=uured}
+\setbeamercolor{page number in head/foot}{use=structure,fg=black,bg=white}
+\setbeamercolor{author in head/foot}{fg=black,bg=white}
+\setbeamercolor{institute in head/foot}{fg=black,bg=white}
+
+\setbeamercolor*{sidebar}{use=structure,bg=structure.fg}
+\setbeamercolor*{sidebar canvas right}{use=sidebar,bg=sidebar.bg,fg=sidebar.bg}
+
+\setbeamercolor*{palette sidebar primary}{use=structure,fg=structure.fg!10}
+\setbeamercolor*{palette sidebar secondary}{fg=white}
+\setbeamercolor*{palette sidebar tertiary}{use=structure,fg=structure.fg!50}
+\setbeamercolor*{palette sidebar quaternary}{fg=white}
+
+\setbeamercolor*{section in sidebar}{use=sidebar,bg=white,fg=sidebar.bg}
+\setbeamercolor*{subsection in sidebar}{parent=section in sidebar}%use=sidebar,bg=white,fg=sidebar.bg}
+\setbeamercolor*{subsubsection in sidebar}{parent=subsection in sidebar}%use=sidebar,bg=white,fg=sidebar.bg}
+
+%\setbeamercolor*{title in head/foot}{bg=white,fg=uudarkgrey}
+\setbeamercolor*{section in head/foot}{bg=white,fg=uudarkgrey}
+\setbeamercolor*{subsection in head/foot}{bg=white,fg=uudarkgrey}
+
+\setbeamercolor*{block title alerted}{bg=black,fg=white}
+
+%% Background logo
+\setbeamercolor{logo}{bg=uured}
+
+%% Button
+\setbeamercolor{button}{fg=black,bg=yellow}
+\setbeamercolor{button border}{fg=black,bg=uured}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Uppsala theme-main was designed by Frédéric Haziza <daz@it.uu.se>
+%% April 2008
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ----------------------------------------------------------------------
+% Copyright 2003 by Till Tantau     <tantau@users.sourceforge.net>
+%       and 2007 by Frédéric Haziza <daz@it.uu.se>
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+
+%% -------------------------------------------------------------------
+%% Defining the sidebar theme. Used as default too
+%% -------------------------------------------------------------------
+
+%% Section at top?
+\newif\ifbeamer@subsectionsattop
+\beamer@subsectionsattopfalse
+\DeclareOptionBeamer{subsectionsattop}{\beamer@subsectionsattoptrue}
+
+\newif\ifbeamer@sectionpathattop
+\beamer@sectionpathattopfalse
+\DeclareOptionBeamer{sectionpathattop}{\beamer@sectionpathattoptrue}
+
+%% Processing the options
+
+\DeclareOptionBeamer{hideothersubsections}{\PassOptionsToPackage{hideothersubsections=#1}{beamerouterthemesidebar}}
+\DeclareOptionBeamer{hideallsubsections}{\PassOptionsToPackage{hideallsubsections=#1}{beamerouterthemesidebar}}
+\ProcessOptionsBeamer
+
+\useoutertheme{sidebar}
+\useinnertheme[shadow=true]{rounded} %\useinnertheme{rounded}
+
+\newdimen\beamer@mydim%
+\beamer@mydim=\paperwidth%
+\advance\beamer@mydim by-\beamer@sidebarwidth%
+
+%% =============================================================
+%% Redefining the head, with the UU logo
+\defbeamertemplate*{headline}{uu theme}
+{%
+  \begin{beamercolorbox}[wd=\beamer@sidebarwidth]{logo}
+    \usebeamercolor[bg]{logo}%
+    \vrule width\beamer@sidebarwidth height \beamer@headheight%
+    \hskip-\beamer@sidebarwidth%
+    \hbox to \beamer@sidebarwidth{\hss\vbox to%
+      \beamer@headheight{\vss\hbox{\color{fg}%
+          \ifbeamer@mylogo%
+          %% Should be the image file, not the include command
+          \pgfimage[width=\beamer@sidebarwidth,height=\beamer@headheight]{\insertlogo}%
+          \else%
+          \pgfimage[width=\beamer@sidebarwidth,height=\beamer@headheight]{uh_logo.eps}%uulogo_red160}%
+          \fi%
+        }\vss}\hss}%
+  \end{beamercolorbox}%
+  \vskip-\beamer@headheight%
+  \hskip\beamer@sidebarwidth%
+  %% If we want the subsections at the top
+  \ifbeamer@subsectionsattop
+  \insertsubsectionnavigationhorizontal{\beamer@mydim}{}{\hskip0pt plus1filll}
+  \vskip2ex%
+  \else
+  %% If we want the shorttitle>section>subsection at the top; 2ex high
+  \ifbeamer@sectionpathattop
+  \begin{beamercolorbox}[wd=\beamer@mydim,ht=2ex,dp=1ex,leftskip=1ex]{section in head/foot}%
+    {\usebeamerfont{title in head/foot}\usebeamercolor{title in head/foot}%
+      \insertshorttitle\strut}%
+    {\usebeamerfont{section in head/foot}\usebeamercolor{section in head/foot}%
+      \hspace*{1ex}\insertgotosymbol%~
+      \insertsectionhead}%
+    \ifx\insertsubsectionhead\@empty%
+    \else%
+    {\usebeamerfont{subsection in head/foot}\usebeamercolor{subsection in head/foot}
+      \insertgotosymbol%\hspace*{1ex}
+      \insertsubsectionhead}
+    \fi%
+  \end{beamercolorbox}%
+  \else%
+  \vskip2ex%
+  \fi%
+  \fi%
+}
+
+%% =============================================================
+\ifbeamer@subsectionsattop
+%% Redefining the look and feel of the (sub)sections
+\defbeamertemplate*{subsection in head/foot}{uu theme}
+{%
+  \underline{\insertsubsectionhead}
+}
+%% FIXME: shading not properly working
+\defbeamertemplate*{subsection in head/foot shaded}{uu theme}
+{%
+  \setbeamertemplate{subsection in head/foot shaded}[default][20]
+  \insertsubsectionhead
+}
+\fi
+
+%% =============================================================
+\newdimen\beamer@mytitleheight%
+\beamer@mytitleheight=\beamer@headheight%
+%\ifbeamer@sectionattop\advance\beamer@mytitleheight by-2ex\fi
+\advance\beamer@mytitleheight by-2ex%
+%% Strange way to code, but seems to work, so I keep the hack
+
+%% FIXME: Should not be there
+\setbeamercolor*{frametitle}{parent=title}
+%\setbeamercolor*{frametitle}{parent=title,fg=uured,bg=white}
+
+%% Redefining the frametitle
+\defbeamertemplate*{frametitle}{uu theme}
+{%
+  \nointerlineskip%
+  \vbox to \beamer@mytitleheight{%
+    \leftskip=-\beamer@leftmargin%
+    \advance\leftskip by0.3cm%
+    \rightskip=-\beamer@rightmargin%
+    \advance\rightskip by0.3cm plus1fil%
+    %% Roulement de tambour: here comes the title
+    \vfil%
+    % I don't want to use any \strut here
+    {\usebeamercolor[fg]{frametitle}\usebeamerfont{frametitle}\insertframetitle\par}%
+    {\usebeamercolor[fg]{framesubtitle}\usebeamerfont{framesubtitle}\insertframesubtitle\par}%
+%     \vbox{}%
+%     \vskip-1.5em%
+    \vfil%
+    %% Adding the bar
+    {\hrule width 0.6\paperwidth}%
+  }%
+}%
+
+
+%% =============================================================
+%% Sidebar
+
+%% Vertical shading
+%\setbeamertemplate{sidebar canvas left}[vertical shading] 
+%[top=uured,bottom=structure.bg]
+
+\defbeamertemplate*{sidebar left}{uu theme}
+{%
+  \vskip\beamer@headheight%
+  \vskip4em%
+  \insertverticalnavigation{\beamer@sidebarwidth}%
+  \vfill%
+}%
+
+%% =============================================================
+%% Progression bar on the right
+\ifbeamer@progressbar
+\RequirePackage{calc}
+\setbeamersize{sidebar width right=2pt}
+\newlength{\myprogbarlength}
+\newlength{\myprogbarratio}
+\defbeamertemplate*{sidebar canvas right}{uu theme}
+{%
+% No draw if there is only one slide
+\ifnum\inserttotalframenumber=1
+\else
+\vskip-2ex%starting at the top of the paper
+\setlength{\myprogbarratio}{\paperheight/\inserttotalframenumber}
+\myprogbarlength=\myprogbarratio
+\multiply\myprogbarlength by \insertframenumber
+\usebeamercolor[bg]{sidebar canvas right}
+{\hrule width 2pt height \myprogbarlength}
+\fi
+}
+\fi
+
+%% =============================================================
+%% Margins
+%\setbeamersize{text margin left=0.5cm,text margin right=0.5cm}
+
+%% =============================================================
+%% Redefining the footline
+\defbeamertemplate*{footline}{uu theme}
+{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\beamer@sidebarwidth,ht=2ex,dp=1ex,center]{date in head/foot}%
+      \usebeamerfont{date in head/foot}\insertshortdate%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=\beamer@mydim,ht=2ex,dp=1ex,leftskip=1ex,rightskip=1ex]{institute in head/foot}%
+      {\usebeamerfont{institute in head/foot}\insertshortinstitute}%
+      {\ifbeamer@nonumbers\else\hfill%
+        \usebeamerfont{page number in head/foot}%
+        -\ \insertframenumber\ifbeamer@totalnumber/\inserttotalframenumber\fi\ -%
+        \fi}%
+      {\hfill\usebeamerfont{author in head/foot}\insertshortauthor}%
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Uppsala theme-all was designed by Frédéric Haziza <daz@it.uu.se>
+%% April 2008
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% -------------------------------------------
+%% General stuff used in all modes
+%% -------------------------------------------
+\mode
+<all>
+
+%% -------------------------------------------
+%% No navigation, thanks
+%% -------------------------------------------
+\ifbeamer@withnav%
+%% \usebeamertemplate{navigation symbols}[vertical]
+\else%
+\setbeamertemplate{navigation symbols}{}%
+\fi%
+
+%% -------------------------------------------
+%% Logo & Title Page
+%% -------------------------------------------
+\newcommand{\titleframe}{
+\begingroup
+\makeatletter
+\setlength{\hoffset}{-\Gm@lmargin}
+\makeatother
+\begin{frame}[plain]
+    \titlepage
+\end{frame}
+\endgroup
+}
+
+\defbeamertemplate*{title page}{uu theme}
+{%
+\begin{tikzpicture}
+  \ifx\giventitleimage\@empty
+	%if no title image do nothing
+  \else
+    \draw[fill=white, draw=none] (0,0) rectangle ($(\paperwidth,\paperheight)$);
+    \begin{scope}
+		  %\clip (.15, .15) rectangle ($(\paperwidth,\paperheight) - (-0.005\paperwidth, .15)$);
+		  \node[inner sep=0, anchor=south west, opacity=0.6] at (0, 0) {\giventitleimage};
+	  \end{scope}
+  \fi
+  \node[anchor=south east, opacity=.0, text opacity=1.0, shape=rectangle,minimum height=1cm, align=left, fill=white, inner sep=.3cm, font=\Large\bfseries\color{uured}]
+    at (.9\paperwidth, .65\paperheight) (titlenode) {\inserttitle};
+  \ifx\insertsubtitle\@empty%
+    \begin{scope}
+      \clip (0, 0) rectangle ($(\paperwidth,1\paperheight) - (-0.005\paperwidth, .15)$);
+      \draw[very thick, draw=uured] ($(titlenode.south east)-(.7\paperwidth,.12cm)$) -- ($(titlenode.south east)+(0,-.17cm)$);
+    \end{scope}
+    \node[anchor=north east, opacity=.0, text opacity=1.0, shape=rectangle,minimum height=.5cm, align=left, fill=white, inner xsep=.3cm, inner ysep=.1cm, font=\normalsize] at ($(titlenode.south east)-(0,.45cm)$) (authornode) {\insertauthor};
+  \else%
+    \node[anchor=north east, opacity=.0, text opacity=1.0, shape=rectangle,minimum height=.5cm, align=left, fill=white, inner xsep=.3cm, inner ysep=.1cm, font=\normalsize\color{uured}] at ($(titlenode.south east)$) (subtitlenode) {\insertsubtitle};
+    \begin{scope}
+      \clip (0, 0) rectangle ($(\paperwidth,1\paperheight) - (-0.005\paperwidth, .15)$);
+      \draw[very thick, draw=uured] ($(subtitlenode.south east)-(.7\paperwidth,.17cm)$) -- ($(subtitlenode.south east)+(0,-.17cm)$);
+    \end{scope}
+    \node[anchor=north east, opacity=.0, text opacity=1.0, shape=rectangle,minimum height=.5cm, align=left, fill=white, inner xsep=.3cm, inner ysep=.1cm, font=\normalsize] at ($(subtitlenode.south east)-(0,.45cm)$) (authornode) {\insertauthor};
+  \fi%
+  \ifx\insertinstitute\@empty%
+    \node[anchor=north east, opacity=.0, text opacity=1.0, shape=rectangle,minimum height=.5cm, align=left, fill=white, inner xsep=.3cm, inner ysep=.1cm, font=\normalsize] at ($(authornode.south east)-(0,1.1cm)$) (datenode) {\insertdate};
+  \else%
+    \node[anchor=north east, opacity=.0, text opacity=1.0, shape=rectangle,minimum height=.5cm, align=left, fill=white, inner xsep=.3cm, inner ysep=.1cm, font=\normalsize\itshape] at ($(authornode.south east)-(0,.2cm)$) (institutenode) {\insertinstitute};
+    \node[anchor=north east, opacity=.0, text opacity=1.0, shape=rectangle,minimum height=.5cm, align=left, fill=white, inner xsep=.3cm, inner ysep=.1cm, font=\normalsize] at ($(institutenode.south east)-(0,.2cm)$) (datenode) {\insertdate};
+  \fi%
+\end{tikzpicture}
+}
+
+\newcommand{\thanksPage}{
+\begin{tikzpicture}
+  \ifx\giventhanksimage\undefined
+	  \draw[fill=uured, draw=none] (0,0) rectangle ($(\paperwidth,\paperheight)$);
+  \else%
+    \draw[fill=white, draw=none] (0,0) rectangle ($(\paperwidth,\paperheight)$);
+    \begin{scope}
+		  \node[inner sep=0, anchor=south west, opacity=0.6] at (0, 0) {\giventhanksimage};
+	  \end{scope}
+  \fi%
+  \node[anchor=south, opacity=.8, text opacity=1.0, shape=rectangle, minimum height=2cm, minimum width=.65\paperwidth, align=center, fill=white, inner sep=.5cm, font=\LARGE\bfseries\color{uured}]
+    at (.5\paperwidth, .5\paperheight) (thanksnode) {Thank you for Listening};
+  \node[anchor=north, opacity=.8, text opacity=1.0, shape=rectangle, minimum width=.65\paperwidth, minimum height=.5cm, align=left, fill=white, inner xsep=.5cm, inner ysep=.5cm, font=\large\color{uudarkgrey}] at ($(thanksnode.south)+(0,.03ex)$) (subthanksnode) {It's time for Q \& A};
+  \begin{scope}
+      \clip (0, 0) rectangle ($(\paperwidth,1\paperheight) - (-0.005\paperwidth, .15)$);
+      \draw[very thick, draw=uured] ($(thanksnode.south)-(.3\paperwidth,-.2cm)$) -- ($(thanksnode.south)+(.3\paperwidth,.2cm)$);
+  \end{scope}
+  \begin{scope}
+      \clip (0, 0) rectangle ($(\paperwidth,1\paperheight) - (-0.005\paperwidth, .15)$);
+      \draw[very thick, draw=white] ($(subthanksnode.south east)-(.4\paperwidth,.2cm)$) -- ($(subthanksnode.south east)+(.2cm,-.2cm)$);
+      \draw[very thick, draw=white] ($(subthanksnode.south east)+(.2cm,-.2cm)$) -- ($(subthanksnode.south east)+(.2cm,2cm)$);
+  \end{scope}
+  \begin{scope}
+      \clip (0, 0) rectangle ($(\paperwidth,1\paperheight) - (-0.005\paperwidth, .15)$);
+      \draw[very thick, draw=white] ($(thanksnode.north west)-(.2cm,-.2cm)$) -- ($(thanksnode.north west)+(.4\paperwidth,.2cm)$);
+      \draw[very thick, draw=white] ($(thanksnode.north west)-(.2cm,-.2cm)$) -- ($(thanksnode.north west)-(.2cm,2cm)$);
+  \end{scope}
+\end{tikzpicture}
+}
+
+\newcommand{\ThankYouFrame}{
+\begingroup
+\makeatletter
+\setlength{\hoffset}{-\Gm@lmargin}
+\makeatother
+\begin{frame}[plain]
+  \thanksPage
+\end{frame}
+\endgroup
+}
+
+%% --------------------------------------------------
+%% Bullets
+%% --------------------------------------------------
+
+\setbeamertemplate{items}[square]
+
+%\defbeamertemplate*{itemize item}{uu theme}{$\Rightarrow$}
+
+%\setbeamertemplate{itemize subitem}[ball]
+\setbeamertemplate{itemize subitem}[circle]
+\setbeamertemplate{itemize subsubitem}[triangle]
+
+%% \setbeamertemplate{enumerate item}{\insertenumlabel}
+%% \setbeamertemplate{enumerate subitem}{\insertenumlabel.\insertsubenumlabel}
+%% \setbeamertemplate{enumerate subsubitem}{\insertenumlabel.\insertsubenumlabel.\insertsubsubenumlabel}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Defining other packages
+%% Feb. 2019
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{hyperref}
+\RequirePackage[capitalise]{cleveref}
+
+\RequirePackage[english]{babel} % or whatever
+%\RequirePackage[utf8]{inputenc} % or whatever
+
+\RequirePackage{mathptmx}
+\RequirePackage{helvet}
+%\RequirePackage{courier}
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{multicol}
+\newcounter{unbalanceSet}
+\setcounter{unbalanceSet}{5}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+\newcommand{\MONTH}{%
+  \ifcase\the\month
+  \or Jan.% 1
+  \or Feb.% 2
+  \or Mar.% 3
+  \or Apr.% 4
+  \or May% 5
+  \or June% 6
+  \or July% 7
+  \or Aug.% 8
+  \or Sept.% 9
+  \or Oct.% 10
+  \or Nov.% 11
+  \or Dec.% 12
+  \fi}
+  
+%% -----------------------------------------------------------
+%% MISC. INFORMATION
+%% -----------------------------------------------------------
+
+\title{Demo}
+\subtitle{for ECE}
+
+\author[University of Houston]{University of Houston}
+%\author[Xuqing Wu, Yuchen Jin] % appears in the footline
+%{Xuqing Wu <\texttt{xwu8@uh.edu}>, \\Yuchen Jin <\texttt{yjin4@uh.edu}>}
+
+\institute[] % appears in the footline
+{}
+  %Department of Electrical \& Computer Engineering\\
+  %University of Houston
+%}
+
+\date[\MONTH~\the\day] % appears in the bottom of the sidebar
+{\today}
+
+%% \logo{...}
+
+%% This is only inserted into the PDF information catalog. Can be left out.
+\subject{}
+
+%% -----------------------------------------------------------
+%% Extra ``local'' settings
+%% -----------------------------------------------------------
+
+% Comment out this, if you do not want the table of contents to pop up at
+% the beginning of each (sub)section:
+\AtBeginSection[]
+{
+  \begin{frame}% with <beamer> => doesn't appear in handout mode
+    \frametitle{Outline} %% Put the title you want, or none!
+    %\tableofcontents[currentsection,currentsubsection]
+    \begin{multicols}{2}
+      %\setcounter{unbalance}{\value{unbalanceSet}}
+      \tableofcontents[currentsection]
+      \vspace{12em}
+      \mbox{}
+    \end{multicols}
+  \end{frame}
+}
+
+%% Unfolds piecewise element with shading.
+%% Text appears, shaded, and the audience knows that somehting is coming
+%% Note: if you set the number too high, the audience will try to read the 
+%% text that now shows up more, and will be disturbed.
+%% ``dynamic'' makes elements show gradually more and more.
+\setbeamercovered{transparent=5}
+%% \setbeamercovered{dynamic=5}
+
+\RequirePackage{ifxetex}
+\ifpdf
+  \RequirePackage{graphicx}
+  \RequirePackage{epstopdf}
+  \graphicspath{{Pics/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.pdf,.jpeg,.png,.jpg}
+\else
+  \ifxetex
+    \RequirePackage{graphicx}
+  \else
+    \RequirePackage[dvipdfmx]{graphicx}
+    \RequirePackage{bmpsize}
+  \fi
+  \graphicspath{{Pics/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.eps,.pdf,.jpeg,.png,.jpg}
+\fi
+
+\RequirePackage{multibib}
+\newcites{pat}{More Patents Reference}
+\newcites{aca}{More Academia Researches Reference}
+
+\newenvironment{renumerate}[1]{
+  \begin{enumerate}
+  \setcounter{enumi}{#1-1}
+}{
+  \end{enumerate}
+}
+
+\let\chyperref\cref % Save the orginal command under a new name
+\renewcommand{\cref}[1]{\hyperlink{#1}{\chyperref{#1}}} % Redefine the \cref command and explictely add the hyperlink.
+\newcommand{\dref}[1]{{\hfill}\hyperlink{#1}{Details}}
+
+\setbeamertemplate{caption}[numbered]
+
+\newcommand{\thisTitle}{}
+\newcommand{\setThisTitle}[1]{\renewcommand{\thisTitle}{\textit{#1}}}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+% Settings for tables
+%\RequirePackage[usenames,dvipsnames]{xcolor}
+\RequirePackage{tcolorbox}
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{colortbl}
+\tcbuselibrary{skins}
+
+\newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
+
+\tcbset{tab1/.style={fonttitle=\bfseries\large,fontupper=\normalsize\sffamily,
+    colback=yellow!10!white,colframe=red!75!black,colbacktitle=Salmon!40!white,
+    coltitle=black,center title,freelance,frame code={
+      \foreach \n in {north east,north west,south east,south west}
+      {\path [fill=red!75!black] (interior.\n) circle (3mm); };},}}
+
+\tcbset{tab2/.style={enhanced,fonttitle=\bfseries,fontupper=\normalsize\sffamily\scriptsize,
+    colback=yellow!10!white,colframe=red!50!black,colbacktitle=Salmon!40!white,
+    coltitle=black,center title}}
+    
+\RequirePackage{algorithm}
+\RequirePackage{algorithmic}
+\RequirePackage{float}
+\RequirePackage{subfigure}
+\RequirePackage{bm}
+\RequirePackage{empheq}
+\RequirePackage{nicefrac}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\crefname{subsection}{Subsection}{Subsections}
+\def\thesubsection{\arabic{section}.\arabic{subsection}}
+\hypersetup{pdfpagemode=FullScreen}
+%\RequirePackage[square, numbers, comma, sort&compress]{natbib}
+%\renewcommand{\eqref}[1]{\hyperref[#1]{(\ref*{#1})}}
+%% -----------------------------------------------------------
+
+\ifbeamer@oldmathcal
+  \DeclareSymbolFont{cmsymbols}{OMS}{cmsy}{m}{n}
+  \SetSymbolFont{cmsymbols}{bold}{OMS}{cmsy}{b}{n}
+  \DeclareSymbolFontAlphabet{\mathcal}{cmsymbols}
+\fi 
