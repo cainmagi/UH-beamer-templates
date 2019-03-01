@@ -1,0 +1,354 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% UH-Slides-SEG
+%%   Revised by Yuchen Jin (cainmagi)
+%%   Feb. 4, 2019
+%%   A template for attending the SEG meeting.
+%% ----------------
+%% - Adapted from the Lund Beamer template.
+%% - Specially designed for SEG 2018.
+%% - Support both 4:3 and 16:9 modes.
+%% - Support two logos.
+%% - A totally new thanks page.
+%% - Support with necessary packages.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{beamerthemeUH-Slides-SEG}[2018/10/13]
+\RequirePackage{tikz,pgf}
+\RequirePackage[overload]{textcase}
+\RequirePackage{setspace}
+%\usepackage[urw-garamond]{mathdesign}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[scaled]{helvet}
+\RequirePackage{cleveref}
+\RequirePackage{algorithm}
+\RequirePackage{algorithmic}
+\RequirePackage{float}
+\RequirePackage{subfigure}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\crefname{subsection}{Subsection}{Subsections}
+\def\thesubsection{\arabic{section}.\arabic{subsection}}
+
+\RequirePackage{ifxetex}
+\ifpdf
+  \RequirePackage{graphicx}
+  \RequirePackage{epstopdf}
+  \graphicspath{{Pics/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.pdf,.jpeg,.png,.jpg}
+\else
+  \ifxetex
+    \RequirePackage{graphicx}
+  \else
+    \RequirePackage[dvipdfmx]{graphicx}
+    \RequirePackage{bmpsize}
+  \fi
+  \graphicspath{{Pics/},{Pics2/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.eps,.pdf,.jpeg,.png,.jpg}
+\fi
+
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,hooks}
+\usetikzlibrary{shadows}
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{colortbl}
+
+%\renewcommand{\rmdefault}{phv}
+\usetikzlibrary{shapes,arrows,calc}
+
+\definecolor{UHRed}{RGB}{200,16,46} %Kopparn som tydligen ska användas till typ allt 156,97,20
+\definecolor{UHBlue}{RGB}{0,0,128} %Den ganska mörka blåa färgen som LU har, anänds inte så mycket längre
+\definecolor{UHPink}{RGB}{233,196,199} %denna är någon sorts officiell rosa som man kan ha som accentfärg
+\definecolor{UHPink}{RGB}{173,202,184} %Fler officiella accentfärger
+\definecolor{UHLBlue}{RGB}{185,211,220}
+\definecolor{UHIvory}{RGB}{255,255,234}
+
+\definecolor{SEGNavy}{HTML}{2A2C63}
+\definecolor{SEGBlue}{HTML}{3871C0}
+\definecolor{SEGRed}{HTML}{E42629}
+\definecolor{SEGYellow}{HTML}{F7A313}
+
+\newcommand{\titlecolor}[1]{\renewcommand{\giventitlecolor}{#1}}
+\newcommand{\titleimage}[1]{\renewcommand{\giventitleimage}{#1}}
+\newcommand{\giventitlecolor}{}
+\newcommand{\giventitleimage}{}
+
+\newcommand{\thankscolor}[1]{\renewcommand{\giventhankscolor}{#1}}
+\newcommand{\thanksimage}[1]{\renewcommand{\giventhanksimage}{#1}}
+\newcommand{\giventhankscolor}{}
+\newcommand{\giventhanksimage}{}
+
+%Babel support
+\providecommand*{\SEGlogo}{SEGlogo.png}
+\providecommand*{\UHlogo}{uh-logo.eps}
+
+%Logo Settings
+\newcommand{\firstLogo}[1]{
+\renewcommand{\SEGlogo}{#1}
+\pgfdeclareimage[width=.13\paperwidth]{small-logo}{#1}
+}
+
+\newcommand{\secondLogo}[1]{
+\providecommand{\givenSecondLogo}{#1}
+\pgfdeclareimage[width=.13\paperwidth]{second-logo}{#1}
+}
+%\newcommand{\givenSecondLogo}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Outer theme
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\useoutertheme[width=.15\paperwidth,right]{sidebar}
+\setlength{\beamer@headheight}{.165\paperheight}
+\pgfdeclareimage[width=.13\paperwidth]{small-logo}{\SEGlogo}
+%\pgfdeclareimage[width=.5\paperwidth]{main-logo}{\SEGlogo}
+%\pgfdeclareimage[width=.33\paperwidth]{large-corner}{large-corner}
+%\pgfdeclareimage[height=\beamer@headheight]{small-corner}{small-corner}
+\setbeamertemplate{sidebar right}{%
+%\vskip7pt
+\insertverticalnavigation{\beamer@sidebarwidth}%
+}
+
+\setbeamercolor{author in head/foot}{bg=SEGNavy,fg=white}
+\setbeamercolor{title in head/foot}{bg=SEGBlue,fg=white}
+\setbeamercolor{organization in head/foot}{bg=SEGRed,fg=white}
+\setbeamercolor{date in head/foot}{bg=SEGYellow,fg=white}
+
+\setbeamertemplate{footline}{\leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{organization in head/foot}%
+    \usebeamerfont{organization in head/foot}\insertshortinstitute 
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+%\setbeamertemplate{footline}[text line]{%
+%\insertshortauthor\strut\hfill\insertshorttitle\hfill\insertshortdate\hspace{1em}\insertframenumber/\inserttotalframenumber}
+
+\addtobeamertemplate{frametitle}{}{%
+\begin{pgfpicture}
+\pgf@relevantforpicturesizefalse
+\pgftransformxshift{-\Gm@lmargin}
+\pgftransformyshift{\beamer@headheight-3ex}
+\pgfpathmoveto{\pgfpoint{0.4em}{0pt}}
+\pgfpathlineto{\pgfpoint{0.6\paperwidth}{0pt}}
+\pgfsetlinewidth{1pt}
+\pgfsetcolor{UHRed}
+\pgfusepath{stroke}
+\end{pgfpicture}%
+\begin{pgfpicture}
+\pgf@relevantforpicturesizefalse
+\pgftransformxshift{-\Gm@lmargin}
+\pgftransformyshift{\beamer@headheight+18pt}
+%\pgftext[at=\pgfpoint{\paperwidth}{-\beamer@headheight},right,base]{\pgfuseimage{small-corner}}
+\pgfpathmoveto{\pgfpoint{\paperwidth-.15\paperwidth}{0pt}}
+\pgfpathlineto{\pgfpoint{\paperwidth-.15\paperwidth}{-\beamer@headheight}}
+\pgfsetlinewidth{3.5pt}
+\pgfsetinnerlinewidth{1pt}
+\pgfsetinnerstrokecolor{UHRed}
+\pgfsetcolor{white}
+\pgfusepath{stroke}
+\pgfpathmoveto{\pgfpoint{\paperwidth-.15\paperwidth}{-.18\paperheight}}
+\pgfpathlineto{\pgfpoint{\paperwidth-.15\paperwidth}{-.97\paperheight}}
+\pgfsetlinewidth{1pt}
+\pgfsetinnerlinewidth{0pt}
+\pgfsetcolor{UHRed}
+\pgfusepath{stroke}
+\pgftext[at=\pgfpoint{\paperwidth-.075\paperwidth}{-.95\paperheight},center,base]{\pgfuseimage{small-logo}}
+\ifx\givenSecondLogo\undefined
+\else
+  \pgftext[at=\pgfpoint{\paperwidth-.075\paperwidth}{-.95\paperheight+1.3cm},center,base]{\pgfuseimage{second-logo}}
+\fi
+\end{pgfpicture}%
+\vskip-25pt%
+}
+
+
+
+\setbeamertemplate{title page}{
+
+\begin{tikzpicture}%[overlay]
+
+\ifx\giventitlecolor\@empty %check if there is a bg color set
+	\draw[fill=UHPink, line width=.3cm, draw=white, use as bounding box] (0,0)
+	rectangle (\paperwidth+0.012\paperwidth, 1\paperheight);
+\else
+	\draw[fill=\giventitlecolor, line width=.3cm, draw=white, use as bounding box] (0,0)
+	rectangle (1\paperwidth+0.012\paperwidth, 1\paperheight);
+\fi
+	
+\ifx\giventitleimage\@empty
+	%if no title image do nothing
+\else
+	\begin{scope}
+		\clip (.15, .15) rectangle ($(\paperwidth,\paperheight) - (-0.005\paperwidth, .15)$);
+		\node[inner sep=0, anchor=south west, opacity=0.8] at (.15,.15) {\giventitleimage};
+	\end{scope}
+\fi
+
+\usebeamerfont{title} %set font to title font
+\renewcommand{\baselinestretch}{.9} %reduce line spacing
+
+%draw white title box
+\node[draw=white, shape=rectangle,minimum height=1cm, align=left, fill=white, font=\Large, inner ysep=.5cm]
+ at (.7\paperwidth, .7\paperheight) (titlenode) {\inserttitle}; 
+
+%draw more white boxes
+\draw[fill=white,draw=none] 
+($(titlenode.south east)+(-.1cm,0)$) rectangle ($(titlenode.north east)+(\paperwidth,0)$);
+\draw[fill=white,draw=none] 
+($(titlenode.south west)+(0,.1cm)$) rectangle ($(titlenode.south east)+(\paperwidth,-0.2cm)$);
+
+%draw the line to the edge of the page
+\begin{scope}
+\clip (.15, .15) rectangle ($(\paperwidth,1\paperheight) - (-0.005\paperwidth, .15)$);
+\draw[very thick, draw=UHRed] ($(titlenode.text)+(0,-.17cm)$) -- ($(titlenode.text)+(\paperwidth,-.17cm)$);
+\end{scope}
+
+%draw subtitle if there is one
+\ifx\insertsubtitle\@empty
+      %if there is no subtitle dont draw anything
+    \else
+    	 %draw subtitle and boxes
+     \draw[fill=white,draw=none]
+     ($(titlenode.south west)+(0,-0.1cm)$) rectangle ($(titlenode.south east)+(\paperwidth,-1.2cm)$);
+     \usebeamerfont{subtitle}   
+     \node[align=left, anchor=text, draw=none,font=\footnotesize] at ($(titlenode.text)+(0,-1.25cm)$)
+     {\MakeUppercase{\insertsubtitle}\\ \insertinstitute};
+\fi
+
+%draw logos
+\node at ($(\paperwidth,0)-(0.6in,-0.35in)$) {\includegraphics[width=2in]{\SEGlogo}};
+\node[anchor=north west] at ($(0,\paperheight)-(0cm,0cm)$) {\includegraphics[width=1in]{\UHlogo}};
+\end{tikzpicture}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inner Theme
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\useinnertheme{rectangles}
+\setbeamertemplate{navigation symbols}{}
+
+\setlength{\leftmargini}{.5em}
+\setlength{\leftmarginii}{1.0em}
+\setlength{\leftmarginiii}{1.5em}
+\setlength{\leftmarginiv}{2.0em}
+\setlength{\leftmarginv}{2.5em}
+\setlength{\leftmarginvi}{3.0em}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Colours
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usecolortheme[named=UHRed]{structure}
+\usecolortheme{rose}
+\setbeamercolor{title page}{fg=UHRed}
+\setbeamercolor{logo}{bg=UHRed}
+\setbeamercolor{frametitle}{fg=UHRed,bg=white}
+\setbeamercolor{section in sidebar}{fg=UHRed}
+\setbeamerfont{section in sidebar}{series=\bfseries}
+\setbeamercolor{block title}{bg=UHPink,fg=UHRed}
+\setbeamercolor{block body}{bg=UHPink!50!white}
+\setbeamercolor{block title alert}{bg=UHPink,fg=UHRed}
+\setbeamercolor{block body alert}{bg=UHPink!50!white}
+\setbeamercolor{block title example}{bg=UHPink,fg=UHRed}
+\setbeamercolor{block body example}{bg=UHPink!50!white}
+\setbeamerfont{title}{family={\rmfamily}, series={\bfseries}}
+\setbeamerfont{subtitle}{family={\sffamily},series={\bfseries}}
+\setbeamerfont{frametitle}{family={\rmfamily},series={\bfseries}}
+\setbeamerfont{block title}{family={\rmfamily},series={\bfseries}}
+%\setbeamerfont{framesubtitle}{\uppercase}
+
+\newcommand{\titleframe}{
+\begingroup
+\makeatletter
+\setlength{\hoffset}{-\Gm@lmargin}
+\makeatother
+\begin{frame}[plain,shrink]
+    \titlepage
+\end{frame}
+\endgroup
+}
+
+\newcommand{\ThankYouFrame}{
+\begingroup
+\makeatletter
+\setlength{\hoffset}{-\Gm@lmargin}
+\makeatother
+\begin{frame}[plain,shrink]
+\begin{tikzpicture}
+
+\draw[fill=\giventhankscolor, draw=none] (0,0)
+	rectangle ($(\paperwidth,\paperheight)$);
+\begin{scope}
+  \clip (0, 0) rectangle ($(\paperwidth,\paperheight)$);
+  \node[inner sep=0, anchor=south west, opacity=0.5] at (0,0) {\giventhanksimage};
+\end{scope}
+
+\usebeamerfont{title}
+\renewcommand{\baselinestretch}{.9}
+
+\node[draw=white, shape=rectangle,minimum height=1cm, align=left, fill=white, font=\LARGE, inner ysep=.5cm]
+ at (.3\paperwidth, .6\paperheight) (thanksnode) {\bfseries \rmfamily \color{UHRed} Thank you for listening!}; 
+
+%draw more white boxes
+\draw[fill=white,draw=none] 
+($(thanksnode.south east)+(-.1cm,0)$) rectangle ($(thanksnode.north east)+(0.1\paperwidth,0)$);
+\draw[fill=white,draw=none] 
+($(thanksnode.south west)+(0,.1cm)$) rectangle ($(thanksnode.south east)+(0.1\paperwidth,-0.2cm)$);
+
+%draw the line to the edge of the page
+\begin{scope}
+\clip (.15, .15) rectangle ($(\paperwidth,1\paperheight) - (-0.005\paperwidth, .15)$);
+\draw[very thick, draw=UHRed] ($(thanksnode.text)+(0,-.17cm)$) -- ($(thanksnode.text)+(0.5\paperwidth,-.17cm)$);
+\end{scope}
+
+%draw subtitle if there is one
+\draw[fill=white,draw=none]
+ ($(thanksnode.south west)+(0,-0.1cm)$) rectangle ($(thanksnode.south east)+(0.1\paperwidth,-0.5cm)$);
+ \usebeamerfont{subtitle}   
+ \node[align=left, anchor=text, draw=none,font=\normalsize] at ($(thanksnode.text)+(0,-.6cm)$)
+ {\color{UHRed} \MakeUppercase{It's time for Q\&A.}};
+
+\end{tikzpicture}
+\end{frame}
+\endgroup
+}
+
+\setbeamertemplate{block begin}{
+  \begin{tcolorbox}[title=\insertblocktitle, shadow={1mm}{-1mm}{0mm}{black!50!white}, enhanced, colback=UHIvory, colframe=UHRed, fonttitle=\bfseries, bottomrule=0pt, leftrule=0pt, rightrule=0pt, titlerule=3pt, toprule=3pt, top=3pt, bottom=3pt, left=1ex, right=1ex, arc=5pt]
+  }
+\setbeamertemplate{block end}{
+  \end{tcolorbox}
+}
+
+\newenvironment{sectitle}{
+  \begin{tcolorbox}[colback=red!5!white, colframe=red!75!black, sharp corners=downhill ]
+}{
+  \end{tcolorbox}
+}
+
+\hypersetup{pdfdisplaydoctitle={true}}
+\ifpdf
+  \hypersetup{pdfcreator={pdfLaTeX}}
+\else
+  \ifxetex
+    \hypersetup{pdfcreator={xeLaTeX}}
+  \else
+    \hypersetup{pdfcreator={unknownLaTeX}}
+  \fi
+\fi
+
+\hypersetup{
+  pdfpagemode={FullScreen},
+}
