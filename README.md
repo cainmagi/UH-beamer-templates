@@ -1,25 +1,30 @@
-# UH Beamer Templates
+# UH Poster SEG
 
 ## Introduction
 
-This is a collection of beamer templates designed by Yuchen Jin (cainmagi). Since they are adapted from other templates, we may apply different licenses to different templates. If anyone who want to use these templates, please pay attension to the licenses.
+This is a presentation (slides) template for both Society of Exploration Geophysicists (SEG) meeting and University of Houston. Note that this is unofficial template and designed by Yuchen Jin, who is a Ph.D student in Dept. ECE.
 
-Beamer could be used to produce presentations (slides), posters, cheet sheets and some other products. In this project, we would add different types of templates in the future.
+This template has been tested on [TexLive 2017][texlive], Windows successfully. Some reports show that it may not work with MikTex or MacTex. Please adjust it by yourself if you are using a different platform.
 
-Currently this collection includes:
+This template is adapted from [**The Beamer poster version of the Radboud University Corporate Style poster Template**][poster-radboud]. Note that the original template is issued by *Creative Commons CC BY 4.0* (see [CC-BY-4-0][license-cc]). There is another license in this branch. The appearance is almost the same as the original work. However, this template has such improvements:
 
-| Beamer title | Type | Screenshot|
-| ----- | ----- | ----- |
-| UH-Slides-ECE | Presentation | ![][ex-ece-slides] |
-| UH-Slides-SEG | Presentation | ![][ex-seg-slides] |
+* According to SEG's standards, the template is modifed as a 94in * 46in page.
+* A totally new thanks page.
+* Support with necessary packages like amsmath, subfigure, algorithm and some other tools.
+
+## Example
+
+| Example slides |
+| ----- |
+| ![][ex-fig-1] |
 
 ## Update report
 
-### 1.0 @ 20190205
+### 1.0 @ 20200205
 
-1. Create this project.
+1. Upload this sub-project: *UH-Poster-SEG*.
 
-2. Add *UH-Slides-ECE* and *UH-Slides-SEG*.
-
-[ex-ece-slides]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Slides-ECE/display/uh-ece-2.jpg
-[ex-seg-slides]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Slides-SEG/display/uh-seg-2.jpg
+[license-cc]:https://github.com/cainmagi/UH-beamer-templates/blob/UH-Slides-ECE/CC-BY-4-0
+[poster-radboud]:https://www.overleaf.com/latex/templates/the-beamer-poster-version-of-the-radboud-university-corporate-style-poster-template/mfddtqfwpspm
+[texlive]:https://ctan.org/pkg/texlive
+[ex-fig-1]:./display/uh-poster-seg.jpg
