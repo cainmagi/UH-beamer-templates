@@ -24,7 +24,7 @@ This template is adapted from [**The Beamer poster version of the Radboud Univer
 
 1. Upload this sub-project: *UH-Poster-SEG*.
 
-[license-cc]:https://github.com/cainmagi/UH-beamer-templates/blob/UH-Slides-ECE/CC-BY-4-0
+[license-cc]:https://github.com/cainmagi/UH-beamer-templates/blob/UH-Poster-SEG/CC-BY-4-0
 [poster-radboud]:https://www.overleaf.com/latex/templates/the-beamer-poster-version-of-the-radboud-university-corporate-style-poster-template/mfddtqfwpspm
 [texlive]:https://ctan.org/pkg/texlive
 [ex-fig-1]:./display/uh-poster-seg.jpg
