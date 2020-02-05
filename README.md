@@ -12,8 +12,14 @@ Currently this collection includes:
 | ----- | ----- | ----- |
 | UH-Slides-ECE | Presentation | ![][ex-ece-slides] |
 | UH-Slides-SEG | Presentation | ![][ex-seg-slides] |
+| UH-Poster-SEG | Poster       | ![][ex-seg-poster] |
+
 
 ## Update report
+
+### 1.1 @ 20200205
+
+1. Add *UH-Poster-SEG*.
 
 ### 1.0 @ 20190205
 
@@ -23,3 +29,4 @@ Currently this collection includes:
 
 [ex-ece-slides]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Slides-ECE/display/uh-ece-2.jpg
 [ex-seg-slides]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Slides-SEG/display/uh-seg-2.jpg
+[ex-seg-poster]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Poster-SEG/display/uh-poster-seg.jpg
