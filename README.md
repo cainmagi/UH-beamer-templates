@@ -27,6 +27,7 @@ This template is adapted from [**Beamer template for Lund University**][slice-lu
 ### 2020 @ 20210812
 
 1. Upload this sub-project: *UH-Slides-SEG2021*. This project is modified based on [*UH-Slides-SEG2020*](https://github.com/cainmagi/UH-beamer-templates/tree/UH-Slides-SEG).
+2. Fix a bug of the foot bar.
 
 ### 1.0 @ 20190205
 
