@@ -1,11 +1,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% UH-Slides-SEG
 %%   Revised by Yuchen Jin (cainmagi)
-%%   Feb. 4, 2019
-%%   A template for attending the SEG meeting.
+%%   Aug. 12, 2021
+%%   A template for attending the SEG 2021 meeting.
 %% ----------------
 %% - Adapted from the Lund Beamer template.
-%% - Specially designed for SEG 2018.
+%% - Specially designed for SEG 2021.
 %% - Support both 4:3 and 16:9 modes.
 %% - Support two logos.
 %% - A totally new thanks page.
@@ -27,10 +27,14 @@
 \RequirePackage{algorithmic}
 \RequirePackage{float}
 \RequirePackage{subfigure}
+\RequirePackage{siunitx}
+\RequirePackage[nodayofweek,level]{datetime}
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 \crefname{subsection}{Subsection}{Subsections}
 \def\thesubsection{\arabic{section}.\arabic{subsection}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 % Hotfix for cref
 \let\chyperref\cref % Save the orginal command under a new name

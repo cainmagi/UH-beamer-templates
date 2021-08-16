@@ -7,7 +7,7 @@
 \addbibresource{bib/ref_superrs.bib}
 
 %\usepackage[utf8]{inputenc}
-\usepackage[british]{babel}
+\usepackage[american]{babel}
 
 %\setbeameroption{show notes} % Use this command to produce notes for slides.
 
@@ -15,15 +15,15 @@
 
 \titlecolor{white} % Choose between UHRed, UHBlue, UHPink, UHLBlue, UHIvory, SEGNavy, SEGBlue, SEGRed, SEGYellow, IMAGEBlue, IMAGESemiBlue, IMAGESemiGreen, IMAGEGreen
 \titleimage{\includegraphics[width=\paperwidth]{title.jpg}}
+%\titleimage{\includegraphics[width=\paperwidth]{title2.jpg}}
 \thankscolor{white} % Choose between UHRed, UHBlue, UHPink, UHLBlue, UHIvory, SEGNavy, SEGBlue, SEGRed, SEGYellow, IMAGEBlue, IMAGESemiBlue, IMAGESemiGreen, IMAGEGreen
 \thanksimage{\includegraphics[width=\paperwidth]{cullen.jpg}}
-%\titleimage{\includegraphics[scale=.6]{lumainb.jpg}}
 \titleLogo{seg-2021-alt.png} % If not set, we would use seg-2021-alt.png
 \firstLogo{seg-2021.png} % If not set, we would use seg-2021.png
 %\secondLogo{seg-2021.png} % If not set, the second logo would be left blank.
 \author{Yuchen Jin}
 \subtitle{A beamer template for SEG-2021/UH}
-\date{\today}
+\date{\today} % Could be replaced by a manually specified date: \formatdate{day}{month}{year}
 \institute[Department of ECE]{University of Houston\\Department of ECE}
 
 \AtBeginSection[]
@@ -43,25 +43,31 @@
 \titleframe
 
 \begin{frame}
-    \frametitle{Outline}
-    \tableofcontents[currentsection]
+
+\frametitle{Outline}
+\tableofcontents[currentsection]
+
 \end{frame}
 
 \section{Introduction}
+
 \begin{frame}
+  
 \frametitle{Introduction}
+
+\begin{itemize}
+  \item This is the template for UH slides, which includes:
   \begin{itemize}
-    \item This is the template for UH slides, which includes:
-    \begin{itemize}
-      \item \textbf{Table}: Check \cref{tab:params}.
-      \item \textbf{Figure}: Check \cref{fig:ex1:resD}.
-      \item \textbf{Block and Equation}: Check \eqref{fml:eq1:partialW}.
-      \item \textbf{Theorem}: Check \cref{thm:th1}.
-      \item \textbf{Algorithm}: Check \cref{alg::Algorithm}.
-      \item \textbf{Slide transition}: Check \cref{sec:slidetrans}.
-    \end{itemize}
-    \item And here we would like to test the references: \textit{Zeiler et al.}\footcite{Zeiler5539957}, \textit{Yang et al.}~\footcite{Yang6175956}, \textit{Dong et al.}~\footcite{Dong7115171}.
+    \item \textbf{Table}: Check \cref{tab:params}.
+    \item \textbf{Figure}: Check \cref{fig:ex1:resD}.
+    \item \textbf{Block and Equation}: Check \eqref{fml:eq1:partialW}.
+    \item \textbf{Theorem}: Check \cref{thm:th1}.
+    \item \textbf{Algorithm}: Check \cref{alg::Algorithm}.
+    \item \textbf{Slide transition}: Check \cref{sec:slidetrans}.
   \end{itemize}
+  \item And here we would like to test the references: \textit{Zeiler et al.}\footcite{Zeiler5539957}, \textit{Yang et al.}~\footcite{Yang6175956}, \textit{Dong et al.}~\footcite{Dong7115171}.
+\end{itemize}
+
 \end{frame}
 
 \section{Test}
@@ -71,54 +77,60 @@
 \frametitle{Test}
 \framesubtitle{Table test}
 
-  \begin{itemize}
-    \item Test table, which is shown in \cref{tab:params}.
-  \end{itemize}
-  
-  \begin{table}[htbp]
-    \centering
-    \normalsize
-    \caption[Parameters of Daubechies's filter.]{Parameters of \textit{Daubechies}'s filter.}
-    \label{tab:params}
-    \begin{tabular}{|c|c|c|}
-      \hline
-      $n$ & $h[n]$ & $g[n]$ \\ \hline
-      0 &  0.3327 & -0.0352 \\ \hline
-      1 &  0.8069 & -0.0854 \\ \hline
-      2 &  0.4599 &  0.1350 \\ \hline
-      3 & -0.1350 &  0.4599 \\ \hline
-      4 & -0.0854 & -0.8069 \\ \hline
-      5 &  0.0352 &  0.3327 \\ \hline
-    \end{tabular}
-  \end{table}
+\begin{itemize}
+  \item Test table, which is shown in \cref{tab:params}.
+\end{itemize}
+
+\begin{table}[htbp]
+  \centering
+  \normalsize
+  \caption[Parameters of Daubechies's filter.]{Parameters of \textit{Daubechies}'s filter.}
+  \label{tab:params}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    $n$ & $h[n]$ & $g[n]$ \\ \hline
+    0 &  0.3327 & -0.0352 \\ \hline
+    1 &  0.8069 & -0.0854 \\ \hline
+    2 &  0.4599 &  0.1350 \\ \hline
+    3 & -0.1350 &  0.4599 \\ \hline
+    4 & -0.0854 & -0.8069 \\ \hline
+    5 &  0.0352 &  0.3327 \\ \hline
+  \end{tabular}
+\end{table}
+
 \end{frame}
 
 \subsection{Figure test}
+
 \begin{frame}
+
 \frametitle{Test}
 \framesubtitle{Figure test}
 
-  \begin{itemize}
-    \item Test inner subgraphs, i.e. \cref{fig:ex1:resD:a} and \cref{fig:ex1:resD:b}.
-  \end{itemize}
+\begin{itemize}
+  \item Test inner subgraphs, i.e. \cref{fig:ex1:resD:a} and \cref{fig:ex1:resD:b}.
+\end{itemize}
 
-  \begin{figure}[htbp]
-    \centering
-    \subfigure[$D=1$]{ \label{fig:ex1:resD:a}
-      \includegraphics[width = 0.3\textwidth]{test1}
-      \DeclareGraphicsExtensions.
-    }
-    \subfigure[$D=0.5$]{ \label{fig:ex1:resD:b}
-      \includegraphics[width = 0.3\textwidth]{test2}
-      \DeclareGraphicsExtensions.
-    }
+\begin{figure}[htbp]
+  \centering
+  \subfigure[$D=1$]{ \label{fig:ex1:resD:a}
+    \includegraphics[width = 0.3\textwidth]{test1}
     \DeclareGraphicsExtensions.
-    \caption{Test graphs.}\label{fig:ex1:resD}
-  \end{figure}
+  }
+  \subfigure[$D=0.5$]{ \label{fig:ex1:resD:b}
+    \includegraphics[width = 0.3\textwidth]{test2}
+    \DeclareGraphicsExtensions.
+  }
+  \DeclareGraphicsExtensions.
+  \caption{Test graphs.}\label{fig:ex1:resD}
+\end{figure}
+
 \end{frame}
 
 \subsection{Equation test}
+
 \begin{frame}
+
 \frametitle{Test}
 \framesubtitle{Equation test}
 
@@ -137,10 +149,13 @@
     \end{align}
   \end{subequations}
 \end{block}
+
 \end{frame}
 
 \subsection{Theorem test}
+
 \begin{frame}
+
 \frametitle{Test}
 \framesubtitle{Theorem test}
 
@@ -174,10 +189,13 @@
     \end{theorem}
   \end{column}
 \end{columns}
+
 \end{frame}
 
 \subsection{Algorithm test}
+
 \begin{frame}
+
 \frametitle{Test}
 \framesubtitle{Algorithm test}
 
@@ -203,38 +221,42 @@
 \end{frame}
 
 \subsection{Slide transition test}
+
 \begin{frame}
+
 \frametitle{Test}
 \framesubtitle{Slide transition test}
-  \label{sec:slidetrans}
-  \begin{columns}
-    \begin{column}{.48\textwidth}
+\label{sec:slidetrans}
+
+\begin{columns}
+  \begin{column}{.48\textwidth}
+    \begin{itemize}
+      \item<1-> This is transition test, let's begin:
       \begin{itemize}
-        \item<1-> This is transition test, let's begin:
-        \begin{itemize}
-          \item<2-> This is the first item.
-          \item<3-> This is the second item.
-          \item<4-> This is the third item.
-        \end{itemize}
-        \item<5-> We will show 3 items simultaneously.
-        \begin{itemize}
-          \item<6-> This is the first item.
-          \item<6-> This is the second item.
-          \item<6-> This is the third item.
-        \end{itemize}
+        \item<2-> This is the first item.
+        \item<3-> This is the second item.
+        \item<4-> This is the third item.
       \end{itemize}
-    \end{column}
-    \begin{column}{.48\textwidth}
-      \only<7->{
-      \begin{figure}[htbp]
-        \centering
-        \includegraphics[width = 0.7\columnwidth]{test1}
-        \DeclareGraphicsExtensions.
-        \caption{Test graph.}\label{fig:ex2fig}
-      \end{figure}
-      }
-    \end{column}
-  \end{columns}
+      \item<5-> We will show 3 items simultaneously.
+      \begin{itemize}
+        \item<6-> This is the first item.
+        \item<6-> This is the second item.
+        \item<6-> This is the third item.
+      \end{itemize}
+    \end{itemize}
+  \end{column}
+  \begin{column}{.48\textwidth}
+    \only<7->{
+    \begin{figure}[htbp]
+      \centering
+      \includegraphics[width = 0.7\columnwidth]{test1}
+      \DeclareGraphicsExtensions.
+      \caption{Test graph.}\label{fig:ex2fig}
+    \end{figure}
+    }
+  \end{column}
+\end{columns}
+
 \end{frame}
 
 \ThankYouFrame

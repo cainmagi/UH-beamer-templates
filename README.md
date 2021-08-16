@@ -24,9 +24,12 @@ This template is adapted from [**Beamer template for Lund University**][slice-lu
 
 ## Update report
 
-### 2021 @ 20210812
+### 2021 @ 20210815
 
 1. Upload this sub-project: *UH-Slides-SEG2021*. This project is modified based on [*UH-Slides-SEG*](https://github.com/cainmagi/UH-beamer-templates/tree/UH-Slides-SEG).
+2. Add packages: siunitx, datetime.
+3. Change the default language to American.
+4. Add anothor title image as a choice.
 
 ### 1.0 @ 20190205
 
