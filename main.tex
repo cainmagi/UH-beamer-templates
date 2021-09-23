@@ -1,0 +1,173 @@
+%% SEG-2021 Poster Theme
+%% ---------------------
+%% This is the renewed IMAGE (SEG) 2021 Poster template. It is
+%% modified from Radboud University corporate style. 
+%% See the original work here:
+%% https://www.overleaf.com/latex/templates/the-beamer-poster-version-of-the-radboud-university-corporate-style-poster-template/mfddtqfwpspm
+
+\documentclass[roundedcorners=true, titleposition=left]{beamerSEG2021poster}
+%% The class takes the following optional arguments:
+%% roundedcorners: true, false (default=false)
+%% titleposition: left, center, right (default=right)
+
+\institute[CLS]{Centre for Language Studies, Radboud University Nijmegen, Nijmegen, the Netherlands}
+\title{The Beamer poster version of the Radboud University Corporate Style poster Template}
+\date{\today}
+\author{lama-fan}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{frame}
+\begin{columns}
+\begin{column}{0.19\textwidth}
+\begin{beamercolorbox}[center, wd=\textwidth]{postercolumn}
+\begin{minipage}[T]{0.95\textwidth}
+\parbox[t][\columnheight]{\textwidth}{%
+  \begin{block}{My first block!}
+  	Hoi
+  \end{block}
+  \medskip
+  \begin{block}{Disclaimer}
+  	This is a very early version, but some of us already need it quite soon. Anyway, let me know if there are any problems at \texttt{l.onrust@let.ru.nl}.
+  \end{block}
+ 	\medskip
+    \begin{block}{How to use this stuff to create a poster}
+    	Stop using this if you are not comfortable with \LaTeX. In the other case, proceed with caution.
+        
+        This file (\texttt{main.tex}) contains the presentation. If consists of two \texttt{column}s in a \texttt{columns} environment. Each column then consists of multiple blocks, separated by whatever you think is suitable (\texttt{medskip}, \texttt{bigskip}, \texttt{vfill}, \ldots). 
+    \end{block}
+}
+\end{minipage}
+\end{beamercolorbox}
+\end{column}
+
+\begin{column}{0.19\textwidth}
+\begin{beamercolorbox}[center, wd=\textwidth]{postercolumn}
+\begin{minipage}[T]{0.95\textwidth}
+\parbox[t][\columnheight]{\textwidth}{%
+  \begin{block}{Formulae}
+    	We approximate the integral with samples $\{\mathcal{P}^{(i)}, \boldsymbol\Theta^{(i)}\}_{i=1}^I$ drawn from $p(\mathcal{P}, \boldsymbol\Theta|\mathcal{D})$: 
+  	\begin{equation}
+    	p(w|\mathbf{u},\mathcal{D})\approx\sum_{i=1}^{I}p(w|\mathbf{u},\mathcal{P}^{(i)},\boldsymbol\Theta^{(i)})
+        \end{equation}
+  and $p(w|\mathbf{u}, \mathcal{P},\boldsymbol\Theta)$ is given by the recursive function with  $p(w|\pi(\emptyset),\mathcal{P},\boldsymbol\Theta) = 1/V$ and 
+  \begin{equation}
+  	\begin{split}
+    	p(w|\mathbf{u},\mathcal{P},\boldsymbol\Theta) = &\frac{c_{\mathbf{u}w\cdot}-d_{|\mathbf{u}|}t_{\mathbf{u}w\cdot}}{\theta_{|\mathbf{u}|}+c_{\mathbf{u}\cdot\cdot}} \\
+        &+ \frac{\theta_{|\mathbf{u}|}+d_{|\mathbf{u}|}t_{\mathbf{u}\cdot\cdot}}{\theta_{|\mathbf{u}|}+c_{\mathbf{u}\cdot\cdot}} p(w|\pi(\mathbf{u}),\mathcal{P},\boldsymbol\Theta),
+        \end{split}
+        \end{equation}
+        where the counts in partition $P_{\mathbf{u}}$ correspond to $G_{\mathbf{u}}$.
+    \end{block}
+    \vfill
+    \begin{block}{Drake}
+    	Started from the bottom.
+    \end{block}
+}
+\end{minipage}
+\end{beamercolorbox}
+\end{column}
+
+\begin{column}{0.19\textwidth}
+\begin{beamercolorbox}[center, wd=\textwidth]{postercolumn}
+\begin{minipage}[T]{0.95\textwidth}
+\parbox[t][\columnheight]{\textwidth}{%
+  \begin{block}{My second block!}
+  	Hoi! We refer a paper from here \cite{lamport,kopka}.
+  \end{block}
+  \medskip
+  \begin{block}{My funniest block!}
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.95\textwidth]{funnygirl}
+      \DeclareGraphicsExtensions.
+      \caption{An example of figure.}
+    \end{figure}
+  \end{block}
+  \medskip
+  \begin{block}{And the obligatory boring block\ldots}
+    \begin{table}[H]
+      \centering
+      \caption{An example of table.}
+    	\begin{tabular}{lllll}
+        \toprule
+             & jrc  & 1bw   & emea & wp   \\
+        \midrule
+        jrc  & 3.65 & 10.22 & 9.91 & 9.98 \\
+        1bws & 9.58 & 7.31  & 9.89 & 8.94 \\
+        emea & 9.23 & 10.16 & 1.88 & 9.72 \\
+        wps  & 9.12 & 8.83  & 9.97 & 7.76 \\
+        \bottomrule
+      \end{tabular}
+    \end{table}
+  \end{block}
+}
+\end{minipage}
+\end{beamercolorbox}
+\end{column}
+
+\begin{column}{0.19\textwidth}
+\begin{beamercolorbox}[center, wd=\textwidth]{postercolumn}
+\begin{minipage}[T]{0.95\textwidth}
+\parbox[t][\columnheight]{\textwidth}{%
+  \begin{block}{The previous title made no sense}
+  	\begin{itemize}
+    	\item a
+        \item b
+        \item c
+        \item d
+        \item e
+        \item f
+        \item g
+        \item h
+        \item i
+        \item j
+        \item k
+    \end{itemize}
+  \end{block}
+}
+\end{minipage}
+\end{beamercolorbox}
+\end{column}
+
+\begin{column}{0.19\textwidth}
+\begin{beamercolorbox}[center, wd=\textwidth]{postercolumn}
+\begin{minipage}[T]{0.95\textwidth}
+\parbox[t][\columnheight]{\textwidth}{%
+  \begin{block}{The previous title made no sense}
+  	\begin{itemize}
+    	\item a
+        \item b
+        \item c
+        \item d
+        \item e
+        \item f
+        \item g
+        \item h
+        \item i
+        \item j
+        \item k
+    \end{itemize}
+  \end{block}
+  \medskip
+  \begin{block}{Reference}
+    \begin{columns}[T]
+      \begin{column}{\textwidth}
+        \vspace{-.2ex}
+        \footnotesize
+        \bibliographystyle{IEEEtran}
+        % argument is your BibTeX string definitions and bibliography database(s)
+        \bibliography{bib/example}
+      \end{column}
+    \end{columns}
+  \end{block}
+}
+\end{minipage}
+\end{beamercolorbox}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+\end{document}
+
