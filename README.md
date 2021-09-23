@@ -15,8 +15,13 @@ Currently this collection includes:
 | [UH-Slides-SEG2020 :link:][git-seg2020-slides] | Presentation | ![UH-Slides-SEG2020][ex-seg2020-slides] |
 | [UH-Slides-SEG2021 :link:][git-seg2021-slides] | Presentation | ![UH-Slides-SEG2021][ex-seg2021-slides] |
 | [UH-Poster-SEG :link:][git-seg-poster]     | Poster       | ![UH-Poster-SEG][ex-seg-poster] |
+| [UH-Poster-SEG2021 :link:][git-seg-poster] | Poster       | ![UH-Poster-SEG][ex-seg2021-poster] |
 
 ## Update report
+
+### 1.2 @ 20210923
+
+1. Add *UH-Poster-SEG2021*.
 
 ### 1.2 @ 20210812
 
@@ -38,9 +43,11 @@ Currently this collection includes:
 [git-seg2020-slides]:https://github.com/cainmagi/UH-beamer-templates/tree/UH-Slides-SEG2020
 [git-seg2021-slides]:https://github.com/cainmagi/UH-beamer-templates/tree/UH-Slides-SEG2021
 [git-seg-poster]:https://github.com/cainmagi/UH-beamer-templates/tree/UH-Poster-SEG
+[git-seg-poster]:https://github.com/cainmagi/UH-beamer-templates/tree/UH-Poster-SEG2021
 
 [ex-ece-slides]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Slides-ECE/display/uh-ece-2.jpg
 [ex-seg-slides]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Slides-SEG/display/uh-seg-2.jpg
 [ex-seg2020-slides]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Slides-SEG2020/display/uh-seg-2.png
 [ex-seg2021-slides]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Slides-SEG2021/display/uh-seg-2.png
 [ex-seg-poster]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Poster-SEG/display/uh-poster-seg.jpg
+[ex-seg2021-poster]:https://github.com/cainmagi/UH-beamer-templates/raw/UH-Poster-SEG2021/display/uh-poster-seg2021.jpg
