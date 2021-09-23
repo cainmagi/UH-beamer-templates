@@ -23,6 +23,8 @@ This template is adapted from [**The Beamer poster version of the Radboud Univer
 ### 1.1 @ 20210923
 
 1. Upload this sub-project: *UH-Poster-SEG2021*.
+2. Remove `\boldmath`.
+3. Add some frequently used packages and options.
 
 ### 1.0 @ 20200205
 

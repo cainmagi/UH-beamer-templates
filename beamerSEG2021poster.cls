@@ -41,10 +41,10 @@
 \RequirePackage{grffile}
 \usepackage[american]{babel}
 \RequirePackage{amsmath,amsthm,amssymb,latexsym}
-\boldmath
 \RequirePackage{array,booktabs,tabularx}
 \RequirePackage[rm]{roboto}
 \RequirePackage{roboto-mono}
+\RequirePackage[italic]{mathastext}
 \RequirePackage{algorithm}
 \RequirePackage{algorithmic}
 \RequirePackage{float}
@@ -56,12 +56,37 @@
 \hypersetup{pdfpagemode=FullScreen}
 %\RequirePackage[square, numbers, comma, sort&compress]{natbib}
 %\renewcommand{\eqref}[1]{\hyperref[#1]{(\ref*{#1})}}
+
+\RequirePackage{ifpdf,ifxetex}
+\ifpdf
+  \RequirePackage{graphicx}
+  \RequirePackage{epstopdf}
+  \graphicspath{{Pics/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.pdf,.jpeg,.png,.jpg}
+\else
+  \ifxetex
+    \RequirePackage{graphicx}
+  \else
+    \RequirePackage[dvipdfmx]{graphicx}
+    \RequirePackage{bmpsize}
+  \fi
+  \graphicspath{{Pics/},{Pics2/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.eps,.pdf,.jpeg,.png,.jpg}
+\fi
+
 %% -----------------------------------------------------------
 
 \tcbuselibrary{skins,hooks}
 \tcbset{colframe=structure,fonttitle=\bfseries,beamer}
 \tikzfading[name=fade right,
 left color=transparent!0, right color=transparent!100]
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 \definecolor{IMAGEBlue}{HTML}{005DA3}
 \definecolor{IMAGESemiBlue}{HTML}{008DB8}
