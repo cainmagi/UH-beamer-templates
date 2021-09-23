@@ -1,3 +1,18 @@
+%% SEG-2021 Poster Theme
+%% ---------------------
+%% This is the renewed IMAGE (SEG) 2021 Poster template. It is
+%% modified from Radboud University corporate style. 
+%% See the original work here:
+%% https://www.overleaf.com/latex/templates/the-beamer-poster-version-of-the-radboud-university-corporate-style-poster-template/mfddtqfwpspm
+%% 
+%% Options
+%% -------
+%% roundedcorners: Whether to use rounded corners.
+%% titleposition: position of the title, could be "left" or
+%%                "right".
+%%
+%% Original Readme
+%% ---------------
 %% This file implements a poster template for the 2014 Radboud 
 %% University corporate style. 
 %% 
@@ -9,7 +24,7 @@
 %% you are using the template, I can keep you up-to-date on
 %% future changes.
 
-\ProvidesPackage{beamerthemeruhuisstijlposter}
+\ProvidesPackage{beamerSEG2021poster}
 
 \LoadClass[final,hyperref={pdfpagelabels=false}]{beamer}
 
@@ -19,20 +34,17 @@
 
 \RequirePackage{ifthen}
 \RequirePackage[orientation=landscape,size=custom,width=238.76,height=116.84,scale=2,debug]{beamerposter}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\definecolor{ruhuisstijlrood}{rgb}{0.745,0.192,0.102}
-% \definecolor{ruhuisstijlrood}{RGB}{0,200,0}
-\definecolor{ruhuisstijlzwart}{rgb}{0,0,0}
-\definecolor{ruhuisstijlwit}{rgb}{0.98,0.98,0.98}
+\RequirePackage{tikz}
+\usetikzlibrary{shapes.arrows,calc,fadings,shadows}
 
 \RequirePackage{tcolorbox}
 \RequirePackage{grffile}
-\usepackage[english]{babel}
+\usepackage[american]{babel}
 \RequirePackage{amsmath,amsthm,amssymb,latexsym}
 \boldmath
 \RequirePackage{array,booktabs,tabularx}
+\RequirePackage[rm]{roboto}
+\RequirePackage{roboto-mono}
 \RequirePackage{algorithm}
 \RequirePackage{algorithmic}
 \RequirePackage{float}
@@ -47,9 +59,18 @@
 %% -----------------------------------------------------------
 
 \tcbuselibrary{skins,hooks}
-\usetikzlibrary{shadows}
-
 \tcbset{colframe=structure,fonttitle=\bfseries,beamer}
+\tikzfading[name=fade right,
+left color=transparent!0, right color=transparent!100]
+
+\definecolor{IMAGEBlue}{HTML}{005DA3}
+\definecolor{IMAGESemiBlue}{HTML}{008DB8}
+\definecolor{IMAGESemiGreen}{HTML}{00B288}
+\definecolor{IMAGEGreen}{HTML}{98C93C}
+
+\setbeamerfont{title}{family={\rmfamily}, series={\bfseries}}
+\setbeamerfont{subtitle}{family={\sffamily}, series={\bfseries}}
+\setbeamerfont{block title}{family={\rmfamily}, series={\bfseries}}
 
 \newcommand{\roundedcorners}{false}
 \DeclareOptionBeamer{roundedcorners}{\renewcommand{\roundedcorners}{#1}}
@@ -63,35 +84,35 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\setbeamercolor{headline}{fg=ruhuisstijlzwart,bg=ruhuisstijlwit}
-\setbeamercolor{footline}{fg=ruhuisstijlwit, bg=ruhuisstijlrood}
+\setbeamercolor{headline}{fg=white}
+\setbeamercolor{footline}{fg=white, bg=IMAGEBlue}
 \setbeamerfont{footline}{size=\large,series=\bf}
-\setbeamercolor{title in headline}{fg=ruhuisstijlzwart}
-\setbeamercolor{author in headline}{fg=ruhuisstijlrood}
-\setbeamercolor{institute in headline}{fg=ruhuisstijlrood}
+\setbeamercolor{title in headline}{fg=white}
+\setbeamercolor{author in headline}{fg=white}
+\setbeamercolor{institute in headline}{fg=white}
 
-\setbeamercolor{author in head/foot}{fg=ruhuisstijlrood, bg=black}
-\setbeamercolor{title in head/foot}{fg=ruhuisstijlrood, bg=black}
+\setbeamercolor{author in head/foot}{fg=IMAGESemiBlue, bg=black}
+\setbeamercolor{title in head/foot}{fg=IMAGESemiBlue, bg=black}
 
 \setbeamerfont{normal text}{size=\fontsize{5cm}{1em},series=\sl}
-\setbeamercolor*{normal text}{fg=ruhuisstijlzwart, bg=ruhuisstijlwit}
-\setbeamercolor*{block body}{bg=ruhuisstijlwit,fg=ruhuisstijlzwart}
-\setbeamercolor*{block title}{fg=ruhuisstijlwit,bg=ruhuisstijlrood}
+\setbeamercolor*{normal text}{fg=black, bg=white}
+\setbeamercolor*{block body}{bg=white,fg=black}
+\setbeamercolor*{block title}{fg=white,bg=IMAGESemiBlue}
 \setbeamerfont*{block title}{size=\large,series=\bf}
 
 
-\setbeamercolor{alerted text}{fg=ruhuisstijlrood}
-
-\setbeamercolor{example text}{fg=ruhuisstijlrood}
-\setbeamercolor{structure}{fg=ruhuisstijlrood}
+\setbeamercolor{alerted text}{fg=IMAGESemiGreen}
+\setbeamercolor{example text}{fg=IMAGESemiBlue}
+\setbeamercolor{structure}{fg=IMAGESemiBlue}
 
 \setbeamertemplate{itemize items}[triangle]
 \setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{bibliography item}[text]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{block begin}{
   \vskip.75ex
-  \begin{tcolorbox}[title=\insertblocktitle, shadow={4mm}{-4mm}{0mm}{black!50!white}, enhanced, colback=yellow!15!white, colframe=red!75!black, fonttitle=\bfseries, bottomrule=0pt, leftrule=0pt, rightrule=0pt, titlerule=1ex, toprule=1ex, top=1ex, bottom=1ex, left=1ex, right=1ex, arc=1ex]
+  \begin{tcolorbox}[title=\insertblocktitle, shadow={4mm}{-4mm}{0mm}{black!50!white}, enhanced, colback=cyan!5!white, colframe=IMAGEBlue, frame style={left color=IMAGEBlue, right color=IMAGEGreen}, fonttitle=\rmfamily\bfseries, bottomrule=2pt, leftrule=2pt, rightrule=2pt, titlerule=1ex, toprule=1ex, top=1ex, bottom=1ex, left=1ex, right=1ex, arc=0.2ex]
   \centering \vspace{0.5ex}
   \begin{minipage}{0.95\textwidth}
   }
@@ -105,14 +126,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{headline}{  
   \leavevmode
-
-  \begin{beamercolorbox}[wd=\paperwidth]{headline}
+  \begin{tikzpicture}[remember picture,overlay]
+    \node [rectangle, draw=none, left color=IMAGEBlue, right color=IMAGEGreen, anchor=north west, minimum width=\paperwidth-23.95cm, minimum height=12cm] (box) at (current page.north west){};
+    \node[anchor=north east, inner sep=0] at (current page.north east) 	{\includegraphics[width=24cm,height=12cm]{logo/image-waveinv}};
+  \end{tikzpicture}
+  \begin{beamercolorbox}[wd=\paperwidth,ht=12cm]{headline}
     \begin{columns}[T]
-      \begin{column}{.02\paperwidth}
+      \begin{column}{.01\paperwidth}
       \end{column}
-      \begin{column}{.95\paperwidth}
+      \begin{column}{.96\paperwidth}
         \vskip4ex
-        \raggedleft
+        \raggedright
+        \usebeamerfont{title}
         {\ifthenelse{\equal{\titleposition}{right}}{%
         	\raggedleft\usebeamercolor{title in headline}{\color{fg}{\Huge\bfseries\inserttitle\par}}
         }{
@@ -123,35 +148,39 @@
           \usebeamercolor{title in headline}{\color{fg}{\Huge\bfseries\inserttitle\par}}
           }
         }}
+        \usebeamerfont{subtitle}
         \usebeamercolor{author in headline}{\color{fg}{\large\insertauthor\par}}\vspace*{1ex}
         \usebeamercolor{institute in headline}{\color{fg}{\large\insertinstitute\par}}     
       \end{column}
-      \begin{column}{.02\paperwidth}
+      \begin{column}{.03\paperwidth}
       \end{column}
     \end{columns}
     \vskip2ex
-    \begin{center}
-    \color{ruhuisstijlrood}\rule{\textwidth}{2pt}
-    \end{center}
   \end{beamercolorbox}
-
+  \vskip-8em
 }
 
 %\tcbset{colframe=structure,fonttitle=\bfseries,beamer}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \setbeamertemplate{footline}{
- 
-    \leavevmode%
- 
- \includegraphics[height=20cm,width=1\paperwidth]{logo/onderkant}
- \vspace*{-16cm}
- \begin{flushright}
- \begin{minipage}{0.18\paperwidth}
- \vskip1ex
- \includegraphics[width=.95\linewidth]{logo/logos}
- \end{minipage}
- \end{flushright}
+  \leavevmode%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node [rectangle, draw=none, fill=IMAGEGreen, anchor=south west, minimum width=\paperwidth-24.1cm, minimum height=9cm] (box) at ([xshift=24.1cm,yshift=0] current page.south west){};
+    \node[anchor=south west, inner sep=0] at (current page.south west) 	{\includegraphics[height=9cm]{logo/image-wave}};
+    \node [rectangle, draw=none, left color=IMAGEBlue, right color=IMAGEGreen, anchor=south west, minimum width=\paperwidth-91.51cm, minimum height=9cm] (box) at ([xshift=23.95cm,yshift=0] current page.south west){};
+    \node[anchor=south east, inner sep=0] at (current page.south east) 	{\includegraphics[height=9cm]{logo/image-bg}};
+    \node [rectangle, draw=none, fill=IMAGEGreen, path fading=fade right, anchor=south east, minimum width=67.56cm, minimum height=9cm] (box) at (current page.south east){};
+  \end{tikzpicture}
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south east, inner sep=0.3cm] at (current page.south east) (nodelogouh)	{\includegraphics[height=8.4cm]{logo/logo-uh}};
+    \begin{scope}
+      \draw[line width=10pt, draw=white] ($(nodelogouh.north west)+(-0.5cm,-1cm)$) -- ($(nodelogouh.south west)+(-0.5cm,+1cm)$);
+    \end{scope}
+    \node[anchor=south east, inner sep=0.3cm] at ($(nodelogouh.south west)+(-2.0cm,0)$) (nodelogoseg)	{\includegraphics[height=8.4cm]{logo/logo-seg}};
+  \end{tikzpicture}
+  \vspace{0cm}
 }
 
 %\beamertemplategridbackground[5cm]
@@ -169,15 +198,6 @@
 \setbeamerfont{itemize/enumerate body}{size=\normalsize}
 \setbeamerfont{itemize/enumerate subbody}{size=\small}
 \setbeamerfont{itemize/enumerate subsubbody}{size=\small}
-
-
-
-
-
-
-
-
-
 
 
 \makeatletter
@@ -261,10 +281,6 @@
 }
 
 
-
-
-
-
 \def\endbeamerboxesframed{%
   \end{minipage}\egroup%
   \wd\bmb@box=\bmb@width%
@@ -298,10 +314,6 @@
   \egroup% of \vbox\bgroup
 }
 \makeatother
-
-
-
-
 
 
 \defbeamertemplateparent{blocks}[framed]{block begin,block end,%

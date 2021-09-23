@@ -1,18 +1,11 @@
-%% This file implements a poster template for the 2014 Radboud 
-%% University corporate style. 
-%% 
-%% For comments, questions, and suggestions contact me at
-%% l.onrust@let.ru.nl 
-%%
-%% You can distribute and edit the files as you wish, but I'd
-%% love to hear of any changes. Also, if you let me know that
-%% you are using the template, I can keep you up-to-date on
-%% future changes.
-%%
-%% 2 March 2015: fixed the cmyk issue, added rounded corners
-%%               and optional title alignment
+%% SEG-2021 Poster Theme
+%% ---------------------
+%% This is the renewed IMAGE (SEG) 2021 Poster template. It is
+%% modified from Radboud University corporate style. 
+%% See the original work here:
+%% https://www.overleaf.com/latex/templates/the-beamer-poster-version-of-the-radboud-university-corporate-style-poster-template/mfddtqfwpspm
 
-\documentclass[roundedcorners=true, titleposition=left]{beamerthemeruhuisstijlposter}
+\documentclass[roundedcorners=true, titleposition=left]{beamerSEG2021poster}
 %% The class takes the following optional arguments:
 %% roundedcorners: true, false (default=false)
 %% titleposition: left, center, right (default=right)
@@ -160,7 +153,7 @@
   \begin{block}{Reference}
     \begin{columns}[T]
       \begin{column}{\textwidth}
-        \vspace{-1ex}
+        \vspace{-.2ex}
         \footnotesize
         \bibliographystyle{IEEEtran}
         % argument is your BibTeX string definitions and bibliography database(s)
