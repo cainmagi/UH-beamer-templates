@@ -14,15 +14,67 @@ This template is adapted from [**Beamer template for Lund University**][slice-lu
 * A totally new thanks page.
 * Support with necessary packages like cleveref, subfigure, algorithm and some other tools.
 
+## All options
+
+We list all avaliable options here. The deault state means whether a option is enabled in default.
+
+```latex
+\usetheme[...]{UH-Slides-SEG}
+```
+
+| Option | Description | Counter option | Default state |
+| -----  |   -----     |      -----     |  -----  |
+| `font` | The font family style of the whole theme, could be `times` (TeX Gyre), `legacy` (Palatino), or 'default' (Roboto).  | - | `default` |
+| `color` | The palette name of the whole theme, could be `PIERS`, `URSI`, `UHECE`, or 'default' (IMAGE-2021).  | - | `default` |
+
 ## Example
 
 | Example slides |
 | ----- |
-| ![][ex-fig-1] |
-| ![][ex-fig-2] |
-| ![][ex-fig-3] |
+| ![ex1][ex-fig-1] |
+| ![ex2][ex-fig-2] |
+| ![ex3][ex-fig-3] |
+
+The following results show the alternative styles.
+
+### PIERS-2021 style
+
+```latex
+\usetheme[color=PIERS,font=times]{UH-Slides-SEG}
+```
+
+| Example slide |
+| ----- |
+| ![ex-piers][ex-fig-piers] |
+
+### URSI-2021 style
+
+```latex
+\usetheme[color=URSI,font=default]{UH-Slides-SEG}
+```
+
+| Example slide |
+| ----- |
+| ![ex-ursi][ex-fig-ursi] |
+
+### UH-ECE style
+
+```latex
+\usetheme[color=UHECE,font=legacy]{UH-Slides-SEG}
+```
+
+| Example slide |
+| ----- |
+| ![ex-uhece][ex-fig-uhece] |
 
 ## Update report
+
+### 2021v2 @ 20211110
+
+1. Support more meeting palettes: URSI 2021, PIERS 2021, UHECE.
+2. Provide two options font, color. Now the font family and palette are customizable.
+3. Make sure the footer font is always sans or mono.
+4. Fix an incompatibility problem when using XeLaTeX.
 
 ### 2021 @ 20210815
 
@@ -40,3 +92,6 @@ This template is adapted from [**Beamer template for Lund University**][slice-lu
 [ex-fig-1]:./display/uh-seg-1.jpg
 [ex-fig-2]:./display/uh-seg-2.png
 [ex-fig-3]:./display/uh-seg-3.jpg
+[ex-fig-piers]:./display/uh-seg-style-piers.png
+[ex-fig-ursi]:./display/uh-seg-style-ursi.png
+[ex-fig-uhece]:./display/uh-seg-style-uhece.png

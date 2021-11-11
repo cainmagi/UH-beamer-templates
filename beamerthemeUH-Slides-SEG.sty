@@ -1,11 +1,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% UH-Slides-SEG
 %%   Revised by Yuchen Jin (cainmagi)
-%%   Aug. 12, 2021
+%%   Feb. 4, 2019
 %%   A template for attending the SEG 2021 meeting.
 %% ----------------
-%% - Adapted from the Lund Beamer template.
+%% Nov. 10, 2021
+%% - Support more meeting palettes: URSI 2021, PIERS 2021, UHECE.
+%% - Provide two options font, color. Now the font family and palette
+%%   are customizable.
+%% - Make sure the footer font is always sans or mono.
+%% - Fix an incompatibility problem when using XeLaTeX.
+%% Aug. 8, 2021
 %% - Specially designed for SEG 2021.
+%% - Re-design the title page and the thank page.
+%% - Change the default font family.
+%% - Add a linear gradient block in the content.
+%% - Change the reference provider to biblatex.
+%% - Change the default language to American.
+%% - Provide two brandly new title images for IMAGE-2021.
+%% Feb. 4, 2019
+%% - Adapted from the Lund Beamer template.
+%% - Specially designed for SEG 2018.
 %% - Support both 4:3 and 16:9 modes.
 %% - Support two logos.
 %% - A totally new thanks page.
@@ -13,13 +28,39 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ProvidesPackage{beamerthemeUH-Slides-SEG}[2021/08/12]
 \RequirePackage{ifthen}
+
+%% Declare options
+
+\def\beamer@UHSEG@font{default}  % Could be times, legacy, and default
+\DeclareOptionBeamer{font}{\def\beamer@UHSEG@font{#1}}    
+\ProcessOptionsBeamer
+
+\def\beamer@UHSEG@color{default}  % Could be URSI, PIERS, UHECE, and default (IMAGE)
+\DeclareOptionBeamer{color}{\def\beamer@UHSEG@color{#1}}    
+\ProcessOptionsBeamer
+
+%% Start to load packages
+
 \RequirePackage{tikz,pgf}
 \RequirePackage[overload]{textcase}
 \RequirePackage{setspace}
-%\usepackage[urw-garamond]{mathdesign}
 \RequirePackage[T1]{fontenc}
-\RequirePackage[rm]{roboto}
-\RequirePackage{roboto-mono}
+
+% Configure fonts
+\ifthenelse{\equal{\beamer@UHSEG@font}{times}}{
+	\RequirePackage{tgtermes}
+	\RequirePackage{roboto-mono}
+	\usefonttheme{serif}
+}{
+	\ifthenelse{\equal{\beamer@UHSEG@font}{legacy}}{
+		\usefonttheme{serif}
+	}{
+		\RequirePackage[rm]{roboto}
+		\RequirePackage{roboto-mono}
+		%\usepackage[urw-garamond]{mathdesign}
+	}
+}
+
 \RequirePackage{csquotes}
 \RequirePackage[style=ieee,citestyle=verbose,backend=bibtex]{biblatex}
 \RequirePackage{cleveref}
@@ -87,10 +128,37 @@
 \definecolor{SEGRed}{HTML}{E42629}
 \definecolor{SEGYellow}{HTML}{F7A313}
 
-\definecolor{IMAGEBlue}{HTML}{005DA3}
-\definecolor{IMAGESemiBlue}{HTML}{008DB8}
-\definecolor{IMAGESemiGreen}{HTML}{00B288}
-\definecolor{IMAGEGreen}{HTML}{98C93C}
+% Recommend to use this tool to solve the colors:
+% https://coolors.co/gradient-palette
+\ifthenelse{\equal{\beamer@UHSEG@color}{PIERS}}{
+	% PIERS palette: Violet and Pulple
+	\definecolor{IMAGEPrimary}{HTML}{1D1551}
+	\definecolor{IMAGESecondary}{HTML}{4A1652}
+	\definecolor{IMAGETertiary}{HTML}{761852}
+	\definecolor{IMAGEQuaternary}{HTML}{A31953}
+}{
+	\ifthenelse{\equal{\beamer@UHSEG@color}{URSI}}{
+		% URSI palette: LakeBlue and Cyan
+		\definecolor{IMAGEPrimary}{HTML}{005DA3}
+		\definecolor{IMAGESecondary}{HTML}{147EB0}
+		\definecolor{IMAGETertiary}{HTML}{289FBC}
+		\definecolor{IMAGEQuaternary}{HTML}{3CC0C9}
+	}{
+		\ifthenelse{\equal{\beamer@UHSEG@color}{UHECE}}{
+			% UHECE palette: Crimson and Red
+			\definecolor{IMAGEPrimary}{HTML}{2B070B}
+			\definecolor{IMAGESecondary}{HTML}{5F0A17}
+			\definecolor{IMAGETertiary}{HTML}{940D22}
+			\definecolor{IMAGEQuaternary}{HTML}{C8102E}
+		}{
+			% IMAGE (default): LakeBlue and LimeGreen
+			\definecolor{IMAGEPrimary}{HTML}{005DA3}
+			\definecolor{IMAGESecondary}{HTML}{008DB8}
+			\definecolor{IMAGETertiary}{HTML}{00B288}
+			\definecolor{IMAGEQuaternary}{HTML}{98C93C}
+		}
+	}
+}
 
 \newcommand{\titlecolor}[1]{\renewcommand{\giventitlecolor}{#1}}
 \newcommand{\titleimage}[1]{\renewcommand{\giventitleimage}{#1}}
@@ -138,10 +206,25 @@
 \insertverticalnavigation{\beamer@sidebarwidth}%
 }
 
-\setbeamercolor{author in head/foot}{bg=IMAGEBlue,fg=white}
-\setbeamercolor{title in head/foot}{bg=IMAGESemiBlue,fg=white}
-\setbeamercolor{organization in head/foot}{bg=IMAGESemiGreen,fg=white}
-\setbeamercolor{date in head/foot}{bg=IMAGEGreen,fg=white}
+\setbeamercolor{author in head/foot}{bg=IMAGEPrimary,fg=white}
+\setbeamercolor{title in head/foot}{bg=IMAGESecondary,fg=white}
+\setbeamercolor{organization in head/foot}{bg=IMAGETertiary,fg=white}
+\setbeamercolor{date in head/foot}{bg=IMAGEQuaternary,fg=white}
+
+% Only applied when using times and legacy fonts
+\ifthenelse{\equal{\beamer@UHSEG@font}{times}}{
+	\setbeamerfont{author in head/foot}{family=\ttfamily}
+	\setbeamerfont{title in head/foot}{family=\ttfamily}
+	\setbeamerfont{organization in head/foot}{family=\ttfamily}
+	\setbeamerfont{date in head/foot}{family=\ttfamily}
+}{
+	\ifthenelse{\equal{\beamer@UHSEG@font}{legacy}}{
+		\setbeamerfont{author in head/foot}{family=\sffamily}
+		\setbeamerfont{title in head/foot}{family=\sffamily}
+		\setbeamerfont{organization in head/foot}{family=\sffamily}
+		\setbeamerfont{date in head/foot}{family=\sffamily}
+	}{}
+}
 
 \setbeamertemplate{footline}{\leavevmode%
   \hbox{%
@@ -171,7 +254,7 @@
 \pgfpathmoveto{\pgfpoint{0.4em}{0pt}}
 \pgfpathlineto{\pgfpoint{0.6\paperwidth}{0pt}}
 \pgfsetlinewidth{1pt}
-\pgfsetcolor{IMAGEBlue}
+\pgfsetcolor{IMAGEPrimary}
 \pgfusepath{stroke}
 \end{pgfpicture}%
 \begin{pgfpicture}
@@ -183,17 +266,17 @@
 \pgfpathlineto{\pgfpoint{\paperwidth-.15\paperwidth}{-\beamer@headheight}}
 \pgfsetlinewidth{3.5pt}
 \pgfsetinnerlinewidth{1pt}
-\pgfsetinnerstrokecolor{IMAGEBlue}
+\pgfsetinnerstrokecolor{IMAGEPrimary}
 \pgfsetcolor{white}
 \pgfusepath{stroke}
 \begin{tikzpicture}[remember picture,overlay]
-  \node [rectangle, draw=none, left color=IMAGEBlue, right color=IMAGEGreen, anchor=north east, minimum width=\beamer@sidebarwidth-2pt+0.5px, minimum height=\beamer@headheight+0.5px] (box) at ([xshift=1px,yshift=1px] current page.north east){};
+  \node [rectangle, draw=none, left color=IMAGEPrimary, right color=IMAGEQuaternary, anchor=north east, minimum width=\beamer@sidebarwidth-2pt+0.5pt, minimum height=\beamer@headheight+0.5pt] (box) at ([xshift=0.75pt,yshift=0.75pt] current page.north east){};
 \end{tikzpicture}
 \pgfpathmoveto{\pgfpoint{\paperwidth-.15\paperwidth}{-.18\paperheight}}
 \pgfpathlineto{\pgfpoint{\paperwidth-.15\paperwidth}{-.97\paperheight}}
 \pgfsetlinewidth{1pt}
 \pgfsetinnerlinewidth{0pt}
-\pgfsetcolor{IMAGEBlue}
+\pgfsetcolor{IMAGEPrimary}
 \pgfusepath{stroke}
 \pgftext[at=\pgfpoint{\paperwidth-.075\paperwidth}{-.95\paperheight},center,base]{\pgfuseimage{small-logo}}
 \ifx\givenSecondLogo\undefined
@@ -204,7 +287,7 @@
 \vskip-25pt%
 }
 
-
+%% Set special pages
 
 \setbeamertemplate{title page}{
 \pgfdeclarelayer{text}    % declare background layer
@@ -246,12 +329,12 @@
   \node[anchor=center, minimum height=2.4cm, minimum width=0.5\paperwidth] at (.5\paperwidth, .5\paperheight) (titlebox) {
     \begin{tikzpicture}
       \usebeamerfont{title} %set font to title font
-      \node[anchor=south, minimum height=1cm, align=center, inner xsep=.4cm, inner ysep=.2cm, color=IMAGEBlue] (titlenode) {\inserttitle};
+      \node[anchor=south, minimum height=1cm, align=center, inner xsep=.4cm, inner ysep=.2cm, color=IMAGEPrimary] (titlenode) {\inserttitle};
       \usebeamerfont{subtitle}
-      \node[anchor=north, minimum height=.5cm, align=left, inner xsep=.4cm, inner ysep=.2cm, color=IMAGESemiBlue] at ($(titlenode.south)+(0,.03ex)$) (subtitlenode) {\MakeUppercase{\insertsubtitle}\\ \insertinstitute};
+      \node[anchor=north, minimum height=.5cm, align=left, inner xsep=.4cm, inner ysep=.2cm, color=IMAGESecondary] at ($(titlenode.south)+(0,.03ex)$) (subtitlenode) {\MakeUppercase{\insertsubtitle}\\ \insertinstitute};
       \begin{scope}
-        \draw[very thick, draw=IMAGEBlue] ($(titlenode.south west)+(0.3cm,0.1cm)$) -- ($(titlenode.south east)+(-0.3cm,0.1cm)$);
-        \draw[very thick, draw=IMAGEBlue] ($(titlenode.south)-0.5*(subtitlenode.south east)+0.5*(subtitlenode.south west)+(0.3cm,0.1cm)$) -- ($(titlenode.south)+0.5*(subtitlenode.south east)-0.5*(subtitlenode.south west)+(-0.3cm,0.1cm)$);
+        \draw[very thick, draw=IMAGEPrimary] ($(titlenode.south west)+(0.3cm,0.1cm)$) -- ($(titlenode.south east)+(-0.3cm,0.1cm)$);
+        \draw[very thick, draw=IMAGEPrimary] ($(titlenode.south)-0.5*(subtitlenode.south east)+0.5*(subtitlenode.south west)+(0.3cm,0.1cm)$) -- ($(titlenode.south)+0.5*(subtitlenode.south east)-0.5*(subtitlenode.south west)+(-0.3cm,0.1cm)$);
       \end{scope}
     \end{tikzpicture}
   };
@@ -294,18 +377,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Colours
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usecolortheme[named=IMAGEBlue]{structure}
+\usecolortheme[named=IMAGEPrimary]{structure}
 \usecolortheme{rose}
-\setbeamercolor{title page}{fg=IMAGEBlue}
-\setbeamercolor{logo}{bg=IMAGEBlue}
-\setbeamercolor{frametitle}{fg=IMAGEBlue,bg=white}
-\setbeamercolor{section in sidebar}{fg=IMAGEBlue}
+\setbeamercolor{title page}{fg=IMAGEPrimary}
+\setbeamercolor{logo}{bg=IMAGEPrimary}
+\setbeamercolor{frametitle}{fg=IMAGEPrimary,bg=white}
+\setbeamercolor{section in sidebar}{fg=IMAGEPrimary}
 \setbeamerfont{section in sidebar}{series=\bfseries}
-\setbeamercolor{block title}{bg=UHPink,fg=IMAGEBlue}
+\setbeamercolor{block title}{bg=UHPink,fg=IMAGEPrimary}
 \setbeamercolor{block body}{bg=UHPink!50!white}
-\setbeamercolor{block title alert}{bg=UHPink,fg=IMAGEBlue}
+\setbeamercolor{block title alert}{bg=UHPink,fg=IMAGEPrimary}
 \setbeamercolor{block body alert}{bg=UHPink!50!white}
-\setbeamercolor{block title example}{bg=UHPink,fg=IMAGEBlue}
+\setbeamercolor{block title example}{bg=UHPink,fg=IMAGEPrimary}
 \setbeamercolor{block body example}{bg=UHPink!50!white}
 \setbeamerfont{title}{family={\rmfamily}, series={\bfseries}}
 \setbeamerfont{subtitle}{family={\sffamily}, series={\bfseries}}
@@ -342,7 +425,7 @@
   \begin{scope}
     \clip (0, 0) rectangle ($(\paperwidth,\paperheight)$);
     \node[inner sep=0, anchor=south west] at (0,0) {\giventhanksimage};
-    \node [rectangle, draw=none, left color=IMAGEBlue, right color=IMAGEGreen, anchor=south west, minimum width=\paperwidth+1px, minimum height=\paperheight+1px, opacity=0.5] (gradbox) at (0,0) {};
+    \node [rectangle, draw=none, left color=IMAGEPrimary, right color=IMAGEQuaternary, anchor=south west, minimum width=\paperwidth+0.75pt, minimum height=\paperheight+0.75pt, opacity=0.5] (gradbox) at (0,0) {};
     \draw[fill=\giventhankscolor, draw=none, opacity=0.7] (0,0) rectangle ($(\paperwidth,\paperheight)$);
   \end{scope}
 }
@@ -354,16 +437,16 @@
     \begin{tikzpicture}
       %draw thank text.
       \usebeamerfont{title}
-      \node[minimum height=1cm, align=left, font=\LARGE, inner ysep=.2cm, inner xsep=.3cm] (thanksnode) {\bfseries \rmfamily \color{IMAGEBlue} Thank you for listening!}; 
+      \node[minimum height=1cm, align=left, font=\LARGE, inner ysep=.2cm, inner xsep=.3cm] (thanksnode) {\bfseries \rmfamily \color{IMAGEPrimary} Thank you for listening!}; 
 
       %draw sub thank text.
       \usebeamerfont{subtitle}   
       \node[align=left, anchor=text, inner xsep=.3cm, font=\normalsize] at ($(thanksnode.text)+(0,-.6cm)$)
-      {\color{IMAGEBlue} \MakeUppercase{It's time for Q\&A.}};
+      {\color{IMAGEPrimary} \MakeUppercase{It's time for Q\&A.}};
 
       %draw the line to the edge of the page
       \begin{scope}
-        \draw[very thick, draw=IMAGEBlue] ($(thanksnode.text)+(0,-.17cm)$) -- ($(thanksnode.text)+(thanksnode.east)-(thanksnode.west)+(-0.6cm,-.17cm)$);
+        \draw[very thick, draw=IMAGEPrimary] ($(thanksnode.text)+(0,-.17cm)$) -- ($(thanksnode.text)+(thanksnode.east)-(thanksnode.west)+(-0.6cm,-.17cm)$);
       \end{scope}
     \end{tikzpicture}
   };
@@ -378,7 +461,7 @@
 }
 
 \setbeamertemplate{block begin}{
-  \begin{tcolorbox}[title=\insertblocktitle, shadow={1mm}{-1mm}{0mm}{black!50!white}, enhanced, colback=UHIvory, colframe=IMAGEBlue, fonttitle=\bfseries, bottomrule=0pt, leftrule=0pt, rightrule=0pt, titlerule=3pt, toprule=3pt, top=3pt, bottom=3pt, left=1ex, right=1ex, arc=0pt, smart shadow arc=false]
+  \begin{tcolorbox}[title=\insertblocktitle, shadow={1mm}{-1mm}{0mm}{black!50!white}, enhanced, colback=UHIvory, colframe=IMAGEPrimary, fonttitle=\bfseries, bottomrule=0pt, leftrule=0pt, rightrule=0pt, titlerule=3pt, toprule=3pt, top=3pt, bottom=3pt, left=1ex, right=1ex, arc=0pt, smart shadow arc=false]
   }
 \setbeamertemplate{block end}{
   \end{tcolorbox}
