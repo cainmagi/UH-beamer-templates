@@ -14,6 +14,28 @@ This template is adapted from [**Unofficial Beamer Theme for Uppsala University*
 * A totally new thanks page.
 * Support with necessary packages like cleveref, subfigure, algorithm and some other tools.
 
+## All options
+
+We list all avaliable options here. The deault state means whether a option is enabled in default.
+
+```latex
+\usetheme[...]{UH-Slides-ECE}
+```
+
+| Option | Description | Default state |
+| ------ | ----------- | ------------  |
+| `mylogo` | Whether to use customized logo, if set True, need to renew the command `\insertlogo` for providing the customized logo.  | False |
+| `nonumbers` | If enabled, will hide the page number.  | False |
+| `totalnumber` | If enabled, will show the total number of pages.  | False |
+| `noprogressbar` | If enabled, will hide the progress bar.  | False |
+| `withnav` | If enabled, will show the navigation tool box.  | False |
+| `oldmathcal` | If enabled, will use the old Caligraphy style of the `\mathcal` command.  | False |
+| `sectionpathattop` | If enabled, will show the current section on the top of each page.  | False |
+| `subsectionsattop` | If enabled, will show the current subsection on the top of each page.  | False |
+| `hideothersubsections` | If enabled, will only show subsections of the current section in the side bar.  | False |
+| `hideallsubsections` | If enabled, will hide all subsections in the side bar.  | False |
+| `color` | The palette name of the whole theme, could be `Aramco`, `IEEE`, or 'default' (UHECE).  | `default` |
+
 ## Example
 
 | Example slides |
@@ -23,6 +45,16 @@ This template is adapted from [**Unofficial Beamer Theme for Uppsala University*
 | ![][ex-fig-3] |
 
 ## Update report
+
+### 1.1 @ 20211217
+
+1. Fix a fatal bug that causes the pdfLaTeX compilation to fail.
+
+2. Support different color themes, rename the built in colors.
+
+3. Adjust the box size in the thank page.
+
+4. Remove useless features (customized tcbset style.)
 
 ### 1.02 @ 20190225
 

@@ -3,6 +3,12 @@
 %%   Revised by Yuchen Jin (cainmagi)
 %%   Feb. 4, 2019
 %% ----------------
+%% Dec. 17, 2021
+%% - Fix a fatal bug that causes the pdfLaTeX compilation to fail.
+%% - Support different color themes, rename the built in colors.
+%% - Adjust the box size in the thank page.
+%% - Remove useless features (customized tcbset style.)
+%% Feb. 4, 2019
 %% - Adapted from the Uppsala Beamer theme example
 %% - Support both 4:3 and 16:9 modes
 %% - Remastered title page
@@ -41,6 +47,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ProvidesPackage{beamerthemeUH-Slides-ECE}[2019/02/04]
 
+\RequirePackage{ifthen}
 \RequirePackage{tikz,pgf}
 \usepgflibrary{arrows}
 \usepgflibrary{shapes}
@@ -101,6 +108,7 @@
 \newif\ifbeamer@mylogo
 \beamer@mylogofalse
 \DeclareOptionBeamer{mylogo}{\beamer@mylogotrue}
+\providecommand{\insertlogo}{uh_logo.eps}
 
 %% Options for the numbers
 \newif\ifbeamer@nonumbers
@@ -125,6 +133,10 @@
 \newif\ifbeamer@oldmathcal
 \beamer@oldmathcalfalse
 \DeclareOptionBeamer{oldmathcal}{\beamer@oldmathcaltrue}
+
+% Option for the color
+\providecommand{\beamer@UHECE@color}{default}  % Could be UHECE (default), Aramco, IEEE
+\DeclareOptionBeamer{color}{\renewcommand{\beamer@UHECE@color}{#1}}
 
 %% -------------------------------------------------------------------
 \ProcessOptionsBeamer
@@ -176,21 +188,51 @@
 %% Info taken from:
 %% http://info.uu.se/profil.nsf/sidor/farger.id41.html
 
-\definecolor{uured}{RGB}{153,0,0}
-\definecolor{uulightgrey}{RGB}{230,230,230}
-\definecolor{uumidgrey}{RGB}{190,190,190}
-\definecolor{uudarkgrey}{RGB}{50,50,50}
 
-\usecolortheme[RGB={153,0,0}]{structure}
+\definecolor{UHRed}{RGB}{200,16,46} %Kopparn som tydligen ska användas till typ allt 156,97,20
+\definecolor{UHBlue}{RGB}{0,0,128} %Den ganska mörka blåa färgen som LU har, anänds inte så mycket längre
+\definecolor{UHPink}{RGB}{233,196,199} %denna är någon sorts officiell rosa som man kan ha som accentfärg
+\definecolor{UHPink}{RGB}{173,202,184} %Fler officiella accentfärger
+\definecolor{UHLBlue}{RGB}{185,211,220}
+\definecolor{UHIvory}{RGB}{255,255,234}
+
+% Recommend to use this tool to solve the colors:
+% https://coolors.co/gradient-palette
+
+\ifthenelse{\equal{\beamer@UHECE@color}{Aramco}}{
+  % Aramco palette: Cyan and Green
+  \definecolor{UHMain}{HTML}{007EAC}
+  \definecolor{UHSecondary}{HTML}{2C9373}
+  \definecolor{UHTertiary}{HTML}{58A839}
+  \definecolor{UHQuaternary}{HTML}{84BD00}
+}{
+  \ifthenelse{\equal{\beamer@UHECE@color}{IEEE}}{
+    % IEEE palette: Navy and Blue
+    \definecolor{UHMain}{HTML}{14303E}
+    \definecolor{UHSecondary}{HTML}{0D425C}
+    \definecolor{UHTertiary}{HTML}{07547B}
+    \definecolor{UHQuaternary}{HTML}{006699}
+  }{
+    % UHECE (default): Crimson and DarkGrey
+    \definecolor{UHMain}{HTML}{C8102E}
+    \definecolor{UHSecondary}{HTML}{A1283D}
+    \definecolor{UHTertiary}{HTML}{7B404B}
+    \definecolor{UHQuaternary}{HTML}{54585A}
+  }
+}
+
+
+\colorlet{UHStructure}{UHMain!80!black}
+\usecolortheme[named=UHStructure]{structure}
 
 %% ------------------------------------------------------
 %% Inner theme colors
 %% ------------------------------------------------------
 \usecolortheme{orchid}
 
-\setbeamercolor*{title}{fg=uured,bg=white}
+\setbeamercolor*{title}{fg=UHMain,bg=white}
 
-\setbeamercolor{date in head/foot}{fg=white,bg=uured}
+\setbeamercolor{date in head/foot}{fg=white,bg=UHStructure}
 \setbeamercolor{page number in head/foot}{use=structure,fg=black,bg=white}
 \setbeamercolor{author in head/foot}{fg=black,bg=white}
 \setbeamercolor{institute in head/foot}{fg=black,bg=white}
@@ -207,18 +249,18 @@
 \setbeamercolor*{subsection in sidebar}{parent=section in sidebar}%use=sidebar,bg=white,fg=sidebar.bg}
 \setbeamercolor*{subsubsection in sidebar}{parent=subsection in sidebar}%use=sidebar,bg=white,fg=sidebar.bg}
 
-%\setbeamercolor*{title in head/foot}{bg=white,fg=uudarkgrey}
-\setbeamercolor*{section in head/foot}{bg=white,fg=uudarkgrey}
-\setbeamercolor*{subsection in head/foot}{bg=white,fg=uudarkgrey}
+%\setbeamercolor*{title in head/foot}{bg=white,fg=UHTertiary}
+\setbeamercolor*{section in head/foot}{bg=white,fg=UHTertiary}
+\setbeamercolor*{subsection in head/foot}{bg=white,fg=UHTertiary}
 
 \setbeamercolor*{block title alerted}{bg=black,fg=white}
 
 %% Background logo
-\setbeamercolor{logo}{bg=uured}
+\setbeamercolor{logo}{bg=UHStructure}
 
 %% Button
 \setbeamercolor{button}{fg=black,bg=yellow}
-\setbeamercolor{button border}{fg=black,bg=uured}
+\setbeamercolor{button border}{fg=black,bg=UHMain}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -271,13 +313,13 @@
     \hskip-\beamer@sidebarwidth%
     \hbox to \beamer@sidebarwidth{\hss\vbox to%
       \beamer@headheight{\vss\hbox{\color{fg}%
-          \ifbeamer@mylogo%
-          %% Should be the image file, not the include command
-          \pgfimage[width=\beamer@sidebarwidth,height=\beamer@headheight]{\insertlogo}%
-          \else%
-          \pgfimage[width=\beamer@sidebarwidth,height=\beamer@headheight]{uh_logo.eps}%uulogo_red160}%
-          \fi%
-        }\vss}\hss}%
+        \ifbeamer@mylogo%
+        %% Should be the image file, not the include command
+        \includegraphics[width=\beamer@sidebarwidth,height=\beamer@headheight]{\insertlogo}%
+        \else%
+        \includegraphics[width=\beamer@sidebarwidth,height=\beamer@headheight]{uh_logo.eps}%uulogo_red160}%
+        \fi%
+      }\vss}\hss}%
   \end{beamercolorbox}%
   \vskip-\beamer@headheight%
   \hskip\beamer@sidebarwidth%
@@ -329,9 +371,8 @@
 \advance\beamer@mytitleheight by-2ex%
 %% Strange way to code, but seems to work, so I keep the hack
 
-%% FIXME: Should not be there
 \setbeamercolor*{frametitle}{parent=title}
-%\setbeamercolor*{frametitle}{parent=title,fg=uured,bg=white}
+\setbeamercolor*{framesubtitle}{parent=frametitle,fg=UHSecondary}
 
 %% Redefining the frametitle
 \defbeamertemplate*{frametitle}{uu theme}
@@ -361,7 +402,7 @@
 
 %% Vertical shading
 %\setbeamertemplate{sidebar canvas left}[vertical shading] 
-%[top=uured,bottom=structure.bg]
+%[top=UHMain,bottom=structure.bg]
 
 \defbeamertemplate*{sidebar left}{uu theme}
 {%
@@ -445,11 +486,12 @@
 %% -------------------------------------------
 \newcommand{\titleframe}{
 \begingroup
+\setbeamertemplate{navigation symbols}{}%
 \makeatletter
 \setlength{\hoffset}{-\Gm@lmargin}
 \makeatother
 \begin{frame}[plain]
-    \titlepage
+  \titlepage
 \end{frame}
 \endgroup
 }
@@ -466,19 +508,19 @@
 		  \node[inner sep=0, anchor=south west, opacity=0.6] at (0, 0) {\giventitleimage};
 	  \end{scope}
   \fi
-  \node[anchor=south east, opacity=.0, text opacity=1.0, shape=rectangle,minimum height=1cm, align=left, fill=white, inner sep=.3cm, font=\Large\bfseries\color{uured}]
+  \node[anchor=south east, opacity=.0, text opacity=1.0, shape=rectangle,minimum height=1cm, align=left, fill=white, inner sep=.3cm, font=\Large\bfseries\color{UHStructure}]
     at (.9\paperwidth, .65\paperheight) (titlenode) {\inserttitle};
   \ifx\insertsubtitle\@empty%
     \begin{scope}
       \clip (0, 0) rectangle ($(\paperwidth,1\paperheight) - (-0.005\paperwidth, .15)$);
-      \draw[very thick, draw=uured] ($(titlenode.south east)-(.7\paperwidth,.12cm)$) -- ($(titlenode.south east)+(0,-.17cm)$);
+      \draw[very thick, draw=UHStructure] ($(titlenode.south east)-(.7\paperwidth,.12cm)$) -- ($(titlenode.south east)+(0,-.17cm)$);
     \end{scope}
     \node[anchor=north east, opacity=.0, text opacity=1.0, shape=rectangle,minimum height=.5cm, align=left, fill=white, inner xsep=.3cm, inner ysep=.1cm, font=\normalsize] at ($(titlenode.south east)-(0,.45cm)$) (authornode) {\insertauthor};
   \else%
-    \node[anchor=north east, opacity=.0, text opacity=1.0, shape=rectangle,minimum height=.5cm, align=left, fill=white, inner xsep=.3cm, inner ysep=.1cm, font=\normalsize\color{uured}] at ($(titlenode.south east)$) (subtitlenode) {\insertsubtitle};
+    \node[anchor=north east, opacity=.0, text opacity=1.0, shape=rectangle,minimum height=.5cm, align=left, fill=white, inner xsep=.3cm, inner ysep=.1cm, font=\normalsize\color{UHStructure}] at ($(titlenode.south east)$) (subtitlenode) {\insertsubtitle};
     \begin{scope}
       \clip (0, 0) rectangle ($(\paperwidth,1\paperheight) - (-0.005\paperwidth, .15)$);
-      \draw[very thick, draw=uured] ($(subtitlenode.south east)-(.7\paperwidth,.17cm)$) -- ($(subtitlenode.south east)+(0,-.17cm)$);
+      \draw[very thick, draw=UHStructure] ($(subtitlenode.south east)-(.7\paperwidth,.17cm)$) -- ($(subtitlenode.south east)+(0,-.17cm)$);
     \end{scope}
     \node[anchor=north east, opacity=.0, text opacity=1.0, shape=rectangle,minimum height=.5cm, align=left, fill=white, inner xsep=.3cm, inner ysep=.1cm, font=\normalsize] at ($(subtitlenode.south east)-(0,.45cm)$) (authornode) {\insertauthor};
   \fi%
@@ -494,35 +536,30 @@
 \newcommand{\thanksPage}{
 \begin{tikzpicture}
   \ifx\giventhanksimage\undefined
-	  \draw[fill=uured, draw=none] (0,0) rectangle ($(\paperwidth,\paperheight)$);
+	  \draw[fill=UHStructure, draw=none] (0,0) rectangle ($(\paperwidth,\paperheight)$);
   \else%
     \draw[fill=white, draw=none] (0,0) rectangle ($(\paperwidth,\paperheight)$);
     \begin{scope}
 		  \node[inner sep=0, anchor=south west, opacity=0.6] at (0, 0) {\giventhanksimage};
 	  \end{scope}
   \fi%
-  \node[anchor=south, opacity=.8, text opacity=1.0, shape=rectangle, minimum height=2cm, minimum width=.65\paperwidth, align=center, fill=white, inner sep=.5cm, font=\LARGE\bfseries\color{uured}]
-    at (.5\paperwidth, .5\paperheight) (thanksnode) {Thank you for Listening};
-  \node[anchor=north, opacity=.8, text opacity=1.0, shape=rectangle, minimum width=.65\paperwidth, minimum height=.5cm, align=left, fill=white, inner xsep=.5cm, inner ysep=.5cm, font=\large\color{uudarkgrey}] at ($(thanksnode.south)+(0,.03ex)$) (subthanksnode) {It's time for Q \& A};
+  \node[anchor=north, opacity=.8, text opacity=1.0, shape=rectangle, minimum height=3.25cm, minimum width=.65\paperwidth, align=center, fill=white, inner sep=.5cm, font=\LARGE\bfseries\color{UHMain}] at (.5\paperwidth, .5\paperheight+2cm) (thanksnode) {};
+  \node[anchor=north, text opacity=1.0, shape=rectangle, minimum height=2cm, minimum width=.65\paperwidth, align=center, inner sep=.5cm, font=\LARGE\bfseries\color{UHMain}] at ($(thanksnode.north)$) (thanksnodetext) {Thank you for Listening};
+  \node[anchor=south, text opacity=1.0, shape=rectangle, minimum width=.65\paperwidth, minimum height=1.25cm, align=left, inner xsep=.5cm, inner ysep=.5cm, font=\large\color{UHSecondary}] at ($(thanksnode.south)$) (thanksnodesubtext) {It's time for Q \& A};
   \begin{scope}
       \clip (0, 0) rectangle ($(\paperwidth,1\paperheight) - (-0.005\paperwidth, .15)$);
-      \draw[very thick, draw=uured] ($(thanksnode.south)-(.3\paperwidth,-.2cm)$) -- ($(thanksnode.south)+(.3\paperwidth,.2cm)$);
+      \draw[very thick, draw=UHMain] ($(thanksnodetext.south)-(.3\paperwidth,-.2cm)$) -- ($(thanksnodetext.south)+(.3\paperwidth,.2cm)$);
   \end{scope}
   \begin{scope}
-      \clip (0, 0) rectangle ($(\paperwidth,1\paperheight) - (-0.005\paperwidth, .15)$);
-      \draw[very thick, draw=white] ($(subthanksnode.south east)-(.4\paperwidth,.2cm)$) -- ($(subthanksnode.south east)+(.2cm,-.2cm)$);
-      \draw[very thick, draw=white] ($(subthanksnode.south east)+(.2cm,-.2cm)$) -- ($(subthanksnode.south east)+(.2cm,2cm)$);
-  \end{scope}
-  \begin{scope}
-      \clip (0, 0) rectangle ($(\paperwidth,1\paperheight) - (-0.005\paperwidth, .15)$);
-      \draw[very thick, draw=white] ($(thanksnode.north west)-(.2cm,-.2cm)$) -- ($(thanksnode.north west)+(.4\paperwidth,.2cm)$);
-      \draw[very thick, draw=white] ($(thanksnode.north west)-(.2cm,-.2cm)$) -- ($(thanksnode.north west)-(.2cm,2cm)$);
+    \draw[very thick, draw=white, opacity=0.8] ($(thanksnode.south east)-(.4\paperwidth,.2cm)$) -- ($(thanksnode.south east)+(.2cm,-.2cm)$) -- ($(thanksnode.south east)+(.2cm,2cm)$);
+    \draw[very thick, draw=white, opacity=0.8] ($(thanksnode.north west)-(.2cm,2cm)$) -- ($(thanksnode.north west)-(.2cm,-.2cm)$) -- ($(thanksnode.north west)+(.4\paperwidth,.2cm)$);
   \end{scope}
 \end{tikzpicture}
 }
 
 \newcommand{\ThankYouFrame}{
 \begingroup
+\setbeamertemplate{navigation symbols}{}%
 \makeatletter
 \setlength{\hoffset}{-\Gm@lmargin}
 \makeatother
@@ -699,16 +736,6 @@
 
 \newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
 
-\tcbset{tab1/.style={fonttitle=\bfseries\large,fontupper=\normalsize\sffamily,
-    colback=yellow!10!white,colframe=red!75!black,colbacktitle=Salmon!40!white,
-    coltitle=black,center title,freelance,frame code={
-      \foreach \n in {north east,north west,south east,south west}
-      {\path [fill=red!75!black] (interior.\n) circle (3mm); };},}}
-
-\tcbset{tab2/.style={enhanced,fonttitle=\bfseries,fontupper=\normalsize\sffamily\scriptsize,
-    colback=yellow!10!white,colframe=red!50!black,colbacktitle=Salmon!40!white,
-    coltitle=black,center title}}
-    
 \RequirePackage{algorithm}
 \RequirePackage{algorithmic}
 \RequirePackage{float}
@@ -729,4 +756,4 @@
   \DeclareSymbolFont{cmsymbols}{OMS}{cmsy}{m}{n}
   \SetSymbolFont{cmsymbols}{bold}{OMS}{cmsy}{b}{n}
   \DeclareSymbolFontAlphabet{\mathcal}{cmsymbols}
-\fi 
+\fi
