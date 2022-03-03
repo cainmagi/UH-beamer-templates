@@ -36,23 +36,27 @@
 % \setbeamercolor{normal text}{fg=black!75,bg=gray!5}
 
 % Change the block title colors
-% \setbeamercolor{block title}{use=Feather, bg=Feather.bg!20!black, fg=Feather.fg} 
+% \setbeamercolor{block title}{use=SPWLA, bg=SPWLA.bg!20!black, fg=SPWLA.fg} 
 
 %-------------------------------------------------------
 % IMAGE FILES
 %-------------------------------------------------------
 
 % Change the logo in the upper right elipses:
-%\renewcommand{\logofile}{example-grid-164x100pt} 
+% \setProgLogo{example-grid-164x100pt} 
 %% This is an image that comes with the LaTeX installation
 % Adjust scale of the logo w.r.t. the circle; default is 0.875
-% \renewcommand{\logoscale}{0.55}
+% \setProgLogo[0.55]{example-grid-164x100pt}
+
+% optional, set the first logo on the title page.
+% \setTitleLogo{SPWLAGraphics/SPWLA}
 
 % optional, add the second logo to the title page.
 \setLogo{SPWLAGraphics/uhlogo}
 
 % optional, add the background image to the final page.
-\setFinalImage{SPWLAGraphics/cullen}
+\setFinalImage[SPWLAGraphics/cullen-43]{SPWLAGraphics/cullen}
+% the optional argument will be used in 4:3 mode.
 
 %-------------------------------------------------------
 % INCLUDE PACKAGES
@@ -85,9 +89,9 @@
 }
 
 % subtitle is optional.
-%\subtitle[v. 1.1.0]
+%\subtitle[v. 1.0.5]
 %{
-%\textbf{v. 1.1.0}
+%\textbf{v. 1.0.5}
 %}
 
 % author is required. Use \texorpdfstring to configure hyperref correctly.
@@ -241,7 +245,7 @@ More required packages for advanced utilities:
     \small
     The SPWLA Theme can be loaded in a familiar way. In the reamble of your {\tt tex} file you must type\\
     {\tt \textbackslash usetheme[<options>]\{SPWLA\}}\\
-    The presentation theme loads the inner, outer and color Feather theme files and passes the {\tt <options>} on to these files.
+    The presentation theme loads the inner, outer and color SPWLA theme files and passes the {\tt <options>} on to these files.
   \end{block}
   \begin{block}{The Inner and Outher Themes}
     \small

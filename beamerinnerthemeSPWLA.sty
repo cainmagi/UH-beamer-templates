@@ -26,7 +26,7 @@
 %----------------------------------------------------------------------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerinnerthemeSPWLA}[2022/03/02 v1.0.0 The SPWLA 2022 Theme]
+\ProvidesPackage{beamerinnerthemeSPWLA}[2022/03/03 v1.0.5 The SPWLA 2022 Theme]
 
 \RequirePackage{ifthen}
 \RequirePackage[overload]{textcase}
@@ -44,6 +44,7 @@
 \providecommand{\beamer@SPWLA@optionallogo}{}
 \providecommand{\beamer@SPWLA@giventitleimage}{\includegraphics[width=\paperwidth,height=\paperheight]{SPWLAGraphics/title-43}}
 \providecommand{\beamer@SPWLA@givenfinalimage}{}
+\providecommand{\beamer@SPWLA@givenfinalimagecrop}{}
 \ifthenelse{\lengthtest{\beamer@paperwidth > 15.9cm}}{
   \renewcommand{\beamer@SPWLA@giventitleimage}{\includegraphics[width=\paperwidth,height=\paperheight]{SPWLAGraphics/title-169}}
 }{}
@@ -56,11 +57,19 @@
     \renewcommand{\beamer@SPWLA@optionallogo}{\includegraphics[height=0.8in]{#1}}
   }
 }
-\providecommand{\setFinalImage}[1]{%
-  \ifthenelse{\equal{#1}{}}{
+\providecommand{\setTitleLogo}[1]{%
+  \renewcommand{\beamer@SPWLA@spwlalogo}{\includegraphics[height=0.8in]{#1}}
+}
+\providecommand{\setFinalImage}[2][]{%
+  \ifthenelse{\equal{#2}{}}{
     \renewcommand{\beamer@SPWLA@givenfinalimage}{}
   }{
-    \renewcommand{\beamer@SPWLA@givenfinalimage}{\includegraphics[width=\paperwidth,height=\paperheight]{#1}}
+	\ifthenelse{\equal{#1}{}}{
+      \renewcommand{\beamer@SPWLA@givenfinalimagecrop}{\includegraphics[width=\paperwidth,height=\paperheight]{#2}}
+    }{
+      \renewcommand{\beamer@SPWLA@givenfinalimagecrop}{\includegraphics[width=\paperwidth,height=\paperheight]{#1}}
+    }
+    \renewcommand{\beamer@SPWLA@givenfinalimage}{\includegraphics[width=\paperwidth,height=\paperheight]{#2}}
   }
 }
 
@@ -81,8 +90,6 @@
   \setbeamerfont{framesubtitle}{size=\normalsize}
   \setbeamerfont{author}{family=\sffamily, size=\normalsize}
   \setbeamerfont{date}{family=\sffamily, size=\footnotesize}
-  %% LLT: make title background image configurable
-  \newcommand{\backgroundfile}{SPWLAGraphics/1}
 
   % title page
   \setbeamertemplate{title page}{
@@ -172,7 +179,11 @@
       }{
         \begin{scope}[on background layer]
           \clip (0, 0) rectangle ($(\paperwidth,\paperheight)$);
-          \node[inner sep=0, anchor=south west] at (0,0) {\beamer@SPWLA@givenfinalimage};
+		  \ifthenelse{\lengthtest{\beamer@paperwidth > 15.9cm}}{
+			\node[inner sep=0, anchor=south west] at (0,0) {\beamer@SPWLA@givenfinalimage};
+		  }{
+			\node[inner sep=0, anchor=south west] at (0,0) {\beamer@SPWLA@givenfinalimagecrop};
+		  }
           \draw[fill=white, draw=none, opacity=0.7] (0,0) rectangle ($(\paperwidth,\paperheight)$);
         \end{scope}
       }

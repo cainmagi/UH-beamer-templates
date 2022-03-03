@@ -24,7 +24,7 @@
 % You can find the GNU General Public License at <http://www.gnu.org/licenses/>.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerouterthemeSPWLA}[2022/03/02 v1.0.0 The SPWLA 2022 Theme]
+\ProvidesPackage{beamerouterthemeSPWLA}[2022/03/03 v1.0.5 The SPWLA 2022 Theme]
 
 % load required packages
 \RequirePackage{tikz}
@@ -34,9 +34,13 @@
 \usetikzlibrary{calc,shadows}
 \tcbuselibrary{skins,hooks}
 
-%% LLT: Added \logofile to make logo configurable
-\providecommand{\logofile}{SPWLAGraphics/SPWLA}
-\providecommand{\logoscale}{0.875}
+%% Use \setProgLogo to make logo configurable
+\providecommand{\beamer@SPWLA@proglogofile}{SPWLAGraphics/SPWLA}
+\providecommand{\beamer@SPWLA@proglogoscale}{0.875}
+\providecommand{\setProgLogo}[2][0.875]{
+  \renewcommand{\beamer@SPWLA@proglogofile}{#2}
+  \renewcommand{\beamer@SPWLA@proglogoscale}{#1}
+}
 
 %% LLT: Added unnumberedframe to keep track of
 %% frames to be ignored for progressbar
@@ -267,8 +271,8 @@
       \fill[fill=normal text.bg] (logopos) ellipse [x radius=1.64\beamer@logoinnerradius, y radius=\beamer@logoinnerradius];
 
       %% place the logo in the circle
-      %% LLT: use customisable \logofile
-      \node at (logopos) {\includegraphics[width=\dimexpr \logoscale \beamer@logoradius * 3\relax]{\logofile}};
+      %% LLT: use customisable \beamer@SPWLA@proglogofile
+      \node at (logopos) {\includegraphics[width=\dimexpr \beamer@SPWLA@proglogoscale \beamer@logoradius * 3\relax]{\beamer@SPWLA@proglogofile}};
 
       %% draw progress circle/bar
       \ifx\beamer@progressstyle\beamer@progressmovingCircCnt% the circular counter with a moving counter
@@ -348,8 +352,8 @@
       \fill[fill=normal text.bg] (logopos) ellipse [x radius=1.64\beamer@logoinnerradius, y radius=\beamer@logoinnerradius];
 
       %% place the logo in the circle
-      %% LLT: use customisable \logofile
-      \node at (logopos) {\includegraphics[width=\dimexpr \logoscale \beamer@logoradius * 3\relax]{\logofile}};
+      %% LLT: use customisable \beamer@SPWLA@proglogofile
+      \node at (logopos) {\includegraphics[width=\dimexpr \beamer@SPWLA@proglogoscale \beamer@logoradius * 3\relax]{\beamer@SPWLA@proglogofile}};
 
       %% draw progress circle/bar
       \ifx\beamer@progressstyle\beamer@progressmovingCircCnt% the circular counter with a moving counter

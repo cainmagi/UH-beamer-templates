@@ -37,10 +37,6 @@ We list all avaliable options here. The deault state means whether a option is e
 Here we show examples for changing the color of each element:
 
 ```tex
-%-------------------------------------------------------
-% INDIVIDUAL COLORS
-%-------------------------------------------------------
-
 % The elements of the template can be changed individually. Note that you may
 % need to use different colors in beamer / handout mode, when using the following
 % methods:
@@ -58,28 +54,32 @@ Here we show examples for changing the color of each element:
 \setbeamercolor{normal text}{fg=black!75,bg=gray!5}
 
 % Change the block title colors
-\setbeamercolor{block title}{use=Feather, bg=Feather.bg!20!black, fg=Feather.fg} 
+\setbeamercolor{block title}{use=SPWLA, bg=SPWLA.bg!20!black, fg=SPWLA.fg} 
 ```
 
 ### Change the default logo
 
 ```tex
-% Change the logo in the upper right elipses (progress bar):
-\renewcommand{\logofile}{example-grid-164x100pt} 
+% Change the logo in the upper right elipses:
+% \setProgLogo{example-grid-164x100pt} 
 % This is an image that comes with the LaTeX installation
 
 % Adjust scale of the logo w.r.t. the circle; default is 0.875
-\renewcommand{\logoscale}{0.55}
+% \setProgLogo[0.55]{example-grid-164x100pt}
+
+% optional, set the first logo on the title page.
+% \setTitleLogo{SPWLAGraphics/uhlogo}
+
+% optional, add the second logo to the title page.
+\setLogo{SPWLAGraphics/uhlogo}
 ```
 
 ### Change images
 
 ```tex
-% optional, add the second logo to the title page.
-\setLogo{SPWLAGraphics/uhlogo}
-
 % optional, add the background image to the final page.
-\setFinalImage{SPWLAGraphics/cullen}
+\setFinalImage[SPWLAGraphics/cullen-43]{SPWLAGraphics/cullen}
+% the optional argument will be used in 4:3 mode.
 ```
 
 ## Example
@@ -107,6 +107,12 @@ Here we show examples for changing the color of each element:
 | color=`navy`    | ![][ex-ex2-n-bm] | ![][ex-ex2-n-ho] |
 
 ## Update report
+
+### 1.0.5 @ 03/03/2022
+
+1. Provide `\setTitleLogo` and `\setProgLogo`.
+2. Let `\setFinalImage` accept an optional argument for 4:3 mode.
+3. Correct some typos.
 
 ### 1.0 @ 03/02/2022
 
