@@ -1,9 +1,3 @@
-## Remove all unwanted files in the master branch.
-.tex
-.pdf
-.cls
-.sty
-
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

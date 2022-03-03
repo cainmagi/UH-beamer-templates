@@ -1,0 +1,237 @@
+% This is the inner theme file of the SPWLA 2022 theme.
+%%
+%% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+%%
+%% An unofficial template for SPWLA 2022. The style has been adjusted
+%% according to the official PPT version.
+%% This template is modified from Feather theme. The Feather theme
+%% has been moved to handout mode.
+%% -----------------------------
+% Feather theme Copyright info:
+%
+% Copyright (c) 2014 by Lilyana Vaskova Vankova <lilqna.v@gmail.com>
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You can find the GNU General Public License at <http://www.gnu.org/licenses/>.
+
+%----------------------------------------------------------------------------------------------------------------------------------
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerinnerthemeSPWLA}[2022/03/02 v1.0.0 The SPWLA 2022 Theme]
+
+\RequirePackage{ifthen}
+\RequirePackage[overload]{textcase}
+\RequirePackage{tikz}
+\usetikzlibrary{shadows.blur}
+\usetikzlibrary{backgrounds}
+
+
+% -----------------------------------------
+% Theme options, definitions and templates.
+% -----------------------------------------
+
+% Define the default images.
+\providecommand{\beamer@SPWLA@spwlalogo}{\includegraphics[height=0.8in]{SPWLAGraphics/SPWLA-black}}
+\providecommand{\beamer@SPWLA@optionallogo}{}
+\providecommand{\beamer@SPWLA@giventitleimage}{\includegraphics[width=\paperwidth,height=\paperheight]{SPWLAGraphics/title-43}}
+\providecommand{\beamer@SPWLA@givenfinalimage}{}
+\ifthenelse{\lengthtest{\beamer@paperwidth > 15.9cm}}{
+  \renewcommand{\beamer@SPWLA@giventitleimage}{\includegraphics[width=\paperwidth,height=\paperheight]{SPWLAGraphics/title-169}}
+}{}
+
+% Provide options for changing images.
+\providecommand{\setLogo}[1]{%
+  \ifthenelse{\equal{#1}{}}{
+    \renewcommand{\beamer@SPWLA@optionallogo}{}
+  }{
+    \renewcommand{\beamer@SPWLA@optionallogo}{\includegraphics[height=0.8in]{#1}}
+  }
+}
+\providecommand{\setFinalImage}[1]{%
+  \ifthenelse{\equal{#1}{}}{
+    \renewcommand{\beamer@SPWLA@givenfinalimage}{}
+  }{
+    \renewcommand{\beamer@SPWLA@givenfinalimage}{\includegraphics[width=\paperwidth,height=\paperheight]{#1}}
+  }
+}
+
+% Provide commands for configuring more information.
+\providecommand{\beamer@SPWLA@meeting}{2022 spring topical conference\\petrophysical machine learning}
+\providecommand{\meeting}[1]{%
+  \renewcommand{\beamer@SPWLA@meeting}{#1}
+}
+
+% beamer specific options
+\mode<presentation> %refers to the first four modes (beamer,handout,second and trans). That is, to all modes except the article mode
+{
+  %% definitions for fonts of the different elements
+  \setbeamerfont{institute}{family=\sffamily, size=\normalsize}
+  \setbeamerfont{title}{family=\sffamily, size=\Large}
+  \setbeamerfont{subtitle}{family=\sffamily, size=\large}
+  \setbeamerfont{frametitle}{size=\Large}
+  \setbeamerfont{framesubtitle}{size=\normalsize}
+  \setbeamerfont{author}{family=\sffamily, size=\normalsize}
+  \setbeamerfont{date}{family=\sffamily, size=\footnotesize}
+  %% LLT: make title background image configurable
+  \newcommand{\backgroundfile}{SPWLAGraphics/1}
+
+  % title page
+  \setbeamertemplate{title page}{
+    \begin{tikzpicture}%[overlay]
+      \usebeamercolor{SPWLA}
+      \usebeamercolor{title body}
+
+      \begin{scope}[on background layer]
+        \clip (0, 0) rectangle ($(\paperwidth, \paperheight)$);
+        \node[inner sep=0, anchor=south west] at (0, 0) {\beamer@SPWLA@giventitleimage};
+      \end{scope}
+
+      \renewcommand{\baselinestretch}{.9} %reduce line spacing
+
+      %draw subtitle if there is one
+      \begin{scope}
+        \node[anchor=north west, align=left, minimum height=2.4cm, minimum width=0.3\paperwidth] at (.1\paperwidth, .67\paperheight) (titlebox) {
+          \begin{tikzpicture}
+            \usebeamerfont{title} %set font to title font
+            \node[anchor=south, minimum height=1cm, align=center, inner xsep=.4cm, inner ysep=.2cm, color=SPWLA.fg] (titlenode) {\inserttitle};
+            \ifx\insertsubtitle\@empty
+              \usebeamerfont{author}
+              \node[anchor=north west, minimum height=.5cm, minimum width=1ex, align=left, inner xsep=.4cm, inner ysep=.1cm, color=title body.fg] at ($(titlenode.south west)+(0,.01ex)$) (authornode) {\par\noindent\insertauthor};
+            \else
+              \usebeamerfont{subtitle}
+              \node[anchor=north west, minimum height=.5cm, minimum width=1ex, align=left, inner xsep=.4cm, inner ysep=.1cm, color=title body.fg] at ($(titlenode.south west)+(0,.01ex)$) (subtitlenode) {\insertsubtitle};
+              \usebeamerfont{author}
+              \node[anchor=north west, minimum height=.5cm, minimum width=1ex, align=left, inner xsep=.4cm, inner ysep=.1cm, color=title body.fg] at ($(subtitlenode.south west)+(0,.01ex)$) (authornode) {\par\noindent\insertauthor};
+            \fi
+            \usebeamerfont{institute}
+            \node[anchor=north west, minimum height=.5cm, minimum width=1ex, align=left, inner xsep=.4cm, inner ysep=.1cm, color=title body.fg] at ($(authornode.south west)+(0,.01ex)$) (instnode) {\par\noindent\insertinstitute};
+            \begin{scope}
+              \draw[very thick, draw=SPWLA.fg!80!white] ($(titlenode.south west)+(0.3cm,0.1cm)$) -- ($(titlenode.south east)+(-0.3cm,0.1cm)$);
+              \ifx\insertsubtitle\@empty
+                \draw[very thick, draw=SPWLA.fg!80!white] ($(titlenode.south)-0.5*(authornode.south east)+0.5*(authornode.south west)+(0.3cm,0.1cm)$) -- ($(titlenode.south)+0.5*(authornode.south east)-0.5*(authornode.south west)+(-0.3cm,0.1cm)$);
+              \else
+                \draw[very thick, draw=SPWLA.fg!80!white] ($(titlenode.south)-0.5*(subtitlenode.south east)+0.5*(subtitlenode.south west)+(0.3cm,0.1cm)$) -- ($(titlenode.south)+0.5*(subtitlenode.south east)-0.5*(subtitlenode.south west)+(-0.3cm,0.1cm)$);
+              \fi
+            \end{scope}
+          \end{tikzpicture}
+        };
+      \end{scope}
+
+      % add meeting info text.
+      \begin{scope}
+        \node[anchor=south west, align=left, minimum height=1.2cm, minimum width=1ex] at ($(titlebox.north west)+(0, 0.5cm)$) (infobox) {
+          \begin{tikzpicture}
+            \usebeamerfont{institute} %set font to information
+            \node[anchor=south west, minimum height=1cm, minimum width=1ex, align=left, inner xsep=.4cm, inner ysep=.2cm, color=SPWLA.fg] (infonode) {\MakeTextUppercase \beamer@SPWLA@meeting};
+          \end{tikzpicture}
+        };
+      \end{scope}
+
+      % draw background box
+      \begin{scope}[on background layer]
+        % draw background box for the title
+        \path let \p1=(titlebox.north east),\p2=(infobox.north east) in coordinate (recaltitlebox) at ({max(\x1,\x2)}, \y1);
+        \draw[fill=title body.bg, draw=none, opacity=0.8, blur shadow={shadow blur steps=5}] ($(titlebox.south west)+(-2pt,-3pt)$) rectangle ($(recaltitlebox)+(2pt,2pt)$);
+        \draw[thin, draw=title body.fg] ($(titlebox.south west)+(1pt,0)$) rectangle ($(titlebox.north east)+(-1pt,-1pt)$);
+
+        % draw background box for the meeting info
+        \path let \p1=(titlebox.north east),\p2=(infobox.north east) in coordinate (recalinfobox) at ({max(\x1,\x2)}, \y2);
+        \draw[fill=SPWLA.bg, draw=none, opacity=1.0, blur shadow={shadow blur steps=5}] ($(infobox.south west)+(-1pt,-1pt)$) rectangle ($(recalinfobox)+(1pt,1pt)$);
+      \end{scope}
+
+      % draw logos
+      \ifthenelse{\equal{\beamer@SPWLA@optionallogo}{}}{
+        \node[anchor=south east] at ($(\paperwidth,0.5\paperheight) + (-0.5cm, 0.5cm)$) {\beamer@SPWLA@spwlalogo};
+      }{
+        \node[anchor=south east] at ($(\paperwidth,0.5\paperheight) + (-0.5cm, 0.7cm)$) {\beamer@SPWLA@spwlalogo};
+        \node[anchor=north east] at ($(\paperwidth,0.5\paperheight) + (-0.5cm, 0.6cm)$) {\beamer@SPWLA@optionallogo};
+      }
+    \end{tikzpicture}
+  }
+
+  % final page
+  \defbeamertemplate{final page}{text}[1]
+  {
+    \begin{tikzpicture}
+      \usebeamercolor{SPWLA}
+      \usebeamercolor{title body}
+
+      \ifthenelse{\equal{\beamer@SPWLA@givenfinalimage}{}}{
+        \begin{scope}[on background layer]
+          \draw[fill=SPWLA.fg, draw=none] (0,0) rectangle ($(\paperwidth,\paperheight)$);
+        \end{scope}
+      }{
+        \begin{scope}[on background layer]
+          \clip (0, 0) rectangle ($(\paperwidth,\paperheight)$);
+          \node[inner sep=0, anchor=south west] at (0,0) {\beamer@SPWLA@givenfinalimage};
+          \draw[fill=white, draw=none, opacity=0.7] (0,0) rectangle ($(\paperwidth,\paperheight)$);
+        \end{scope}
+      }
+
+      \renewcommand{\baselinestretch}{.9}
+
+      \begin{scope}
+        \node[anchor=center] at (0.5\paperwidth, .5\paperheight) (thankbox) {
+          \begin{tikzpicture}
+            %draw thank text.
+            \usebeamerfont{title}
+            \node[minimum height=1cm, color=SPWLA.fg, align=left, font=\LARGE\bfseries\sffamily, inner ysep=.2cm, inner xsep=.3cm] (thanksnode) {Thank you for listening!}; 
+
+            %draw sub thank text.
+            \usebeamerfont{subtitle}   
+            \node[align=left, anchor=text, inner xsep=.3cm, font=\normalsize, color=title body.fg] at ($(thanksnode.text)+(0,-.6cm)$)
+            {#1};
+
+            %draw the line to the edge of the page
+            \begin{scope}
+              \draw[very thick, draw=SPWLA.fg] ($(thanksnode.text)+(0,-.17cm)$) -- ($(thanksnode.text)+(thanksnode.east)-(thanksnode.west)+(-0.6cm,-.17cm)$);
+            \end{scope}
+          \end{tikzpicture}
+        };
+      \end{scope}
+
+      \begin{scope}[on background layer]
+        \draw[fill=SPWLA.bg, draw=none, opacity=1.0, blur shadow={shadow blur steps=5}] 
+        ($(thankbox.south west)+(-2pt,-2pt)$) rectangle ($(thankbox.north east)+(2pt,2pt)$);
+        \draw[thin, draw=title body.fg] ($(thankbox.south west)+(1pt,1pt)$) rectangle ($(thankbox.north east)+(-1pt,-1pt)$);
+      \end{scope}
+    \end{tikzpicture}
+  }
+
+  % use numbers instead of a picture for the references
+  \setbeamertemplate{bibliography item}[text]
+}
+
+\providecommand{\titleframe}{
+  \begingroup
+  \makeatletter
+  \setlength{\hoffset}{-\Gm@lmargin}
+  \makeatother
+  \begin{frame}[plain,noframenumbering]
+    \titlepage
+  \end{frame}
+  \endgroup
+}
+
+\providecommand{\finalframe}[1][It's time for Q\&A.]{
+  \begingroup
+  \makeatletter
+  \setlength{\hoffset}{-\Gm@lmargin}
+  \makeatother
+  \setbeamertemplate{final page}[text]{#1}
+  \begin{frame}[plain,noframenumbering]
+    \usebeamertemplate{final page}
+  \end{frame}
+  \endgroup
+}
+
+\mode<all>

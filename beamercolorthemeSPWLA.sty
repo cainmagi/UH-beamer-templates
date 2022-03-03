@@ -1,0 +1,97 @@
+% This is the color theme file of the SPWLA 2022 theme.
+%%
+%% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+%%
+%% An unofficial template for SPWLA 2022. The style has been adjusted
+%% according to the official PPT version.
+%% This template is modified from Feather theme. The Feather theme
+%% has been moved to handout mode.
+%% -----------------------------
+% Feather theme Copyright info:
+%
+% Copyright (c) 2014 by Lilyana Vaskova Vankova <lilqna.v@gmail.com>
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You can find the GNU General Public License at <http://www.gnu.org/licenses/>.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemeSPWLA}[2022/03/02 v1.0.0 The SPWLA 2022 Theme]
+
+\RequirePackage{ifthen}
+
+%------------------------------------------
+% Theme options, definitions and templates.
+%------------------------------------------
+\def\beamer@SPWLA@palette{default}  % Could be feather, navy, UHECE, default (SPWLA)
+\DeclareOptionBeamer{color}{\def\beamer@SPWLA@palette{#1}}    
+\ProcessOptionsBeamer
+
+\def\testmacro{\beamer@SPWLA@palette}
+
+%-------------------------
+% beamer specific options.
+%--------------------------
+\mode<presentation>
+{
+  %refers to the first four modes (beamer,handout,second and trans). That is, to all modes except the article mode
+
+  %% defining colors 
+  \definecolor{beamer@barcolor}{RGB}{194,193,204} % Feather gray
+  \ifthenelse{\equal{\beamer@SPWLA@palette}{UHECE}}{
+    % UHECE palette: Red
+    \definecolor{beamer@normaltextcolor}{HTML}{6E5454} % text
+    \definecolor{beamer@headercolor}{HTML}{C8102E} % theme
+    \setbeamercolor{SPWLA}{fg=beamer@headercolor!20, bg=beamer@headercolor}
+  }{
+    \ifthenelse{\equal{\beamer@SPWLA@palette}{navy}}{
+      % navy palette: DarkBlue
+      \definecolor{beamer@normaltextcolor}{HTML}{505669} % text
+      \definecolor{beamer@headercolor}{HTML}{006EB8} % theme
+      \setbeamercolor{SPWLA}{fg=beamer@headercolor!20, bg=beamer@headercolor}
+    }{
+      \ifthenelse{\equal{\beamer@SPWLA@palette}{dark}}{
+        % dark palette: Grimy grey
+        \definecolor{beamer@normaltextcolor}{HTML}{222222} % text
+        \definecolor{beamer@headercolor}{HTML}{515151} % theme
+        \setbeamercolor{SPWLA}{fg=beamer@headercolor!20, bg=beamer@headercolor}
+      }{
+        \ifthenelse{\equal{\beamer@SPWLA@palette}{feather}}{
+          % feather palette: Forest green
+          \definecolor{beamer@normaltextcolor}{HTML}{54616E} % text
+          \definecolor{beamer@headercolor}{HTML}{00698A} % theme
+          \setbeamercolor{SPWLA}{fg=beamer@headercolor!20, bg=beamer@headercolor}
+        }{
+          % SPWLA (default): 
+          \definecolor{beamer@normaltextcolor}{HTML}{6E6154} % text
+          \definecolor{beamer@headercolor}{HTML}{DD8047} % theme
+          \definecolor{beamer@headercolor2}{HTML}{F7E2D5} % theme
+          \setbeamercolor{SPWLA}{fg=beamer@headercolor2, bg=beamer@headercolor}
+        }
+      }
+    }
+  }
+
+  %% setting the above deffinitions
+  \setbeamercolor{structure}{fg=beamer@headercolor}
+  \setbeamercolor{normal text}{fg=beamer@normaltextcolor}  
+  \setbeamercolor{frametitle}{use=SPWLA, fg=SPWLA.fg, bg=SPWLA.bg}
+  \setbeamercolor{block title}{use=SPWLA, bg=SPWLA.fg, fg=SPWLA.bg!80!black}
+  \setbeamercolor{title body}{use=SPWLA, fg=white, bg=black!80!white}
+}
+
+\mode<beamer>
+{
+  \setbeamercolor{block title}{use=SPWLA, bg=black!80!white, fg=SPWLA.fg!80!white}
+  \setbeamercolor{block body}{fg=white}
+}
+
+\mode<all>

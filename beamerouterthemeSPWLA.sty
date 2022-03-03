@@ -1,0 +1,395 @@
+% This is the outer theme file of the SPWLA 2022 theme.
+%%
+%% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+%%
+%% An unofficial template for SPWLA 2022. The style has been adjusted
+%% according to the official PPT version.
+%% This template is modified from Feather theme. The Feather theme
+%% has been moved to handout mode.
+%% -----------------------------
+% Feather theme Copyright info:
+%
+% Copyright (c) 2014 by Lilyana Vaskova Vankova <lilqna.v@gmail.com>
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You can find the GNU General Public License at <http://www.gnu.org/licenses/>.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerouterthemeSPWLA}[2022/03/02 v1.0.0 The SPWLA 2022 Theme]
+
+% load required packages
+\RequirePackage{tikz}
+\RequirePackage{calc}
+\RequirePackage{tcolorbox}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{calc,shadows}
+\tcbuselibrary{skins,hooks}
+
+%% LLT: Added \logofile to make logo configurable
+\providecommand{\logofile}{SPWLAGraphics/SPWLA}
+\providecommand{\logoscale}{0.875}
+
+%% LLT: Added unnumberedframe to keep track of
+%% frames to be ignored for progressbar
+\newcounter{unnumberedframe}
+\define@key{beamerframe}{noframenumbering}[true]{\stepcounter{unnumberedframe}\beamer@noframenumberingtrue}
+
+
+%------------------------------------------
+% Theme options, definitions and templates.
+%------------------------------------------
+
+% options for the progress bar/circle
+\def\beamer@progressmovingCircCnt{movingCircCnt} % moving circular counter
+\def\beamer@progressfixedCircCnt{fixedCircCnt} % fixed circular counter
+\def\beamer@progresscorner{corner} % a counter
+\def\beamer@progressstyle{movingCircCnt} % default
+\DeclareOptionBeamer{progressstyle}{\def\beamer@progressstyle{#1}}
+\DeclareOptionBeamer{rotationcw}{\def\beamer@rotationcw{true}}
+\DeclareOptionBeamer{shownavsym}{\def\beamer@shownavsym{true}}
+\ProcessOptionsBeamer
+
+% the height of the header is 2.5 times the lineheight of the frame title
+\newlength{\beamer@height}
+\usebeamerfont{frametitle} %use the frame title font
+\setlength{\beamer@height}{2.5\baselineskip}
+
+% reset fonts
+\reset@font
+
+% radius of the logo
+\newlength{\beamer@logoradius}
+\setlength{\beamer@logoradius}{0.95\beamer@height/2}
+
+% width of the border
+\newlength{\beamer@borderwidth}
+\setlength{\beamer@borderwidth}{1.05mm}  % as small is the thickness of the border the whole circle goes up
+
+% inner radius of border of the logo frame
+\newlength{\beamer@logoinnerradius}
+\setlength{\beamer@logoinnerradius}{0.85\beamer@logoradius} 
+
+% radius of the outer border of the logo frame
+\newlength{\beamer@logoouterradius}
+\setlength{\beamer@logoouterradius}{\beamer@logoinnerradius+\beamer@borderwidth}
+
+% radius of the counters
+\newlength{\beamer@counterradius}
+\setlength{\beamer@counterradius}{\beamer@logoinnerradius/2+\beamer@logoouterradius/2}
+
+
+%-------------------------
+% beamer specific options.
+%--------------------------
+\mode<presentation>
+{
+  % refers to the first four modes (beamer,handout,second and trans). That is, to all modes except the article mode
+
+  \ifbeamercolorempty[fg]{SPWLA}
+  {
+    \setbeamercolor{SPWLA}{use={structure,palette sidebar primary},fg=palette sidebar primary.fg,bg=structure.fg}
+  }{}
+
+  \setbeamertemplate{headline} % headline
+  {
+    \featherheaderbackground
+  }
+
+  \setbeamertemplate{footline} % footline  
+  {
+    \vspace{0.5em}
+    \begin{beamercolorbox}[wd=1.0\paperwidth,ht=1.25ex,dp=1ex,left]{headfoot}
+    {
+      \usebeamercolor[fg]{frametitle}
+      \usebeamerfont{section in head/foot}\hspace*{3.5ex}
+      \insertshortauthor\ |\ 
+      \insertshorttitle
+      \insertshortsubtitle
+    }
+    \end{beamercolorbox}
+  }
+
+  \setbeamertemplate{frametitle} % frame title
+  {
+    \begin{minipage}[c][0.9\beamer@height][c]{\textwidth}
+      {\usebeamercolor[fg]{frametitle}\usebeamerfont{frametitle}\insertframetitle\par}
+      {\usebeamercolor[fg]{framesubtitle}\usebeamerfont{framesubtitle}\insertframesubtitle\par}
+    \end{minipage}
+  }
+  \ifx\beamer@shownavsym\undefined % insert navigation symbols
+    \setbeamertemplate{navigation symbols}
+    
+  \fi
+  
+  %%setting the blocks
+  
+  \setbeamertemplate{blocks}[rounded][shadow=true]
+  \setbeamercolor{block body}{parent=normal text, use=block title,bg=SPWLA.fg!30}
+}
+
+
+\mode<beamer> 
+{
+  % refers to the first mode (beamer).
+  \ifbeamercolorempty[fg]{SPWLA}
+  {
+    \setbeamercolor{SPWLA}{use={structure,palette sidebar primary},fg=palette sidebar primary.fg,bg=structure.fg}
+  }{}
+  
+  \setbeamertemplate{headline} % headline
+  {
+    \SPWLAbackground
+  }
+
+  \setbeamertemplate{footline} % footline  
+  {\vspace{2.0em}\leavevmode\hbox{%
+    \begin{beamercolorbox}[wd=0.75\paperwidth,ht=1.25ex,dp=1ex,left]{headfoot/info}
+      {
+        \usebeamercolor[fg]{frametitle}
+        \usebeamerfont{section in head/foot}\hspace*{3.5ex}
+        \insertshortauthor\ |\ 
+        \insertshorttitle
+        \ifx\insertsubtitle\@empty
+        \else
+          \ |\ \insertshortsubtitle
+        \fi
+      }
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=0.22\paperwidth,ht=1.25ex,dp=1ex,right]{headfoot/time}
+      {
+        \usebeamercolor[fg]{frametitle}
+        \usebeamerfont{section in head/foot}\hspace*{3.5ex}
+        \insertshortdate{}
+      }
+    \end{beamercolorbox}
+  }}
+
+  %\addtolength{\headsep}{0.5cm}
+  \setbeamertemplate{frametitle} % frame title
+  {
+    \vspace{0.5cm}
+    \begin{minipage}[c][0.9\beamer@height][c]{\textwidth}
+      {\usebeamercolor[bg]{frametitle}\usebeamerfont{frametitle}\insertframetitle\par}
+      {\usebeamercolor[bg]{framesubtitle}\usebeamerfont{framesubtitle}\insertframesubtitle\par}
+    \end{minipage}
+  }
+  \ifx\beamer@shownavsym\undefined % insert navigation symbols
+    \setbeamertemplate{navigation symbols}
+  
+  \fi
+  
+  %%setting the blocks
+  \tcbset{block-spwla/.style={
+      code={%
+        \usebeamercolor{block title}%
+        \usebeamercolor[fg]{block body}%
+        \colorlet{bktitlebg}{block title.bg}%
+        \colorlet{bktitlefg}{block title.fg}%
+        \colorlet{bkbodyfg}{block body.fg}%
+      },%
+      shadow={1mm}{-1mm}{0mm}{black!50!white},%
+      enhanced,%
+      colback=bktitlebg, colframe=bktitlebg,%
+      coltext=bkbodyfg, coltitle=bktitlefg,%
+      bottomrule=0pt, leftrule=0pt, rightrule=0pt, toprule=0pt, titlerule=0pt,%
+      top=0pt, bottom=0pt, left=0pt, right=0pt,%
+      toptitle=0pt, bottomtitle=-6pt,%
+      borderline={0.5pt}{0.5mm}{white},%
+      arc=0pt, boxsep=6pt,%
+      left=1ex, right=1ex, smart shadow arc=false
+    }
+  }
+
+  % \setbeamercolor{local structure}{parent=normal text}
+  \setbeamertemplate{block begin}
+  {
+    \setbeamercolor{local structure}{parent=structure, fg=SPWLA.fg}
+    \ifx\insertblocktitle\@empty
+      \begin{tcolorbox}[
+        block-spwla
+      ]
+    \else
+      \begin{tcolorbox}[
+        block-spwla,%
+        title=\insertblocktitle,%
+      ]
+    \fi
+  }
+  \setbeamertemplate{block end}
+  {
+    \end{tcolorbox}
+  }
+}
+
+%----------------------------------------------------------------------------------------------------------------------------------
+
+% macros used in the theme 
+%% coordinate the fancy header background
+
+\newcommand{\featherheaderbackground}[0]
+{
+  \begin{tikzpicture}[overlay]
+    \coordinate (UL) at (0,0); %upper left corner of the slide
+    \coordinate (HLR) at (\paperwidth,-0.9\beamer@height); %lower right of the header
+    
+    \coordinate (ULL) at (0,-0.95\beamer@height); % upper left corner of the line 
+    \coordinate (LLR) at (\paperwidth,-1\beamer@height); % lower right corner of the line 
+    
+    \coordinate (ULF) at (0, \dimexpr-\paperheight+1.6em\relax);
+    % \coordinate (ULF) at (0,-5.90\beamer@height); % upper left corner of the footline 
+    \coordinate (LFR) at (\paperwidth,-\paperheight);
+    % \coordinate (LFR) at (\paperwidth,-6.08\beamer@height); % lower right corner of the footline 
+    
+    \coordinate (logopos) at ([shift={(-1.64\beamer@logoouterradius-2.05\beamer@borderwidth,\beamer@height-\beamer@logoouterradius-5.5\beamer@borderwidth)}] HLR); % coordinate of the logo and the circ position
+
+    %%draw the background of the header, the circle and the logo
+    {
+      \usebeamercolor{SPWLA}
+
+      %% draw the blue background rectangle of the header and the line below it
+      \draw[draw=none,fill=SPWLA.bg] (UL) rectangle (HLR); % background rectabgle
+      \draw[draw=none,fill=SPWLA.fg] (ULL) rectangle (LLR); % line below the background rectangle
+      \draw[draw=none,fill=SPWLA.bg] (ULF) rectangle (LFR); % footline 
+
+      %% draw the outer circle
+      \fill[fill=SPWLA.fg] (logopos) ellipse [x radius=1.64\beamer@logoouterradius, y radius=\beamer@logoouterradius];
+
+      %% draw the inner circle
+      \fill[fill=normal text.bg] (logopos) ellipse [x radius=1.64\beamer@logoinnerradius, y radius=\beamer@logoinnerradius];
+
+      %% place the logo in the circle
+      %% LLT: use customisable \logofile
+      \node at (logopos) {\includegraphics[width=\dimexpr \logoscale \beamer@logoradius * 3\relax]{\logofile}};
+
+      %% draw progress circle/bar
+      \ifx\beamer@progressstyle\beamer@progressmovingCircCnt% the circular counter with a moving counter
+
+      %% calculate end position
+      %%% LLT: modified to discount unnumbered frames, and
+      %%% make the arc go a complete circle at end of
+      %%% presentation
+      \ifx\beamer@rotationcw\undefined% counterclockwise rotation
+      \pgfmathsetmacro{\effectivetotalframe}
+      {max(\inserttotalframenumber-\theunnumberedframe,1)}
+      \pgfmathsetmacro{\progress}{(\insertframenumber-\theunnumberedframe)/\effectivetotalframe*360};
+      \else% clockwise rotation
+      \pgfmathsetmacro{\progress}{(\insertframenumber-\theunnumberedframe)/\effectivetotalframe*(-360)}; 
+      \fi
+
+      %% draw the arc
+      \draw[color=SPWLA.bg,line width=0.2*\beamer@borderwidth] ([xshift=1.64\beamer@counterradius] logopos) arc[x radius=1.64\beamer@counterradius, y radius=\beamer@counterradius, start angle=0, end angle=\progress] node [pos=1.0, name=eliparcend] {};
+      \fill[fill=SPWLA.bg] (eliparcend.center) circle (0.25\beamer@borderwidth);
+
+      %% place the current frame number
+      \node[fill=normal text.bg,draw=SPWLA.fg,thick,circle,minimum width=2*\beamer@borderwidth] at ([xshift=1.64\beamer@counterradius]logopos) {{\usebeamercolor[fg]{normal text}\insertframenumber}};
+      \fi      
+      \ifx\beamer@progressstyle\beamer@progressfixedCircCnt % the circular counter with a fixed counter
+
+      %% draw the current frame number
+      \ifx\beamer@rotationcw\undefined % counterclockwise rotation
+        \pgfmathsetmacro{\progress}{360*\insertframestartpage};
+      \else% clockwise rotation
+        \pgfmathsetmacro{\progress}{-360*\insertframestartpage};
+      \fi
+
+      %% draw the arc
+      \draw[color=SPWLA.bg,line width=0.5*\beamer@borderwidth] ([xshift=\beamer@counterradius] logopos) arc (0:\progress:\beamer@counterradius);
+
+      %% place the current frame number
+      \node[fill=normal text.bg,draw=SPWLA.fg,circle,thick,minimum width=2*\beamer@borderwidth] at ([shift={(\progress:\beamer@counterradius)}] logopos) {{\usebeamercolor[fg]{normal text}\insertframenumber}};
+      \fi
+    }
+  \end{tikzpicture}
+}
+
+
+\newcommand{\SPWLAbackground}[0]
+{
+  \begin{tikzpicture}[overlay]
+    \coordinate (UL) at (0,0); %upper left corner of the slide
+    \coordinate (ULS) at (1.6em, -1.6em); %upper left corner of the secondary stage
+    \coordinate (ULT) at (3.0em, -3.0em); %upper left corner of the tertiary stage
+    \coordinate (HLR) at (\paperwidth,-0.9\beamer@height); %lower right of the header
+    
+    \coordinate (ULL) at (0,-0.95\beamer@height); % upper left corner of the line 
+    \coordinate (LLR) at (\paperwidth,-1\beamer@height); % lower right corner of the line 
+
+    \coordinate (ULF) at (0, \dimexpr-\paperheight+1.6em\relax);
+    % \coordinate (ULF) at (0,-5.90\beamer@height); % upper left corner of the footline 
+    \coordinate (LFR) at (\paperwidth,-\paperheight);
+    % \coordinate (LFR) at (\paperwidth,-6.08\beamer@height); % lower right corner of the footline 
+    \coordinate (LFRS) at (\dimexpr\paperwidth-1.6em\relax, \dimexpr-\paperheight+1.6em\relax); %upper left corner of the secondary stage
+    \coordinate (LFRT) at (\dimexpr\paperwidth-3.0em\relax, \dimexpr-\paperheight+3.0em\relax); %upper left corner of the tertiary stage
+
+    \coordinate (logopos) at ([shift={(-1.6em-1.64\beamer@logoouterradius-2.05\beamer@borderwidth,\beamer@height-\beamer@logoouterradius-5.5\beamer@borderwidth)}] HLR); % coordinate of the logo and the circ position
+
+    %%draw the background of the header, the circle and the logo
+    {
+      \usebeamercolor{SPWLA}
+
+      %% draw the blue background rectangle of the header and the line below it
+      \draw[draw=none,fill=SPWLA.bg] (UL) rectangle (LFR); % background rectangle
+      \draw[draw=none,fill=SPWLA.fg] (ULS) rectangle (LFRS); % background rectangle (decorative region)
+      \draw[draw=white,fill=none] (ULT) rectangle (LFRT); % background rectangle (paper region)
+
+      %% draw the outer circle
+      \fill[fill=SPWLA.fg] (logopos) ellipse [x radius=1.64\beamer@logoouterradius, y radius=\beamer@logoouterradius];
+
+      %% draw the inner circle
+      \fill[fill=normal text.bg] (logopos) ellipse [x radius=1.64\beamer@logoinnerradius, y radius=\beamer@logoinnerradius];
+
+      %% place the logo in the circle
+      %% LLT: use customisable \logofile
+      \node at (logopos) {\includegraphics[width=\dimexpr \logoscale \beamer@logoradius * 3\relax]{\logofile}};
+
+      %% draw progress circle/bar
+      \ifx\beamer@progressstyle\beamer@progressmovingCircCnt% the circular counter with a moving counter
+
+      %% calculate end position
+      %%% LLT: modified to discount unnumbered frames, and
+      %%% make the arc go a complete circle at end of
+      %%% presentation
+      \ifx\beamer@rotationcw\undefined% counterclockwise rotation
+      \pgfmathsetmacro{\effectivetotalframe}
+      {max(\inserttotalframenumber-\theunnumberedframe,1)}
+      \pgfmathsetmacro{\progress}{(\insertframenumber-\theunnumberedframe)/\effectivetotalframe*360};
+      \else% clockwise rotation
+      \pgfmathsetmacro{\progress}{(\insertframenumber-\theunnumberedframe)/\effectivetotalframe*(-360)}; 
+      \fi
+
+      %% draw the arc
+      \draw[color=SPWLA.bg,line width=0.2*\beamer@borderwidth] ([xshift=1.64\beamer@counterradius] logopos) arc[x radius=1.64\beamer@counterradius, y radius=\beamer@counterradius, start angle=0, end angle=\progress] node [pos=1.0, name=eliparcend] {};
+      \fill[fill=SPWLA.bg] (eliparcend.center) circle (0.25\beamer@borderwidth);
+
+      %% place the current frame number
+      \node[fill=normal text.bg,draw=SPWLA.fg,thick,circle,minimum width=2*\beamer@borderwidth] at ([xshift=1.64\beamer@counterradius]logopos) {{\usebeamercolor[fg]{normal text}\insertframenumber}};
+      \fi      
+      \ifx\beamer@progressstyle\beamer@progressfixedCircCnt % the circular counter with a fixed counter
+
+      %% draw the current frame number
+      \ifx\beamer@rotationcw\undefined % counterclockwise rotation
+        \pgfmathsetmacro{\progress}{360*\insertframestartpage};
+      \else% clockwise rotation
+        \pgfmathsetmacro{\progress}{-360*\insertframestartpage};
+      \fi
+
+      %% draw the arc
+      \draw[color=SPWLA.bg,line width=0.5*\beamer@borderwidth] ([xshift=\beamer@counterradius] logopos) arc (0:\progress:\beamer@counterradius);
+
+      %% place the current frame number
+      \node[fill=normal text.bg,draw=SPWLA.fg,circle,thick,minimum width=2*\beamer@borderwidth] at ([shift={(\progress:\beamer@counterradius)}] logopos) {{\usebeamercolor[fg]{normal text}\insertframenumber}};
+      \fi
+    }
+  \end{tikzpicture}
+}
+
+\mode<all>
