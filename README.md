@@ -128,7 +128,7 @@ Here we show examples for changing the color of each element:
 [ex-ex1-d-ho]:./display/spwla-ex1-d-ho.png
 [ex-ex1-n-bm]:./display/spwla-ex1-n-bm.png
 [ex-ex1-n-ho]:./display/spwla-ex1-n-ho.png
-[ex-ex2-d-bm]:./display/spwla-ex1-d-bm.png
-[ex-ex2-d-ho]:./display/spwla-ex1-d-ho.png
-[ex-ex2-n-bm]:./display/spwla-ex1-n-bm.png
-[ex-ex2-n-ho]:./display/spwla-ex1-n-ho.png
+[ex-ex2-d-bm]:./display/spwla-ex2-d-bm.png
+[ex-ex2-d-ho]:./display/spwla-ex2-d-ho.png
+[ex-ex2-n-bm]:./display/spwla-ex2-n-bm.png
+[ex-ex2-n-ho]:./display/spwla-ex2-n-ho.png
