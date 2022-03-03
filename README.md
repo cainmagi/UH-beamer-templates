@@ -122,8 +122,7 @@ Here we show examples for changing the color of each element:
 4. Provide a command for users to add an optional logo.
 5. Adjust the cross reference, citation, and the footnote style.
 6. Add more extra packages for supporting more features.
-
-1. Upload this sub-project: *UH-Slides-SPWLA*.
+7. Upload this sub-project: *UH-Slides-SPWLA*.
 
 [slide-feather]:https://www.overleaf.com/latex/templates/beamer-presentation-template-feather-theme/jcbpcdxqbxbf
 [texlive]:https://ctan.org/pkg/texlive
