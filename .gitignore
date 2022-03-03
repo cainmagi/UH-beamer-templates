@@ -3,6 +3,7 @@
 .pdf
 .cls
 .sty
+.bib
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
