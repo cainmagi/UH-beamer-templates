@@ -50,7 +50,7 @@ Options inherited from sidebar outer theme and miniframes outer theme.
 | `sidebarleft` | If specified, will put the sidebar on the left side in Classic template, and render the navigation bar in Colored template. | - | False |
 | `sidebarright` | If specified, will put the sidebar on the right side in Classic template, and render the navigation bar in Colored template. | - | True |
 | `showallsubsections` | If specified, will show all subsections in the sidebar of the Classic template. | - | False |
-| `hideothersubsections` | If specified, will hide the subsections of those non-current sections in the sidebar of the Classic template. | - | False |
+| `hideothersubsections` | If specified, will hide the subsections of those non-current sections in the sidebar of the Classic template. | - | True |
 | `hideallsubsections` | If specified, will always hide all subsections in the sidebar of the Classic template. | - | False |
 
 ## Commands
