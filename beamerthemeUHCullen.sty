@@ -1,0 +1,192 @@
+%% This is the main beamer theme file of the UHCullen theme.
+%%
+%% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+%%
+%% An unofficial template for UH Cullen Engineering Presentation
+%% according to the official PPT version, see here:
+%% https://www.egr.uh.edu/office-communications/resources
+%% This template is totally built up from scratch. We provide 3 modes:
+%% - beamer: Use UHCullenClassic template
+%% - trans: Use UHCullenColored template
+%% - handout: Use UHCullenSimple template.
+%% The inner/outer templates can also be used individually.
+%% ----------------
+%% Apr. 3, 2022
+%% - Finish the entire UHCullen theme.
+%% - Redesign the styles of progress bar and the sidebar.
+%% - Redesign the title and the final pages.
+%% - Provide commands for customizing images and logos.
+%% - Provide commands for customizing colors and fonts.
+%% - Adjust the style of the beamer block boxes.
+%% - Add more extra packages for supporting more features.
+%% -----------------------------
+% Copyright info:
+%
+% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+% Licensed by GNU General Public License at <http://www.gnu.org/licenses/>.
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeUHCullen}[2022/04/03 v1.0.0 The UH Cullen Engineering Theme]
+
+%% load required packages
+
+% basic tier
+\RequirePackage{tikz}
+\RequirePackage{tcolorbox}
+\RequirePackage{calc}
+\RequirePackage[overload]{textcase}
+\RequirePackage[nodayofweek,level]{datetime}
+
+% advanced tier
+%\usepackage[utf8]{inputenc}
+\RequirePackage{csquotes}
+\RequirePackage[style=ieee,citestyle=verbose,backend=bibtex]{biblatex}
+\RequirePackage{cleveref}
+\RequirePackage{algorithm}
+\RequirePackage{algorithmic}
+\RequirePackage{float}
+\RequirePackage{subfigure}
+\RequirePackage{siunitx}
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{colortbl}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\crefname{subsection}{Subsection}{Subsections}
+\def\thesubsection{\arabic{section}.\arabic{subsection}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+%------------------------------------------
+% Theme options, definitions and templates.
+%------------------------------------------
+\DeclareOptionBeamer{progressstyle}{
+  \PassOptionsToPackage{progressstyle=#1}{beamerouterthemeUHCullenClassic}
+  \PassOptionsToPackage{progressstyle=#1}{beamerouterthemeUHCullenColored}
+}
+\DeclareOptionBeamer{showallsubsections}{\PassOptionsToPackage{showallsubsections}{beamerouterthemeUHCullenClassic}}
+\DeclareOptionBeamer{hideothersubsections}{\PassOptionsToPackage{hideothersubsections}{beamerouterthemeUHCullenClassic}}
+\DeclareOptionBeamer{hideallsubsections}{\PassOptionsToPackage{hideallsubsections}{beamerouterthemeUHCullenClassic}}
+\DeclareOptionBeamer{sidebarleft}{
+  \PassOptionsToPackage{sidebarleft}{beamerouterthemeUHCullenClassic}
+  \PassOptionsToPackage{sidebarleft}{beamerouterthemeUHCullenColored}
+}
+\DeclareOptionBeamer{sidebarright}{
+  \PassOptionsToPackage{sidebarright}{beamerouterthemeUHCullenClassic}
+  \PassOptionsToPackage{sidebarright}{beamerouterthemeUHCullenColored}
+}
+\DeclareOptionBeamer{sidebarnone}{
+  \PassOptionsToPackage{sidebarnone}{beamerouterthemeUHCullenClassic}
+  \PassOptionsToPackage{sidebarnone}{beamerouterthemeUHCullenColored}
+}
+\DeclareOptionBeamer{shownavsym}{
+  \PassOptionsToPackage{shownavsym}{beamerouterthemeUHCullenClassic}
+  \PassOptionsToPackage{shownavsym}{beamerouterthemeUHCullenColored}
+  \PassOptionsToPackage{shownavsym}{beamerouterthemeUHCullenSimple}
+}
+\DeclareOptionBeamer{color}{\PassOptionsToPackage{color=#1}{beamercolorthemeUHCullen}}
+\DeclareOptionBeamer{font}{\PassOptionsToPackage{font=#1}{beamercolorthemeUHCullen}}
+\ProcessOptionsBeamer
+
+%% Configure some packages
+\date{\today}
+
+%-------------------------------------------------------
+% DEFFINING AND REDEFINING COMMANDS
+%-------------------------------------------------------
+
+% Hotfix for table / figure captions.
+\setbeamertemplate{caption}[numbered]
+
+% Hotfix for graphicx
+\RequirePackage{ifxetex}
+\ifpdf
+  \RequirePackage{graphicx}
+  \RequirePackage{epstopdf}
+  \graphicspath{{pics/},{pic2/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.pdf,.jpeg,.png,.jpg}
+\else
+  \ifxetex
+    \RequirePackage{graphicx}
+  \else
+    \RequirePackage[dvipdfmx]{graphicx}
+    \RequirePackage{bmpsize}
+  \fi
+  \graphicspath{{pics/},{pic2/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.eps,.pdf,.jpeg,.png,.jpg}
+\fi
+
+% colored hyperlinks
+\newcommand{\chref}[2]{
+  \href{#1}{{\usebeamercolor[bg]{UHCullen}#2}}
+}
+
+% Hotfix for cref
+\let\chyperref\cref % Save the orginal command under a new name
+\renewcommand{\cref}[1]{\hyperlink{#1}{\chyperref{#1}}} % Redefine the \cref command and explictely add the hyperlink.
+
+% Hotfix for footnotes
+\let\oldfootnote\footnote
+\renewcommand\footnote[1]{\oldfootnote[frame]{\scriptsize #1}}
+\AtBeginEnvironment{frame}{\setcounter{footnote}{0}}
+
+% Hotfix for hyperref
+\hypersetup{pdfdisplaydoctitle={true}}
+\ifpdf
+  \hypersetup{pdfcreator={pdfLaTeX}}
+\else
+  \ifxetex
+    \hypersetup{pdfcreator={xeLaTeX}}
+  \else
+    \hypersetup{pdfcreator={unknownLaTeX}}
+  \fi
+\fi
+
+%-------------------------
+% beamer specific options.
+%--------------------------
+% refers to the first four modes (beamer, handout, second and trans). That is, to all modes except the article mode
+\mode<presentation>
+{
+  \usecolortheme{UHCullen}
+}
+
+\mode<beamer>
+{
+  \useinnertheme{UHCullenClassic}
+  \useoutertheme{UHCullenClassic}
+  \hypersetup{
+    pdfpagemode={FullScreen},
+  }
+}
+
+\mode<trans>
+{
+  \useinnertheme{UHCullenColored}
+  \useoutertheme{UHCullenColored}
+  \hypersetup{
+    pdfpagemode={FullScreen},
+  }
+}
+
+\mode<handout>
+{
+  \useinnertheme{UHCullenSimple}
+  \useoutertheme{UHCullenSimple}
+}
+
+\mode<all>

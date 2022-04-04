@@ -1,0 +1,179 @@
+% This is the inner theme file of the UHCullen Simple theme.
+%%
+%% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+%%
+%% An unofficial template for UH Cullen Engineering Presentation
+%% according to the official PPT version, see here:
+%% https://www.egr.uh.edu/office-communications/resources
+%% This template is used for providing title/final pages to UHCullen
+%% Simple Theme.
+%% -----------------------------
+% Copyright info:
+%
+% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+% Licensed by GNU General Public License at <http://www.gnu.org/licenses/>.
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerinnerthemeUHCullenSimple}[2022/04/03 v1.0.0 The UH Cullen Engineering Simple Theme]
+
+\RequirePackage{ifthen}
+\RequirePackage[overload]{textcase}
+\RequirePackage{tikz}
+\usetikzlibrary{shadows.blur}
+\usetikzlibrary{backgrounds}
+\tikzfading[name=fade center, inner color=transparent!0, outer color=transparent!100]
+
+% -----------------------------------------
+% Theme options, definitions and templates.
+% -----------------------------------------
+
+% Define the default images.
+\providecommand{\beamer@UHCullen@giventitlelogo}{UHCullenGraphics/logo-cullen-color}
+\providecommand{\beamer@UHCullen@givenfinallogo}{UHCullenGraphics/logo-cullen-long}
+
+% Provide options for changing images.
+\providecommand{\setTitleLogo}[1]{%
+  \renewcommand{\beamer@UHCullen@giventitlelogo}{#1}
+}
+\providecommand{\setFinalLogo}[1]{%
+  \renewcommand{\beamer@UHCullen@givenfinallogo}{#1}
+}
+
+\providecommand{\setTitleImageA}[2][]{%
+}
+\providecommand{\setTitleImageB}[2][]{%
+}
+\providecommand{\setTitleImageC}[2][]{%
+}
+\providecommand{\setFinalImage}[2][]{%
+}
+
+% definitions for fonts of the different elements
+\setbeamerfont{institute}{family=\sffamily, size=\normalsize}
+\setbeamerfont{title}{family=\sffamily, size=\LARGE}
+\setbeamerfont{subtitle}{family=\sffamily, size=\large}
+\setbeamerfont{frametitle}{size=\Large}
+\setbeamerfont{framesubtitle}{size=\normalsize}
+\setbeamerfont{author}{family=\sffamily, size=\normalsize}
+\setbeamerfont{date}{family=\sffamily, size=\footnotesize}
+
+% use numbers instead of a picture for the references
+\setbeamertemplate{bibliography item}[text]
+
+% title page
+\setbeamertemplate{title page}{
+  \begin{tikzpicture}
+    \usebeamercolor{UHCullen}
+    \usebeamercolor{title body}
+    % Bars and images
+    \begin{scope}[on background layer]
+      \draw[fill=none, draw=none, use as bounding box] (0,0)
+      rectangle (\paperwidth, \paperheight);
+    \end{scope}
+
+    % Title text
+    \begin{scope}
+      \node[anchor=center, minimum height=2.4cm, minimum width=0.5\paperwidth] at (0.5\paperwidth, .45\paperheight) (titlebox) {
+        \begin{tikzpicture}
+          \usebeamerfont{title} %set font to title font
+          \node[anchor=north west, minimum height=0.6cm, align=left, inner xsep=.05cm, inner ysep=.05cm, color=title body.fg] (titlenode) {\usefont{T1}{phv}{m}{n}\inserttitle};
+          \ifx\insertsubtitle\@empty
+            \usebeamerfont{author}
+            \node[anchor=north west, minimum height=.5cm, minimum width=1ex, align=left, inner xsep=.1cm, inner ysep=.1cm, color=title body.fg] at ($(titlenode.south west)+(0,-.2cm)$) (authornode) {\par\noindent\insertauthor};
+          \else
+            \usebeamerfont{subtitle}
+            \node[anchor=north west, minimum height=.5cm, minimum width=1ex, align=left, inner xsep=.1cm, inner ysep=.1cm, color=title body.fg] at ($(titlenode.south west)+(0,-.2cm)$) (subtitlenode) {\insertsubtitle};
+            \usebeamerfont{author}
+            \node[anchor=north west, minimum height=.5cm, minimum width=1ex, align=left, inner xsep=.1cm, inner ysep=.1cm, color=title body.fg] at ($(subtitlenode.south west)+(0,-.05cm)$) (authornode) {\par\noindent\insertauthor};
+          \fi
+          \usebeamerfont{institute}
+          \node[anchor=north west, minimum height=.5cm, minimum width=1ex, align=left, inner xsep=.1cm, inner ysep=.1cm, color=title body.fg] at ($(authornode.south west)+(0,-.05cm)$) (instnode) {\par\noindent\insertinstitute};
+          \begin{scope}
+            \draw[very thick, draw=title body.bg] ($(titlenode.south west)+(0.1cm,-0.1cm)$) -- ($(titlenode.south east)+(-0.1cm,-0.1cm)$);
+            \ifx\insertsubtitle\@empty
+              \draw[very thick, draw=title body.bg] ($(titlenode.south)-0.5*(authornode.south east)+0.5*(authornode.south west)+(0.1cm,-0.1cm)$) -- ($(titlenode.south)+0.5*(authornode.south east)-0.5*(authornode.south west)+(-0.1cm,-0.1cm)$);
+            \else
+              \draw[very thick, draw=title body.bg] ($(titlenode.south)-0.5*(subtitlenode.south east)+0.5*(subtitlenode.south west)+(0.1cm,-0.1cm)$) -- ($(titlenode.south)+0.5*(subtitlenode.south east)-0.5*(subtitlenode.south west)+(-0.1cm,-0.1cm)$);
+            \fi
+          \end{scope}
+        \end{tikzpicture}
+      };
+    \end{scope}
+
+    % Title box
+    \begin{scope}[on background layer]
+      \draw[fill=UHCullen.fg, draw=UHCullen.bg, rounded corners, line width=0.5mm] ($(titlebox.south west) - (2mm, 2mm)$)
+      rectangle ($(titlebox.north east) + (2mm, 2mm)$);
+    \end{scope}
+
+    % Logo
+    \begin{scope}[on background layer]
+      \node[anchor=south] at ($(titlebox.north) + (0, 5mm)$) (logonode) {\includegraphics[height=1.4cm]{\beamer@UHCullen@giventitlelogo}};
+    \end{scope}
+  \end{tikzpicture}
+}
+
+% final page
+\defbeamertemplate{final page}{text}[1]
+{
+  \begin{tikzpicture}
+    \usebeamercolor{UHCullen}
+    % Background image
+    \draw[fill=none, draw=none, use as bounding box] (0,0)
+    rectangle (\paperwidth, \paperheight);
+
+    % Final text
+    \begin{scope}
+      \node[anchor=center, inner sep=0, minimum height=4cm, minimum width=0.7\paperwidth, fill=UHCullen.fg, draw=UHCullen.bg, rounded corners, line width=0.5mm] at (0.5\paperwidth, .5\paperheight) (finalbg) {};
+      \node[anchor=north, inner sep=0, minimum height=4cm, minimum width=0.7\paperwidth] at (finalbg.north) (finalnode) {
+        \begin{tikzpicture}
+          \usebeamerfont{title} %set font to title font
+          \node[anchor=north, align=center, minimum width=5cm, minimum height=2cm, inner xsep=.05cm, color=UHCullen.bg] (finaltext) {\scalebox{2.0}{\usefont{T1}{phv}{b}{n}Thank you!}};
+          \node[anchor=north, align=center, minimum width=5cm, minimum height=1cm, inner xsep=.05cm, color=UHCullen.bg] at (finaltext.south) (finalsubtext) {#1};
+          \begin{scope}
+            \draw[very thick, draw=UHCullen.bg] ($(finaltext.south west)+(0.1cm,0.1cm)$) -- ($(finaltext.south east)+(-0.1cm,0.1cm)$);
+            \draw[very thick, draw=UHCullen.bg] ($(finalsubtext.north west)+(0.1cm,0.1cm)$) -- ($(finalsubtext.north east)+(-0.1cm,0.1cm)$);
+          \end{scope}
+        \end{tikzpicture}
+      };
+    \end{scope}
+  \end{tikzpicture}
+}
+
+% define the commands used for creating title / final pages.
+\providecommand{\titleframe}{
+  \begingroup
+  \makeatletter
+  \setlength{\hoffset}{-\Gm@lmargin}
+  \makeatother
+  \usebackgroundtemplate{}
+  \begin{frame}[plain,noframenumbering]
+    \titlepage
+  \end{frame}
+  \endgroup
+}
+
+\providecommand{\finalframe}[1][It's time for Q\&A.]{
+  \begingroup
+  \makeatletter
+  \setlength{\hoffset}{-\Gm@lmargin}
+  \makeatother
+  \usebackgroundtemplate{}
+  \setbeamertemplate{final page}[text]{#1}
+  \begin{frame}[plain,noframenumbering]
+    \usebeamertemplate{final page}
+  \end{frame}
+  \endgroup
+}
+
+\mode<all>

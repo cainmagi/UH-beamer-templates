@@ -1,0 +1,187 @@
+% This is the color theme file of the UHCullen theme.
+%%
+%% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+%%
+%% An unofficial template for UH Cullen Engineering Presentation
+%% according to the official PPT version, see here:
+%% https://www.egr.uh.edu/office-communications/resources
+%% This template is used for providing color modes to UHCullen Theme.
+%% -----------------------------
+% Copyright info:
+%
+% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+% Licensed by GNU General Public License at <http://www.gnu.org/licenses/>.
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemeUHCullen}[2022/03/11 v1.0.0 The Cullen Engineering Theme]
+
+\RequirePackage{ifthen}
+\RequirePackage{ifxetex}
+\ifxetex
+  \RequirePackage[OT1,T1]{fontenc}
+  \RequirePackage{fontspec}
+\else
+  \RequirePackage[T1]{fontenc}
+\fi
+
+%------------------------------------------
+% Theme options, definitions and templates.
+%------------------------------------------
+\def\beamer@UHCullen@palette{default}  % Could be feather, navy, UHECE, default (UH)
+\def\beamer@UHCullen@font{default}  % Could be serif, sans (default), helvet, kp
+\DeclareOptionBeamer{color}{\def\beamer@UHCullen@palette{#1}}
+\DeclareOptionBeamer{font}{\def\beamer@UHCullen@font{#1}}
+\ProcessOptionsBeamer
+
+%-------------------------
+% font options.
+%--------------------------
+
+\providecommand{\useFontHelvet}{
+  \ifxetex
+    \setmainfont{TeX Gyre Heros}
+    \setsansfont{TeX Gyre Heros}
+    \setmonofont{DejaVu Sans Mono}
+  \else
+    \RequirePackage{helvet}
+    \RequirePackage[scaled]{beramono}
+  \fi
+}
+
+\providecommand{\useFontInconsolata}{
+  \ifxetex
+    \setmonofont{Inconsolatazi4}
+  \else
+    \RequirePackage{zi4}
+  \fi
+}
+
+\providecommand{\useFontKP}{
+  \ifxetex
+    \setmainfont{TeX Gyre Schola}
+    \setsansfont{TeX Gyre Adventor}
+    \setmonofont{DejaVu Sans Mono}
+  \else
+    \RequirePackage{kpfonts}
+  \fi
+}
+
+\ifthenelse{\equal{\beamer@UHCullen@font}{serif}}{
+  % serif
+  \RequirePackage{libertine}
+  \useFontInconsolata
+}{
+  \ifthenelse{\equal{\beamer@UHCullen@font}{helvet}}{
+    % helvet
+    \useFontHelvet
+  }{
+    \ifthenelse{\equal{\beamer@UHCullen@font}{kp}}{
+      % kpfonts
+      \useFontKP
+    }{
+      % sans
+      \RequirePackage{carlito}
+      \RequirePackage{caladea}
+      \useFontInconsolata
+    }
+  }
+}
+
+%-------------------------
+% beamer specific options.
+%--------------------------
+\mode<presentation>
+{
+  % refers to the first four modes (beamer,handout,second and trans). That is, to all modes except the article mode
+  
+  % define the background colors.
+  \definecolor{beamer@cullen@bglightcolor}{HTML}{D8D7D5} % left background
+  \definecolor{beamer@cullen@bgwhitecolor}{HTML}{FDFDFD} % right background
+  \setbeamercolor{UHBackground}{fg=beamer@cullen@bglightcolor, bg=beamer@cullen@bgwhitecolor}
+
+  %% defining colors 
+  \definecolor{beamer@barcolor}{RGB}{194,193,204} % Feather gray
+  \ifthenelse{\equal{\beamer@UHCullen@palette}{UHRed}}{
+    % UHRed palette: Red
+    \definecolor{beamer@normaltextcolor}{HTML}{1E1D1C} % text
+    \definecolor{beamer@headercolor}{HTML}{E20000} % theme
+    \setbeamercolor{UHCullen}{fg=beamer@headercolor!20, bg=beamer@headercolor}
+    \setbeamercolor{UHBackground}{fg=beamer@headercolor!8, bg=beamer@cullen@bgwhitecolor}
+  }{
+    \ifthenelse{\equal{\beamer@UHCullen@palette}{navy}}{
+      % navy palette: DarkBlue
+      \definecolor{beamer@normaltextcolor}{HTML}{1C1D1E} % text
+      \definecolor{beamer@headercolor}{HTML}{006EB8} % theme
+      \setbeamercolor{UHCullen}{fg=beamer@headercolor!20, bg=beamer@headercolor}
+      \setbeamercolor{UHBackground}{fg=beamer@headercolor!8, bg=beamer@cullen@bgwhitecolor}
+    }{
+      \ifthenelse{\equal{\beamer@UHCullen@palette}{dark}}{
+        % dark palette: Grimy grey
+        \definecolor{beamer@normaltextcolor}{HTML}{111111} % text
+        \definecolor{beamer@headercolor}{HTML}{515151} % theme
+        \setbeamercolor{UHCullen}{fg=beamer@headercolor!20, bg=beamer@headercolor}
+      }{
+        \ifthenelse{\equal{\beamer@UHCullen@palette}{forest}}{
+          % forest palette: Forest green
+          \definecolor{beamer@normaltextcolor}{HTML}{1C1E1D} % text
+          \definecolor{beamer@headercolor}{HTML}{228B22} % theme
+          \setbeamercolor{UHCullen}{fg=beamer@headercolor!20, bg=beamer@headercolor}
+          \setbeamercolor{UHBackground}{fg=beamer@headercolor!8, bg=beamer@cullen@bgwhitecolor}
+        }{
+          % Cullen (Red, default): 
+          \definecolor{beamer@normaltextcolor}{HTML}{1E1D1C} % text
+          \definecolor{beamer@headercolor}{HTML}{C8102E} % theme
+          \setbeamercolor{UHCullen}{fg=white, bg=beamer@headercolor}
+        }
+      }
+    }
+  }
+
+  %% setting the above deffinitions
+  \setbeamercolor{structure}{fg=beamer@headercolor}
+  \setbeamercolor{normal text}{fg=beamer@normaltextcolor}  
+  \setbeamercolor{frametitle}{use=UHCullen, fg=UHCullen.bg, bg=UHCullen.fg}
+  \setbeamercolor{block title}{use=UHCullen, bg=UHCullen.bg!80!black, fg=UHCullen.fg}
+  \setbeamercolor{block body}{use=UHCullen, fg=normal text.fg, bg=UHCullen.bg!8!white}
+  \setbeamercolor{title body}{use=UHCullen, bg=UHCullen.bg!80!black, fg=UHCullen.bg!20!black}
+}
+
+\mode<beamer>
+{
+  \setbeamercolor{block title}{use=UHCullen, bg=UHCullen.bg, fg=UHCullen.fg!60!white}
+  \ifthenelse{\equal{\beamer@UHCullen@palette}{UHRed}}{
+    \setbeamercolor{block body}{use=UHCullen, fg=normal text.fg, bg=UHCullen.bg!4!white}
+  }{
+    \ifthenelse{\equal{\beamer@UHCullen@palette}{navy}}{
+      \setbeamercolor{block body}{use=UHCullen, fg=normal text.fg, bg=UHCullen.bg!4!white}
+    }{
+      \ifthenelse{\equal{\beamer@UHCullen@palette}{forest}}{
+        \setbeamercolor{block body}{use=UHCullen, fg=normal text.fg, bg=UHCullen.bg!4!white}
+      }{
+        \setbeamercolor{block body}{use=UHCullen, fg=normal text.fg, bg=UHCullen.bg!8!white}
+      }
+    }
+  }
+}
+
+\mode<trans>
+{
+  \setbeamercolor{frametitle}{use=UHCullen, fg=UHCullen.fg, bg=UHCullen.bg}
+}
+
+\mode<handout>
+{
+  \setbeamercolor{block title}{use=UHCullen, bg=UHCullen.bg!80!black, fg=white}
+}
+
+\mode<all>

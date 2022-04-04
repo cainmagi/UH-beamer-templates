@@ -1,0 +1,264 @@
+% This is the outer theme file of the UHCullen Colored theme.
+%%
+%% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+%%
+%% An unofficial template for UH Cullen Engineering Presentation
+%% according to the official PPT version, see here:
+%% https://www.egr.uh.edu/office-communications/resources
+%% This template is used for providing frame styles to UHCullen Colored
+%% Theme.
+%% -----------------------------
+% Copyright info:
+%
+% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+% Licensed by GNU General Public License at <http://www.gnu.org/licenses/>.
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerouterthemeUHCullenColored}[2022/04/02 v1.0.0 The UH Cullen Engineering Colored Theme]
+
+% load required packages
+\RequirePackage{ifthen}
+\RequirePackage{tikz}
+\RequirePackage{calc}
+\RequirePackage{tcolorbox}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{calc,shadows,fadings}
+\tcbuselibrary{skins,hooks}
+\tikzfading[name=fade center, inner color=transparent!0, outer color=transparent!100]
+
+\providecommand{\beamer@UHCullen@bgdecoratorl}{UHCullenGraphics/bgdecorator}
+\providecommand{\beamer@UHCullen@framelogo}{UHCullenGraphics/logo-cullen}
+
+% Provide commands for overriding the images.
+\providecommand{\setLogo}[2][]{%
+  \renewcommand{\beamer@UHCullen@framelogo}{#2}
+  \ifthenelse{\equal{#1}{}}{}{\renewcommand{\beamer@logoratio}{#1}}
+}
+
+% Track the unnumbered frames for the progress bar
+\newcounter{unnumberedframe}
+\define@key{beamerframe}{noframenumbering}[true]{\stepcounter{unnumberedframe}\beamer@noframenumberingtrue}
+
+%------------------------------------------
+% Theme options, definitions and templates.
+%------------------------------------------
+
+% options for the progress bar
+\def\beamer@Cullen@progressstyle{default}
+\def\beamer@Cullen@progressstyle@none{none}
+\DeclareOptionBeamer{progressstyle}{\def\beamer@Cullen@progressstyle{#1}} % hide the progress bar
+\DeclareOptionBeamer{shownavsym}{\def\beamer@shownavsym{true}}
+
+\DeclareOptionBeamer{sidebarleft}{\def\beamer@sidebarside{exist}}
+\DeclareOptionBeamer{sidebarright}{\def\beamer@sidebarside{exist}}
+\DeclareOptionBeamer{sidebarnone}{\def\beamer@sidebarside{none}}
+\ExecuteOptionsBeamer{sidebarright}
+
+\ProcessOptionsBeamer
+
+% the height of the header is 2.5 times the lineheight of the frame title
+\newlength{\beamer@height}
+\usebeamerfont{frametitle} %use the frame title font
+\setlength{\beamer@height}{2.5\baselineskip}
+
+% reset fonts
+\reset@font
+
+\providecommand{\beamer@logoratio}{2.5}
+
+% height of the logo, do not recommend to modify this value.
+\newlength{\beamer@logoheight}
+\setlength{\beamer@logoheight}{0.9\beamer@height}
+
+% inner radius of border of the logo frame
+\newlength{\beamer@progiconradius}
+\setlength{\beamer@progiconradius}{1.75mm}
+
+% length of the progressbar, will be adjusted according to progressbar options, do not recommend to modify it.
+\newlength{\beamer@progbarlength}
+\setlength{\beamer@progbarlength}{\paperwidth}
+
+
+%-------------------------
+% beamer specific options.
+%--------------------------
+\ifbeamercolorempty[fg]{UHCullen}
+{
+\setbeamercolor{UHCullen}{use={structure,palette sidebar primary},fg=palette sidebar primary.fg,bg=structure.fg}
+}{}
+
+\setbeamertemplate{frametitle} % frame title
+{
+\begin{minipage}[c][0.9\beamer@height][c]{\textwidth}
+  {\usebeamercolor[fg]{frametitle}\usebeamerfont{frametitle}\insertframetitle\par}
+  {\usebeamercolor[fg]{framesubtitle}\usebeamerfont{framesubtitle}\insertframesubtitle\par}
+\end{minipage}
+\vspace{0.6mm}
+}
+\ifx\beamer@shownavsym\undefined % insert navigation symbols
+\setbeamertemplate{navigation symbols}
+
+\fi
+
+% setting the blocks
+\tcbset{
+  block-uhcullen/.style={
+    code={%
+      \usebeamercolor{block title}%
+      \usebeamercolor{block body}%
+      \colorlet{bktitlebg}{block title.bg}%
+      \colorlet{bktitlefg}{block title.fg}%
+      \colorlet{bkbodyfg}{block body.fg}%,
+      \colorlet{bkbodybg}{block body.bg}%
+    },%
+    shadow={1mm}{-1mm}{0mm}{black!50!white},%
+    enhanced,%
+    colback=bkbodybg, colframe=bktitlebg,%
+    coltext=bkbodyfg, coltitle=bktitlefg,%
+    top=-2pt, bottom=-2pt, left=0pt, right=0pt,%
+    toptitle=-3pt, bottomtitle=-4pt,%
+    arc=0pt, boxsep=6pt,%
+    left=1ex, right=1ex, smart shadow arc=false
+  }
+}
+
+% \setbeamercolor{local structure}{parent=normal text}
+\setbeamertemplate{block begin}
+{
+  %\setbeamercolor{local structure}{parent=structure, use=UHCullen, fg=UHCullen.bg}
+  \ifx\insertblocktitle\@empty
+    \begin{tcolorbox}[block-uhcullen]
+  \else
+    \begin{tcolorbox}[block-uhcullen,title=\insertblocktitle]
+  \fi
+}
+\setbeamertemplate{block end}
+{
+  \end{tcolorbox}
+}
+
+%----------------------------------------------------------------------------------------------------------------------------------
+
+% macros used in the theme 
+%% coordinate the fancy header background
+\newcommand{\beamer@Cullen@Coloredheaderline}[0]
+{
+  \begin{tikzpicture}[overlay]
+    % Base
+    \coordinate (UL) at (0,0); % upper left corner of the slide
+    \coordinate (UR) at ([shift={(\paperwidth, 0)}] UL); % upper right corner of the slide
+
+    % Header divider
+    \coordinate (HL) at ([shift={(0,-\beamer@height)}] UL); % left side of the header line
+    \coordinate (HR) at ([shift={(\paperwidth, 0)}] HL); % right side of the header line
+
+    % Logo
+    \coordinate (LogoLR) at ([shift={(-1mm, 1.4mm)}] HR); % lower right corner of the logo
+
+    %%draw the background of the header, the circle and the logo
+    {
+      \usebeamercolor{UHCullen}
+
+      % Draw the header region
+      \draw[draw=none,fill=UHCullen.bg] (UL) rectangle (HR); % header region
+      \draw[draw=none,fill=black!80,opacity=0.5] (HL) rectangle ([shift={(0, -1.5mm)}] HR); % header shade
+      \draw[draw=none,fill=UHCullen.bg!70!black] ([shift={(0, 1mm)}] HL) rectangle ([shift={(0, -1mm)}] HR); % header divider
+
+      % Draw the logo in the header
+      \node[anchor=south east,inner sep=0] at (LogoLR) {\includegraphics[height=\beamer@logoheight]{\beamer@UHCullen@framelogo}}; % logo
+    }
+  \end{tikzpicture}
+}
+
+\newcommand{\beamer@Cullen@Coloredfootline}[0]
+{
+  \setbeamercolor{headfoot/info}{use=UHBackground, fg=UHBackground.bg, bg=UHBackground.fg!60!black}
+  \setbeamercolor{headfoot/time}{use=UHBackground, fg=UHBackground.bg, bg=UHBackground.fg!60!black}
+  \hbox{%
+    \begin{beamercolorbox}[wd=0.75\paperwidth,ht=2.4mm,dp=1ex,left]{headfoot/info}
+      {
+        \usebeamerfont{section in head/foot}\hspace*{3.5ex}
+        \insertshortauthor\ |\ 
+        \insertshorttitle
+        \ifx\insertsubtitle\@empty
+        \else
+        \ |\ \insertshortsubtitle
+        \fi
+      }
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.25\paperwidth,ht=2.4mm,dp=1ex,right]{headfoot/time}
+      {
+        \usebeamerfont{date in head/foot}
+        \insertshortdate{}\hspace*{3.5ex}
+      }
+    \end{beamercolorbox}%
+  }
+}
+
+\newcommand{\beamer@Cullen@Coloredprogressbar}[0]
+{
+  \begin{tikzpicture}
+    % Base
+    \coordinate (UL) at (0,0); % upper left corner of the slide
+    \coordinate (UR) at ([shift={(\paperwidth, 0)}] UL); % upper right corner of the slide
+    
+    % Header divider
+    \coordinate (LL) at ([shift={(0,-1.0mm)}] UL); % left side of the header line
+    \coordinate (LR) at ([shift={(0,-1.0mm)}] UR); % right side of the header line
+
+    %% draw the background of the header, the circle and the logo
+    {
+      \usebeamercolor{UHCullen}
+      \usebeamercolor{UHBackground}
+
+      % Draw the progress bar
+      \draw[draw=none,fill=UHBackground.fg!50!black,opacity=0.5] (UL) rectangle ([shift={(0,-1.0mm)}] UR); % progbar background
+
+      % Calculate the progress, and the progress position
+      \pgfmathsetmacro{\effectivetotalframe}{max(\inserttotalframenumber-\theunnumberedframe,1)}
+      \pgfmathsetmacro{\progress}{(\insertframenumber-\theunnumberedframe)/\effectivetotalframe};
+
+      \coordinate (ProgC) at ([shift={(\progress \paperwidth, 0)}] UL);
+      \draw[draw=none,fill=UHCullen.bg] (UL) rectangle ([shift={(0,-1.0mm)}] ProgC); % progbar
+    }
+  \end{tikzpicture}
+}
+
+%% Copied and modified from beamerouterthememiniframes.sty
+%% The original template is under GNU Public License
+%% or LaTeX Project Public License.
+
+\setbeamertemplate{headline} % headline
+{%
+  \ifthenelse{\equal{\beamer@sidebarside}{none}}{}{
+    \setbeamercolor{upper separation line head}{use=UHCullen, fg=UHCullen.fg, bg=UHCullen.bg}
+    \setbeamercolor{section in head/foot}{use=UHCullen, fg=UHCullen.fg, bg=UHCullen.bg}
+    \begin{beamercolorbox}[colsep=0.5pt]{upper separation line head}
+    \end{beamercolorbox}
+    \begin{beamercolorbox}{section in head/foot}
+      \vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+    \end{beamercolorbox}%
+  }%
+  \beamer@Cullen@Coloredheaderline
+}
+
+\setbeamertemplate{footline} % footline  
+{
+  \ifx\beamer@Cullen@progressstyle\beamer@Cullen@progressstyle@none
+  \else
+    \beamer@Cullen@Coloredprogressbar
+  \fi
+  \beamer@Cullen@Coloredfootline
+}
+
+\mode<all>
