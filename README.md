@@ -221,7 +221,7 @@ The color is changed to `navy` and the font is changed to `kpfonts`. The navigat
 
 ## Update report
 
-### 1.0 @ 03/02/2022
+### 1.0 @ 04/04/2022
 
 1. Finish the entire UHCullen theme.
 2. Redesign the styles of progress bar and the sidebar.
