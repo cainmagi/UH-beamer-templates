@@ -37,8 +37,8 @@ We list all avaliable options here. The deault state means whether a option is e
 
 | Option | Description | Counter option | Default state |
 | -----  |   -----     |      -----     |  -----  |
-| `color` | The palette name of the whole theme, could be `forest`, `navy`, `dark`, `UHRed`, or 'default' (UHCullen).  | - | `default` |
-| `font` | The palette name of the whole theme, could be `serif`, `helvet`, `kp`, or 'default' (sans).  | - | `default` |
+| `color` | The palette name of the whole theme, could be `forest`, `navy`, `dark`, `IEEE`, `UHRed`, or 'default' (UHCullen).  | - | `default` |
+| `font` | The palette name of the whole theme, could be `serif`, `helvet`, `times`, `kp`, or 'default' (sans).  | - | `default` |
 | `progressstyle` | The style of the progress bar displayed on each page, could be `noNumber`, `none` or `default`. | - | `default` |
 | `shownavsym` | If specified, will show the navigation symbols. | - | False |
 
@@ -46,12 +46,12 @@ Options inherited from sidebar outer theme and miniframes outer theme.
 
 | Option | Description | Counter option | Default state |
 | -----  |   -----     |      -----     |  -----  |
-| `sidebarnone` | If specified, will remove the sidebar (or navigation bar) in Classic or Colored template. | - | False |
-| `sidebarleft` | If specified, will put the sidebar on the left side in Classic template, and render the navigation bar in Colored template. | - | False |
-| `sidebarright` | If specified, will put the sidebar on the right side in Classic template, and render the navigation bar in Colored template. | - | True |
-| `showallsubsections` | If specified, will show all subsections in the sidebar of the Classic template. | - | False |
-| `hideothersubsections` | If specified, will hide the subsections of those non-current sections in the sidebar of the Classic template. | - | True |
-| `hideallsubsections` | If specified, will always hide all subsections in the sidebar of the Classic template. | - | False |
+| `sidebarnone` | If specified, will remove the sidebar (or navigation bar) in Classic or Colored template. | `sidebarleft`, `sidebarright` | False |
+| `sidebarleft` | If specified, will put the sidebar on the left side in Classic template, and render the navigation bar in Colored template. | `sidebarnone`, `sidebarright` | False |
+| `sidebarright` | If specified, will put the sidebar on the right side in Classic template, and render the navigation bar in Colored template. | `sidebarnone`, `sidebarleft` | True |
+| `showallsubsections` | If specified, will show all subsections in the sidebar of the Classic template. | `hideothersubsections`, `hideallsubsections` | False |
+| `hideothersubsections` | If specified, will hide the subsections of those non-current sections in the sidebar of the Classic template. | `showallsubsections`, `hideallsubsections` | True |
+| `hideallsubsections` | If specified, will always hide all subsections in the sidebar of the Classic template. | `showallsubsections`, `hideothersubsections` | False |
 
 ## Commands
 
@@ -221,7 +221,7 @@ The color is changed to `navy` and the font is changed to `kpfonts`. The navigat
 
 ## Update report
 
-### 1.0 @ 04/04/2022
+### 1.0.0 @ 04/05/2022
 
 1. Finish the entire UHCullen theme.
 2. Redesign the styles of progress bar and the sidebar.
@@ -231,6 +231,8 @@ The color is changed to `navy` and the font is changed to `kpfonts`. The navigat
 6. Adjust the style of the beamer block boxes.
 7. Add more extra packages for supporting more features.
 7. Upload this sub-project: *UH-Slides-Cullen*.
+8. Add font: `times`. Fix the font type when using `serif` configs.
+9. Add color: `IEEE`.
 
 [slide-feather]:https://www.overleaf.com/latex/templates/beamer-presentation-template-feather-theme/jcbpcdxqbxbf
 [theme-sidebar]:http://tug.ctan.org/macros/latex/contrib/beamer/base/themes/outer/beamerouterthemesidebar.sty
