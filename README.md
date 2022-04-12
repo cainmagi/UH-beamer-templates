@@ -37,8 +37,8 @@ We list all avaliable options here. The deault state means whether a option is e
 
 | Option | Description | Counter option | Default state |
 | -----  |   -----     |      -----     |  -----  |
-| `color` | The palette name of the whole theme, could be `forest`, `navy`, `dark`, `IEEE`, `UHRed`, or 'default' (UHCullen).  | - | `default` |
-| `font` | The palette name of the whole theme, could be `serif`, `helvet`, `times`, `kp`, or 'default' (sans).  | - | `default` |
+| `color` | The palette name of the whole theme, could be `forest`, `navy`, `dark`, `IEEE`, `UHRed`, or `default` (`UHCullen`).  | - | `default` |
+| `font` | The palette name of the whole theme, could be `serif`, `helvet`, `times`, `kp`, or `default` (`sans`).  | - | `default` |
 | `progressstyle` | The style of the progress bar displayed on each page, could be `noNumber`, `none` or `default`. | - | `default` |
 | `shownavsym` | If specified, will show the navigation symbols. | - | False |
 
