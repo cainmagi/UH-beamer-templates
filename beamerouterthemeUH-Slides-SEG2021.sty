@@ -1,0 +1,232 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% UH-Slides-SEG2022 (Color theme)
+%%   Revised by Yuchen Jin (cainmagi)
+%%   June 21, 2022
+%%   A template for attending the SEG 2022 meeting. It will be updated according
+%%   to the palette and the art style of the current official website.
+%% This template is used for providing frame styles to UH Slides SEG2022
+%% Theme.
+%% ----------------
+%% Aug. 31, 2022
+%% - Add a [showallsubsections] to the sidebar.
+%% - Make the sizes of the logos customizable.
+%% - Move the final color configurations here.
+%% Aug. 28, 2022
+%% - Split the SEG2021 (legacy) outer theme from the whole template.
+%% - Adjust the infrastructure of the built-in commands.
+%% -----------------------------
+%% Copyright info:
+%%
+%% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+%% Licensed by GNU General Public License at <http://www.gnu.org/licenses/>.
+%%
+%% This program is free software: you can redistribute it and/or modify
+%% it under the terms of the GNU General Public License as published by
+%% the Free Software Foundation, either version 3 of the License, or
+%% (at your option) any later version.
+%%
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerouterthemeUH-Slides-SEG2021}[2022/08/31 The IMAGE (SEG) 2021 Theme]
+
+% load required packages
+\RequirePackage{ifthen}
+\RequirePackage{tikz}
+\RequirePackage{calc}
+\RequirePackage{tcolorbox}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{calc,shadows,positioning}
+\tcbuselibrary{skins,hooks}
+
+% Commands of builtin images.
+%\providecommand{\beamer@UHCullen@bgdecoratorl}{UHCullenGraphics/bgdecorator}
+\providecommand*{\beamer@SEG@givenLogoMain}{seg-2021.png}
+% \providecommand*{\beamer@SEG@givenLogoSecond}{}
+
+% Provide commands for overriding the images.
+\newcommand{\setFirstLogo}[2][]{
+  \renewcommand{\beamer@SEG@givenLogoMain}{#2}
+  \ifthenelse{\equal{#1}{}}{
+    \pgfdeclareimage[width=.13\paperwidth]{small-logo}{#2}
+  }{
+    \pgfdeclareimage[#1]{small-logo}{#2}
+  }
+}
+
+\newcommand{\setSecondLogo}[2][]{
+  \providecommand{\beamer@SEG@givenLogoSecond}{#1}
+  \ifthenelse{\equal{#1}{}}{
+    \pgfdeclareimage[width=.13\paperwidth]{second-logo}{#2}
+  }{
+    \pgfdeclareimage[#1]{second-logo}{#2}
+  }
+}
+
+% Make default configs for the images.
+\pgfdeclareimage[width=.13\paperwidth]{small-logo}{\beamer@SEG@givenLogoMain}
+%\pgfdeclareimage[width=.5\paperwidth]{main-logo}{\beamer@SEG@givenLogoMain}
+%\pgfdeclareimage[width=.33\paperwidth]{large-corner}{large-corner}
+%\pgfdeclareimage[height=\beamer@headheight]{small-corner}{small-corner}
+
+% Track the unnumbered frames for the progress bar
+\newcounter{unnumberedframe}
+\define@key{beamerframe}{noframenumbering}[true]{\stepcounter{unnumberedframe}\beamer@noframenumberingtrue}
+
+%\setbeamerfont{framesubtitle}{\uppercase}
+
+%------------------------------------------
+% Theme options, definitions and templates.
+%------------------------------------------
+
+% basic options (may not work)
+\DeclareOptionBeamer{shownavsym}{\def\beamer@shownavsym{true}}
+
+\DeclareOptionBeamer{showallsubsections}[]{\beamer@nav@subsectionstyle{show/show/show}}
+\DeclareOptionBeamer{hideothersubsections}[]{\beamer@nav@subsectionstyle{show/show/hide}}
+\DeclareOptionBeamer{hideallsubsections}[]{\beamer@nav@subsectionstyle{hide}}
+\ExecuteOptionsBeamer{hideothersubsections}
+
+% Copied from the existing outer theme.
+\useoutertheme[width=.15\paperwidth,right]{sidebar}
+\setlength{\beamer@headheight}{.165\paperheight}
+\setbeamertemplate{sidebar right}{%
+  %\vskip7pt
+  \insertverticalnavigation{\beamer@sidebarwidth}%
+}
+
+\ProcessOptionsBeamer
+
+
+%-----------------------------
+% Frame style related configs.
+%-----------------------------
+\ifbeamercolorempty[fg]{IMAGEFrameLight}
+{
+\setbeamercolor{IMAGEFrameLight}{use={structure,palette sidebar primary},fg=palette sidebar primary.fg,bg=structure.fg}
+}{}
+
+\ifbeamercolorempty[fg]{IMAGEFootLight}
+{
+  \setbeamercolor{IMAGEFootLight}{use={structure,palette sidebar primary},fg=palette sidebar primary.fg,bg=structure.fg}
+}{}
+
+% Footline style ------
+\setbeamertemplate{footline}{\leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{organization in head/foot}%
+      \usebeamerfont{organization in head/foot}\insertshortinstitute 
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+      \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+%\setbeamertemplate{footline}[text line]{%
+  %\insertshortauthor\strut\hfill\insertshorttitle\hfill\insertshortdate\hspace{1em}\insertframenumber/\inserttotalframenumber}
+
+
+% Frame title style ------
+\addtobeamertemplate{frametitle}{}{%
+  \usebeamercolor{IMAGEFrameLight}
+  \begin{pgfpicture}
+    \pgf@relevantforpicturesizefalse
+    \pgftransformxshift{-\Gm@lmargin}
+    \pgftransformyshift{\beamer@headheight-3ex}
+    \pgfpathmoveto{\pgfpoint{0.4em}{0pt}}
+    \pgfpathlineto{\pgfpoint{0.6\paperwidth}{0pt}}
+    \pgfsetlinewidth{1pt}
+    \pgfsetcolor{IMAGEFrameLight.fg}
+    \pgfusepath{stroke}
+  \end{pgfpicture}%
+  \begin{pgfpicture}
+    \pgf@relevantforpicturesizefalse
+    \pgftransformxshift{-\Gm@lmargin}
+    \pgftransformyshift{\beamer@headheight+18pt}
+    %\pgftext[at=\pgfpoint{\paperwidth}{-\beamer@headheight},right,base]{\pgfuseimage{small-corner}}
+    \pgfpathmoveto{\pgfpoint{\paperwidth-.15\paperwidth}{0pt}}
+    \pgfpathlineto{\pgfpoint{\paperwidth-.15\paperwidth}{-\beamer@headheight}}
+    \pgfsetlinewidth{3.5pt}
+    \pgfsetinnerlinewidth{1pt}
+    \pgfsetinnerstrokecolor{IMAGEFrameLight.fg}
+    \pgfsetcolor{white}
+    \pgfusepath{stroke}
+    \begin{tikzpicture}[remember picture,overlay]
+      \node [rectangle, draw=none, left color=IMAGEFrameLight.fg, right color=IMAGEQuaternary, anchor=north east, minimum width=\beamer@sidebarwidth-2pt+0.5pt, minimum height=\beamer@headheight+0.5pt] (box) at ([xshift=0.75pt,yshift=0.75pt] current page.north east){};
+    \end{tikzpicture}
+    \pgfpathmoveto{\pgfpoint{\paperwidth-.15\paperwidth}{-.18\paperheight}}
+    \pgfpathlineto{\pgfpoint{\paperwidth-.15\paperwidth}{-.97\paperheight}}
+    \pgfsetlinewidth{1pt}
+    \pgfsetinnerlinewidth{0pt}
+    \pgfsetcolor{IMAGEFrameLight.fg}
+    \pgfusepath{stroke}
+    \pgftext[at=\pgfpoint{\paperwidth-.075\paperwidth}{-.95\paperheight},center,base]{\pgfuseimage{small-logo}}
+    \ifx\beamer@SEG@givenLogoSecond\undefined
+    \else
+    \pgftext[at=\pgfpoint{\paperwidth-.075\paperwidth}{-.95\paperheight+1.0cm},center,base]{\pgfuseimage{second-logo}}
+    \fi
+  \end{pgfpicture}%
+  \vskip-25pt%
+}
+
+% Show frame symbols ------.
+\ifx\beamer@shownavsym\undefined % insert navigation symbols
+  \setbeamertemplate{navigation symbols}{}
+\fi
+
+%-----------------------------
+% Other configuratins.
+%-----------------------------
+
+% setting the blocks
+%\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{block begin}{
+  \usebeamercolor{IMAGEFrameLight}
+  \begin{tcolorbox}[title=\insertblocktitle, shadow={1mm}{-1mm}{0mm}{black!50!white}, enhanced, colback=IMAGEFrameDark.bg!6, colframe=IMAGEFrameDark.bg, fonttitle=\bfseries, bottomrule=0pt, leftrule=0pt, rightrule=0pt, titlerule=3pt, toprule=3pt, top=3pt, bottom=3pt, left=1ex, right=1ex, arc=0pt, smart shadow arc=false]
+}
+\setbeamertemplate{block end}{
+  \end{tcolorbox}
+}
+
+% setting the section title block.
+\newenvironment{sectitle}{
+  \begin{tcolorbox}[colback=red!5!white, colframe=red!75!black, sharp corners=downhill ]
+}{
+  \end{tcolorbox}
+}
+
+% Configure colors.
+\setbeamercolor{structure}{use=IMAGEFrameLight, fg=IMAGEFrameLight.fg}
+\setbeamercolor{normal text}{fg=black}
+\usecolortheme{rose}
+\setbeamercolor{title page}{use=IMAGEFrameLight, fg=IMAGEFrameLight.fg}
+\setbeamercolor{logo}{use=IMAGEFrameDark, bg=IMAGEFrameDark.bg}
+\setbeamercolor{frametitle}{use=IMAGEFrameLight, fg=IMAGEFrameLight.fg}
+\setbeamercolor{section in sidebar}{use=IMAGEFrameLight, fg=IMAGEFrameLight.fg}
+\setbeamerfont{section in sidebar}{series=\bfseries}
+\setbeamercolor{block title}{fg=white, bg=IMAGEPrimary}
+\setbeamercolor{block body}{bg=IMAGEPrimary!10!white}
+\setbeamercolor{block title alert}{fg=white, bg=IMAGETertiary!50!black}
+\setbeamercolor{block body alert}{bg=IMAGETertiary!10!white}
+\setbeamercolor{block title example}{fg=black, bg=IMAGEQuaternary}
+\setbeamercolor{block body example}{bg=IMAGEQuaternary!10!white}
+
+% Configure colors of foot.
+\setbeamercolor{author in head/foot}{use=IMAGEFootDark, fg=IMAGEFootDark.fg, bg=IMAGEPrimary}
+\setbeamercolor{title in head/foot}{use=IMAGEFootDark, fg=IMAGEFootDark.fg, bg=IMAGESecondary}
+\setbeamercolor{organization in head/foot}{use=IMAGEFootDark, fg=IMAGEFootDark.fg, bg=IMAGETertiary}
+\setbeamercolor{date in head/foot}{use=IMAGEFootDark, fg=IMAGEFootDark.fg, bg=IMAGEQuaternary}
+
+\mode<all>

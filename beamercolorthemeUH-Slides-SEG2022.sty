@@ -1,0 +1,278 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% UH-Slides-SEG2022 (Color theme)
+%%   Revised by Yuchen Jin (cainmagi)
+%%   June 21, 2022
+%%   A template for attending the SEG 2022 meeting. It will be updated according
+%%   to the palette and the art style of the current official website.
+%% ----------------
+%% Aug. 31, 2022
+%% - Add a default style option for switching the default palette.
+%% June 21, 2022
+%% - Split all color configurations into this color theme.
+%% - Support more meeting palettes: URSI 2022, RASC 2022, IMAGE 2022.
+%% - Re-design the logics of the color configurations.
+%% Nov. 10, 2021
+%% - Support more meeting palettes: URSI 2021, PIERS 2021, UHECE.
+%% - Provide two options font, color. Now the font family and palette
+%%   are customizable.
+%% -----------------------------
+%% Copyright info:
+%%
+%% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+%% Licensed by GNU General Public License at <http://www.gnu.org/licenses/>.
+%%
+%% This program is free software: you can redistribute it and/or modify
+%% it under the terms of the GNU General Public License as published by
+%% the Free Software Foundation, either version 3 of the License, or
+%% (at your option) any later version.
+%%
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemeUH-Slides-SEG2022}[2022/08/31 The IMAGE (SEG) 2022 Theme]
+
+\RequirePackage{ifthen}
+\RequirePackage{ifxetex}
+\ifxetex
+  \RequirePackage[OT1,T1]{fontenc}
+  \RequirePackage{fontspec}
+\else
+  \RequirePackage[T1]{fontenc}
+\fi
+
+%------------------------------------------
+% Theme options, definitions and templates.
+%------------------------------------------
+
+\def\beamer@SEG@palette{default}  % Could be UHECE, RASC2022, PIERS2021, URSI2021, URSI2022, IMAGE2021, default (IMAGE2022)
+\def\beamer@SEG@font{default}  % Could be serif, helvet, times, legacy, default (sans)
+\def\beamer@SEG@color@defaultstyle{2022}
+\DeclareOptionBeamer{color}{\def\beamer@SEG@palette{#1}}
+\DeclareOptionBeamer{font}{\def\beamer@SEG@font{#1}}
+\DeclareOptionBeamer{style}{\def\beamer@SEG@color@defaultstyle{#1}}
+\ProcessOptionsBeamer
+
+%-------------------------
+% Builtin flags.
+%--------------------------
+
+\newif\ifbeamer@SEG@hassecondarycolor
+\beamer@SEG@hassecondarycolorfalse
+
+%-------------------------
+% font options.
+%--------------------------
+
+\providecommand{\useFontInconsolata}{
+  \ifxetex
+    \setmonofont{Inconsolatazi4}
+  \else
+    \RequirePackage{zi4}
+  \fi
+}
+
+\providecommand{\useFontSerif}{
+  \RequirePackage{libertine}
+  \useFontInconsolata
+  \usefonttheme{serif}
+}
+
+\providecommand{\useFontHelvet}{
+  \ifxetex
+    \setmainfont{TeX Gyre Heros}
+    \setsansfont{TeX Gyre Heros}
+    \setmonofont{DejaVu Sans Mono}
+  \else
+    \RequirePackage{helvet}
+    \RequirePackage[scaled]{beramono}
+  \fi
+}
+
+\providecommand{\useFontTimes}{
+  \RequirePackage{tgtermes}
+  \RequirePackage{roboto-mono}
+  \usefonttheme{serif}
+}
+
+\providecommand{\useFontLegacy}{
+  \usefonttheme{serif}
+}
+
+\providecommand{\useFontSans}{
+  \RequirePackage[rm]{roboto}
+  \RequirePackage{roboto-mono}
+  %\usepackage[urw-garamond]{mathdesign}
+}
+
+\ifthenelse{\equal{\beamer@SEG@font}{serif}}{
+  % serif
+  \useFontSerif
+}{
+  \ifthenelse{\equal{\beamer@SEG@font}{helvet}}{
+    % helvet
+    \useFontHelvet
+  }{
+    \ifthenelse{\equal{\beamer@SEG@font}{times}}{
+      % times
+      \useFontTimes
+    }{
+      \ifthenelse{\equal{\beamer@SEG@font}{legacy}}{
+        % times
+        \useFontTimes
+      }{
+        \useFontSans
+      }
+    }
+  }
+}
+
+% Only applied when using times and legacy fonts
+\ifthenelse{\equal{\beamer@SEG@font}{times}}{
+	\setbeamerfont{author in head/foot}{family=\ttfamily}
+	\setbeamerfont{title in head/foot}{family=\ttfamily}
+	\setbeamerfont{organization in head/foot}{family=\ttfamily}
+	\setbeamerfont{date in head/foot}{family=\ttfamily}
+}{
+	\ifthenelse{\equal{\beamer@SEG@font}{legacy}}{
+		\setbeamerfont{author in head/foot}{family=\sffamily}
+		\setbeamerfont{title in head/foot}{family=\sffamily}
+		\setbeamerfont{organization in head/foot}{family=\sffamily}
+		\setbeamerfont{date in head/foot}{family=\sffamily}
+	}{}
+}
+
+% Configure beamer fonts
+\ifthenelse{\equal{\beamer@SEG@font}{times}}{
+  \setbeamerfont{title}{family={\rmfamily}, series={\bfseries}}
+  \setbeamerfont{subtitle}{family={\rmfamily}, series={\bfseries}}
+}{
+  \setbeamerfont{title}{family={\sffamily}, series={\bfseries}}
+  \setbeamerfont{subtitle}{family={\sffamily}, series={\bfseries}}
+}
+\ifthenelse{\equal{\beamer@SEG@font}{helvet}}{
+  \setbeamerfont{frametitle}{family={\sffamily}, series={\bfseries}}
+  \setbeamerfont{block title}{family={\sffamily}, series={\bfseries}}
+}{
+  \setbeamerfont{frametitle}{family={\rmfamily}, series={\bfseries}}
+  \setbeamerfont{block title}{family={\rmfamily}, series={\bfseries}}
+}
+\setbeamerfont{framesubtitle}{size=\normalsize}
+\setbeamerfont{institute}{family=\sffamily, size=\normalsize}
+\setbeamerfont{author}{family=\sffamily, size=\normalsize}
+\setbeamerfont{date}{family=\sffamily, size=\footnotesize}
+
+%-------------------------
+% beamer specific options.
+%--------------------------
+
+% Basic color for UH.
+\definecolor{UHRed}{RGB}{200,16,46} %Kopparn som tydligen ska användas till typ allt 156,97,20
+\definecolor{UHBlue}{RGB}{0,0,128} %Den ganska mörka blåa färgen som LU har, anänds inte så mycket längre
+\definecolor{UHPink}{RGB}{233,196,199} %denna är någon sorts officiell rosa som man kan ha som accentfärg
+\definecolor{UHGreen}{RGB}{173,202,184} %Fler officiella accentfärger
+\definecolor{UHLBlue}{RGB}{185,211,220}
+\definecolor{UHIvory}{RGB}{255,255,234}
+
+% Basic color for SEG.
+\definecolor{SEGNavy}{HTML}{2A2C63}
+\definecolor{SEGBlue}{HTML}{3871C0}
+\definecolor{SEGRed}{HTML}{E42629}
+\definecolor{SEGYellow}{HTML}{F7A313}
+
+% Design the palettes.
+% Recommend to use this tool to solve the colors:
+% https://coolors.co/gradient-palette
+
+\providecommand*{\beamer@SEG@color@setIMAGEII}{
+  % IMAGE 2022 (default): LakeBlue, Violet and LimeGreen
+  \definecolor{IMAGEPrimary}{HTML}{005DA3}
+  \definecolor{IMAGESecondary}{HTML}{2F2B5D}
+  \definecolor{IMAGETertiary}{HTML}{00B288}
+  \definecolor{IMAGEQuaternary}{HTML}{008DB8}
+}
+\providecommand*{\beamer@SEG@color@setIMAGEI}{
+  % IMAGE 2021 palette: LakeBlue and LimeGreen
+  \definecolor{IMAGEPrimary}{HTML}{005DA3}
+  \definecolor{IMAGESecondary}{HTML}{008DB8}
+  \definecolor{IMAGETertiary}{HTML}{00B288}
+  \definecolor{IMAGEQuaternary}{HTML}{98C93C}
+}
+
+\ifthenelse{\equal{\beamer@SEG@palette}{PIERS2021}}{
+  % PIERS 2021 palette: Violet and Pulple
+  \definecolor{IMAGEPrimary}{HTML}{1D1551}
+  \definecolor{IMAGESecondary}{HTML}{4A1652}
+  \definecolor{IMAGETertiary}{HTML}{761852}
+  \definecolor{IMAGEQuaternary}{HTML}{A31953}
+}{
+  \ifthenelse{\equal{\beamer@SEG@palette}{URSI2022}}{
+    % URSI 2022 palette: LakeBlue and LightBlue
+    \definecolor{IMAGEPrimary}{HTML}{1B75BC}
+    \definecolor{IMAGESecondary}{HTML}{4A96CF}
+    \definecolor{IMAGETertiary}{HTML}{79B7E1}
+    \definecolor{IMAGEQuaternary}{HTML}{A8D8F4}
+	}{
+    \ifthenelse{\equal{\beamer@SEG@palette}{URSI2021}}{
+      % URSI 2021 palette: LakeBlue and Cyan
+      \definecolor{IMAGEPrimary}{HTML}{005DA3}
+      \definecolor{IMAGESecondary}{HTML}{147EB0}
+      \definecolor{IMAGETertiary}{HTML}{289FBC}
+      \definecolor{IMAGEQuaternary}{HTML}{3CC0C9}
+    }{
+      \ifthenelse{\equal{\beamer@SEG@palette}{RASC2022}}{
+        % RASC 2022 palette: Four different colors (SkyBlue and Puple)
+        \definecolor{IMAGEPrimary}{HTML}{0683FF}
+        \definecolor{IMAGESecondary}{HTML}{5347DC}
+        \definecolor{IMAGETertiary}{HTML}{FD5703}
+        \definecolor{IMAGEQuaternary}{HTML}{FFA500}
+      }{
+        \ifthenelse{\equal{\beamer@SEG@palette}{UHECE}}{
+          % UHECE palette: Crimson and Red
+          \definecolor{IMAGEPrimary}{HTML}{2B070B}
+          \ifthenelse{\equal{\beamer@SEG@color@defaultstyle}{2021}}{
+            \definecolor{IMAGESecondary}{HTML}{5F0A17}
+            \definecolor{IMAGETertiary}{HTML}{940D22}
+            \definecolor{IMAGEQuaternary}{HTML}{C8102E}
+          }{
+            \definecolor{IMAGESecondary}{HTML}{C8102E}
+            \definecolor{IMAGETertiary}{HTML}{5F0A17}
+            \definecolor{IMAGEQuaternary}{HTML}{940D22}
+          }
+        }{
+          \ifthenelse{\equal{\beamer@SEG@palette}{IMAGE2021}}{
+            % IMAGE 2021 palette: LakeBlue and LimeGreen
+            \ifthenelse{\equal{\beamer@SEG@color@defaultstyle}{2021}}{
+              \beamer@SEG@color@setIMAGEI
+            }{
+              \definecolor{IMAGEPrimary}{HTML}{005DA3}
+              \definecolor{IMAGESecondary}{HTML}{98C93C}
+              \definecolor{IMAGETertiary}{HTML}{00B288}
+              \definecolor{IMAGEQuaternary}{HTML}{008DB8}
+            }
+          }{
+            \ifthenelse{\equal{\beamer@SEG@palette}{IMAGE2022}}{
+              % IMAGE 2022 (default): LakeBlue, Violet and LimeGreen
+              \beamer@SEG@color@setIMAGEII
+            }{
+              \ifthenelse{\equal{\beamer@SEG@color@defaultstyle}{2021}}{
+                \beamer@SEG@color@setIMAGEI
+              }{\beamer@SEG@color@setIMAGEII}
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+% Configure colors used for rendering frames.
+\setbeamercolor{IMAGEFrameLight}{fg=IMAGEPrimary, bg=IMAGEQuaternary}
+\setbeamercolor{IMAGEFrameDark}{fg=white, bg=IMAGEPrimary}
+\setbeamercolor{IMAGEFootLight}{fg=IMAGESecondary, bg=IMAGETertiary!10}
+\setbeamercolor{IMAGEFootDark}{fg=white, bg=IMAGESecondary}
+
+\mode<all>

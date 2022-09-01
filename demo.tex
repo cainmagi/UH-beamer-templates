@@ -2,28 +2,29 @@
 %\documentclass{beamer}
 %%%CHOOSE ASPECT RATIO ABOVE%%%
 
-\usetheme{UH-Slides-SEG}
+\usetheme[showallsubsections]{UH-Slides-SEG2022}
 \addbibresource{bib/ref_nn.bib}
 \addbibresource{bib/ref_superrs.bib}
 
-%\usepackage[utf8]{inputenc}
-\usepackage[american]{babel}
+% \usepackage[utf8]{inputenc} % Not necessary.
+% \usepackage[american]{babel} % Have been embedded in the theme.
 
 %\setbeameroption{show notes} % Use this command to produce notes for slides.
 
 \title[Demo]{Beamer Example}
 
-\titlecolor{white} % Choose between UHRed, UHBlue, UHPink, UHLBlue, UHIvory, SEGNavy, SEGBlue, SEGRed, SEGYellow, IMAGEBlue, IMAGESemiBlue, IMAGESemiGreen, IMAGEGreen
-\titleimage{\includegraphics[width=\paperwidth]{title.jpg}}
-%\titleimage{\includegraphics[width=\paperwidth]{title2.jpg}}
-\thankscolor{white} % Choose between UHRed, UHBlue, UHPink, UHLBlue, UHIvory, SEGNavy, SEGBlue, SEGRed, SEGYellow, IMAGEBlue, IMAGESemiBlue, IMAGESemiGreen, IMAGEGreen
-\thanksimage{\includegraphics[width=\paperwidth]{cullen.jpg}}
-\titleLogo{seg-2021-alt.png} % If not set, we would use seg-2021-alt.png
-\firstLogo{seg-2021.png} % If not set, we would use seg-2021.png
-%\secondLogo{seg-2021.png} % If not set, the second logo would be left blank.
+\setTitleColor{white} % Choose between UHRed, UHBlue, UHPink, UHGreen, UHLBlue, UHIvory, SEGNavy, SEGBlue, SEGRed, SEGYellow, IMAGEPrimary, IMAGESecondary, IMAGETertiary, IMAGEQuaternary
+\setTitleImage{title-2022.jpg}
+%\setTitleImage[width=\paperwidth]{title-2021.jpg} % or title-2021-2.jpg
+\setFinalColor{white} % Choose between UHRed, UHBlue, UHPink, UHLBlue, UHIvory, SEGNavy, SEGBlue, SEGRed, SEGYellow, IMAGEPrimary, IMAGESecondary, IMAGETertiary, IMAGEQuaternary
+\setFinalImage{cullen.jpg}
+%\setTitleLogo[1.8in]{seg-2022-alt.png} % If not set, we would use seg-202x-alt.png
+%\setFirstLogo{seg-2022.png} % If not set, we would use seg-202x.png
+%\setSecondLogo{seg-2021.png} % If not set, the second logo would be left blank.
 \author{Yuchen Jin}
 \subtitle{A beamer template for SEG-2021/UH}
-\date{\today} % Could be replaced by a manually specified date: \formatdate{day}{month}{year}
+%\date{\today} % Could be replaced by a manually specified date: \DTMdate{YYYY-MM-DD}
+\date{\DTMdate{2022-09-02}}
 \institute[Department of ECE]{University of Houston\\Department of ECE}
 
 \AtBeginSection[]
@@ -164,19 +165,16 @@
 \end{itemize}
 
 \begin{columns}
-  \begin{column}{.48\textwidth}
+  \begin{column}{.44\textwidth}
     \begin{theorem}[Example Theorem 1] \label{thm:th1}
       Nam dui ligula, fringilla a, euismod
       sodales, sollicitudin vel, wisi. Morbi
       auctor lorem non justo. Nam lacus
       libero, pretium at, lobortis vitae,
-      ultricies et, tellus. Donec aliquet,
-      tortor sed accumsan bibendum, erat
-      ligula aliquet magna, vitae ornare
-      odio metus a mi.
+      ultricies et, tellus.
     \end{theorem}
   \end{column}
-  \begin{column}{.48\textwidth}
+  \begin{column}{.52\textwidth}
     \begin{theorem}[Example Theorem 2] \label{thm:th2}
       Quisque ullamcorper placerat ipsum.
       Cras nibh. Morbi vel justo vitae lacus
@@ -184,8 +182,6 @@
       sit amet, consectetuer adipiscing elit.
       In hac habitasse platea dictumst.
       Integer tempus convallis augue.
-      Etiam facilisis. Nunc elementum
-      fermentum wisi.
     \end{theorem}
   \end{column}
 \end{columns}
@@ -259,6 +255,6 @@
 
 \end{frame}
 
-\ThankYouFrame
+\finalframe[It's time for Q\&A.]
 
 \end{document}

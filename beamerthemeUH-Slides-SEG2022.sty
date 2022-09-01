@@ -1,0 +1,180 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% UH-Slides-SEG
+%%   Revised by Yuchen Jin (cainmagi)
+%%   June 21, 2022
+%%   A template for attending the SEG 2022 meeting. It will be updated according
+%%   to the palette and the art style of the current official website.
+%% ----------------
+%% Aug. 31, 2022
+%% - Add hexagon design elements in the title and final pages.
+%% - Update the default title logo.
+%% - Adjust the style of the title page for fixing the misplacement issue of
+%%   the bounding box.
+%% - Change the style of the upper right decorating box.
+%% - Change the style of the footline.
+%% - Add more options for customizing the theme.
+%% - Add more fonts and palettes.
+%% - Make the sizes of the logos customizable.
+%% Aug. 28, 2022
+%% - Split the inner, outer and color themes from the whole template.
+%% - Backup the SEG 2021 style as inner/outer themes.
+%% Nov. 10, 2021
+%% - Support more meeting palettes: URSI 2021, PIERS 2021, UHECE.
+%% - Provide two options font, color. Now the font family and palette
+%%   are customizable.
+%% - Make sure the footer font is always sans or mono.
+%% - Fix an incompatibility problem when using XeLaTeX.
+%% Aug. 8, 2021
+%% - Specially designed for SEG 2021.
+%% - Re-design the title page and the thank page.
+%% - Change the default font family.
+%% - Add a linear gradient block in the content.
+%% - Change the reference provider to biblatex.
+%% - Change the default language to American.
+%% - Provide two brandly new title images for IMAGE-2021.
+%% Feb. 4, 2019
+%% - Adapted from the Lund Beamer template.
+%% - Specially designed for SEG 2018.
+%% - Support both 4:3 and 16:9 modes.
+%% - Support two logos.
+%% - A totally new thanks page.
+%% - Support with necessary packages.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{beamerthemeUH-Slides-SEG2022}[2022/08/31 The IMAGE (SEG) 2022 Theme]
+\RequirePackage{ifthen}
+
+%% Declare options
+\DeclareOptionBeamer{showallsubsections}{
+  \PassOptionsToPackage{showallsubsections}{beamerouterthemeUH-Slides-SEG2022}
+  \PassOptionsToPackage{showallsubsections}{beamerouterthemeUH-Slides-SEG2021}
+}
+\DeclareOptionBeamer{hideothersubsections}{
+  \PassOptionsToPackage{hideothersubsections}{beamerouterthemeUH-Slides-SEG2022}
+  \PassOptionsToPackage{hideothersubsections}{beamerouterthemeUH-Slides-SEG2021}
+}
+\DeclareOptionBeamer{hideallsubsections}{
+  \PassOptionsToPackage{hideallsubsections}{beamerouterthemeUH-Slides-SEG2022}
+  \PassOptionsToPackage{hideallsubsections}{beamerouterthemeUH-Slides-SEG2021}
+}
+
+\DeclareOptionBeamer{color}{\PassOptionsToPackage{color=#1}{beamercolorthemeUH-Slides-SEG2022}}
+\DeclareOptionBeamer{font}{\PassOptionsToPackage{font=#1}{beamercolorthemeUH-Slides-SEG2022}}
+
+\DeclareOptionBeamer{language}{
+  \PassOptionsToPackage{#1}{datetime2}
+  \PassOptionsToPackage{#1}{babel}
+}
+\def\beamer@SEG@style{2022} % Could be 2022, 2021
+\DeclareOptionBeamer{style}{
+  \PassOptionsToPackage{style=#1}{beamercolorthemeUH-Slides-SEG2022}
+  \def\beamer@SEG@style{#1}
+}
+\ExecuteOptionsBeamer{language={american}}
+\ExecuteOptionsBeamer{style={2022}}
+
+\ProcessOptionsBeamer
+
+%% Start to load packages
+
+\RequirePackage{tikz,pgf}
+\RequirePackage[overload]{textcase}
+\RequirePackage{setspace}
+
+\RequirePackage{csquotes}
+\RequirePackage[style=ieee,citestyle=verbose,backend=bibtex]{biblatex}
+\RequirePackage{cleveref}
+\RequirePackage{algorithm}
+\RequirePackage{algorithmic}
+\RequirePackage{float}
+\RequirePackage{subfigure}
+\RequirePackage{siunitx}
+\RequirePackage{babel}
+\RequirePackage{datetime2}
+% \DTMlangsetup{showdayofmonth=true}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\crefname{subsection}{Subsection}{Subsections}
+\def\thesubsection{\arabic{section}.\arabic{subsection}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% Hotfix for cref
+\let\chyperref\cref % Save the orginal command under a new name
+\renewcommand{\cref}[1]{\hyperlink{#1}{\chyperref{#1}}} % Redefine the \cref command and explictely add the hyperlink.
+
+% Hotfix for footnotes
+\let\oldfootnote\footnote
+\renewcommand\footnote[1]{\oldfootnote[frame]{\scriptsize #1}}
+
+\RequirePackage{ifxetex}
+\ifpdf
+  \RequirePackage{graphicx}
+  \RequirePackage{epstopdf}
+  \graphicspath{{Pics/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.pdf,.jpeg,.png,.jpg}
+\else
+  \ifxetex
+    \RequirePackage{graphicx}
+  \else
+    \RequirePackage[dvipdfmx]{graphicx}
+    \RequirePackage{bmpsize}
+  \fi
+  \graphicspath{{Pics/},{Pics2/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.eps,.pdf,.jpeg,.png,.jpg}
+\fi
+
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,hooks}
+\usetikzlibrary{shadows}
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{colortbl}
+
+%\renewcommand{\rmdefault}{phv}
+\usetikzlibrary{shapes,arrows,calc,positioning}
+
+% Hyperref configs.
+\hypersetup{pdfdisplaydoctitle={true}}
+\ifpdf
+  \hypersetup{pdfcreator={pdfLaTeX}}
+\else
+  \ifxetex
+    \hypersetup{pdfcreator={xeLaTeX}}
+  \else
+    \hypersetup{pdfcreator={unknownLaTeX}}
+  \fi
+\fi
+
+%% Define the color theme.
+% refers to the first four modes (beamer, handout, second and trans). That is, to all modes except the article mode
+\mode<presentation>
+{
+  \usecolortheme{UH-Slides-SEG2022}
+  \ifthenelse{\equal{\beamer@SEG@style}{2021}}{
+    \useoutertheme{UH-Slides-SEG2021}
+    \useinnertheme{UH-Slides-SEG2021}
+  }{
+    \useoutertheme{UH-Slides-SEG2022}
+    \useinnertheme{UH-Slides-SEG2022}
+  }
+}
+
+\mode<beamer>
+{
+  \hypersetup{
+    pdfpagemode={FullScreen},
+  }
+}
+
+\mode<trans>
+{
+  \hypersetup{
+    pdfpagemode={FullScreen},
+  }
+}
+
+\mode<handout>{}

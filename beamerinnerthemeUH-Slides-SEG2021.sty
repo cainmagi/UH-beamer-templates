@@ -1,0 +1,282 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% UH-Slides-SEG2022 (Color theme)
+%%   Revised by Yuchen Jin (cainmagi)
+%%   June 21, 2022
+%%   A template for attending the SEG 2022 meeting. It will be updated according
+%%   to the palette and the art style of the current official website.
+%% This template is used for providing title/final pages to UH Slides SEG2022
+%% Theme.
+%% ----------------
+%% Aug. 31, 2022
+%% - Adjust the style of the title page for fixing the misplacement issue of
+%%   the bounding box.
+%% - Make the sizes of the logos customizable.
+%% Aug. 28, 2022
+%% - Split the SEG2021 (legacy) inner theme from the whole template.
+%% - Adjust the infrastructure of the built-in commands.
+%% -----------------------------
+%% Copyright info:
+%%
+%% Copyright (c) 2022 by Yuchen Jin (cainmagi) <cainmagi@gmail.com>
+%% Licensed by GNU General Public License at <http://www.gnu.org/licenses/>.
+%%
+%% This program is free software: you can redistribute it and/or modify
+%% it under the terms of the GNU General Public License as published by
+%% the Free Software Foundation, either version 3 of the License, or
+%% (at your option) any later version.
+%%
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerinnerthemeUH-Slides-SEG2021}[2022/08/31 The IMAGE (SEG) 2021 Theme]
+
+\RequirePackage{ifthen}
+\RequirePackage{ifxetex}
+\RequirePackage[overload]{textcase}
+\RequirePackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{calc,shadows,positioning}
+\tikzfading[name=fade center, inner color=transparent!0, outer color=transparent!100]
+
+% -----------------------------------------
+% Theme options, definitions and templates.
+% -----------------------------------------
+
+% Define the builtin images.
+%\providecommand{\beamer@UHCullen@bgdecoratorl}{UHCullenGraphics/bgdecorator}
+%\providecommand{\beamer@UHCullen@bgdecoratoru}{UHCullenGraphics/bgdecorator-u}
+\providecommand*{\beamer@SEG@giventitlelogo}{seg-2021-alt.png}
+\providecommand*{\beamer@SEG@giventitlelogoconf}{1.4in}
+\providecommand*{\beamer@SEG@givenUHlogo}{uh-logo.eps}
+
+% Define the default images.
+\providecommand{\beamer@SEG@giventitlecolor}{}
+\providecommand{\beamer@SEG@giventitleimage}{}
+\providecommand{\beamer@SEG@givenfinalcolor}{}
+\providecommand{\beamer@SEG@givenfinalimage}{}
+
+% Provide options for changing images.
+\providecommand{\setTitleLogo}[2][]{
+  \renewcommand{\beamer@SEG@giventitlelogo}{#2}
+  \ifthenelse{\equal{#1}{}}{
+    \renewcommand{\beamer@SEG@giventitlelogoconf}{1.4in}
+  }{
+    \renewcommand{\beamer@SEG@giventitlelogoconf}{#1}
+  }
+}
+
+\providecommand{\setTitleColor}[1]{%
+  \renewcommand{\beamer@SEG@giventitlecolor}{#1}
+}
+\providecommand{\setTitleImage}[2][]{%
+  \ifthenelse{\equal{#1}{}}{
+    \renewcommand{\beamer@SEG@giventitleimage}{\includegraphics[height=\paperheight]{#2}}
+  }{
+    \renewcommand{\beamer@SEG@giventitleimage}{\includegraphics[#1]{#2}}
+  }
+}
+\providecommand{\setFinalColor}[1]{%
+  \renewcommand{\beamer@SEG@givenfinalcolor}{#1}
+}
+\providecommand{\setFinalImage}[2][]{%
+  \ifthenelse{\equal{#1}{}}{
+    \renewcommand{\beamer@SEG@givenfinalimage}{\includegraphics[height=\paperheight]{#2}}
+  }{
+    \renewcommand{\beamer@SEG@givenfinalimage}{\includegraphics[#1]{#2}}
+  }
+}
+
+\useinnertheme{rectangles}
+
+\setlength{\leftmargini}{.5em}
+\setlength{\leftmarginii}{1.0em}
+\setlength{\leftmarginiii}{1.5em}
+\setlength{\leftmarginiv}{2.0em}
+\setlength{\leftmarginv}{2.5em}
+\setlength{\leftmarginvi}{3.0em}
+
+\newlength{\titlemargin}
+\setlength{\titlemargin}{0.3cm}
+
+% definitions for fonts of the different elements
+\setbeamerfont{institute}{family=\sffamily, size=\normalsize}
+\setbeamerfont{title}{family=\sffamily, size=\LARGE}
+\setbeamerfont{subtitle}{family=\sffamily, size=\large}
+\setbeamerfont{frametitle}{size=\Large}
+\setbeamerfont{framesubtitle}{size=\normalsize}
+\setbeamerfont{author}{family=\sffamily, size=\normalsize}
+\setbeamerfont{date}{family=\sffamily, size=\footnotesize}
+
+% use numbers instead of a picture for the references
+\setbeamertemplate{bibliography item}[text]
+
+% title page
+\setbeamertemplate{title page}{
+  \pgfdeclarelayer{text}    % declare background layer
+  \pgfsetlayers{main,text}  % set the order of the layers (main is the standard layer)
+  \usebeamercolor{IMAGEFrameLight}
+  \begin{tikzpicture}%[overlay]
+    \coordinate (LL) at (0,0); % lower left corner of the slide
+    \coordinate (LR) at (\paperwidth,0); % lower right corner of the slide
+    \coordinate (UR) at (\paperwidth,\paperheight); % upper right corner of the slide
+    \coordinate (UL) at (0,\paperheight); % upper right corner of the slide
+    \coordinate (CENTER) at ($(LL)!0.5!(UR)$); % center point.
+
+    \coordinate (LLmargin) at ([shift={(\titlemargin,\titlemargin)}] LL);
+    \coordinate (LRmargin) at ([shift={(-\titlemargin,\titlemargin)}] LR);
+    \coordinate (URmargin) at ([shift={(-\titlemargin,-\titlemargin)}] UR);
+    \coordinate (ULmargin) at ([shift={(\titlemargin,-\titlemargin)}] UL);
+
+    % Title decorators
+    \coordinate (LRdeco) at ([shift={(-0.1cm,0)}] LRmargin); % position of the title decorator at the lower right corner
+    \coordinate (ULdeco) at ([shift={(0.05cm,-0.05cm)}] ULmargin); % position of the title decorator at the upper left corner
+
+    \begin{scope}
+      \clip (LL) rectangle (UR);
+      \ifx\beamer@SEG@giventitlecolor\@empty %check if there is a bg color set
+        \draw[fill=UHPink, draw=none] (LL) rectangle (UR);
+      \else
+        \draw[fill=\beamer@SEG@giventitlecolor, draw=none] (LL) rectangle (UR);
+      \fi
+    \end{scope}
+    
+    \ifx\beamer@SEG@giventitleimage\@empty
+    %if no title image do nothing
+    \else
+    \begin{scope}
+      \clip (LL) rectangle (UR);
+      \node[inner sep=0, anchor=center, opacity=0.8] at (CENTER) {\beamer@SEG@giventitleimage};
+    \end{scope}
+    \fi
+    
+    \renewcommand{\baselinestretch}{.9} %reduce line spacing
+    
+    %draw subtitle if there is one
+    \begin{pgfonlayer}{text}
+      \ifx\insertsubtitle\@empty
+      %if there is no subtitle, only draw the title.
+      \node[anchor=center, minimum height=2.4cm, minimum width=0.5\paperwidth] at (CENTER) (titlebox) {
+        \begin{tikzpicture}
+          \usebeamerfont{title} %set font to title font
+          \node[anchor=south, minimum height=1cm, align=center, inner xsep=.4cm, inner ysep=.2cm] (titlenode) {\inserttitle};
+        \end{tikzpicture}
+      };
+      \else
+      \node[anchor=center, minimum height=2.4cm, minimum width=0.5\paperwidth] at (CENTER) (titlebox) {
+        \begin{tikzpicture}
+          \usebeamerfont{title} %set font to title font
+          \node[anchor=south, minimum height=1cm, align=center, inner xsep=.4cm, inner ysep=.2cm, color=IMAGEFrameLight.fg] (titlenode) {\inserttitle};
+          \usebeamerfont{subtitle}
+          \node[anchor=north, minimum height=.5cm, align=left, inner xsep=.4cm, inner ysep=.2cm, color=IMAGESecondary] at ($(titlenode.south)+(0,.03ex)$) (subtitlenode) {\MakeUppercase{\insertsubtitle}\\ \insertinstitute};
+          \begin{scope}
+            \draw[very thick, draw=IMAGEFrameLight.fg] ($(titlenode.south west)+(0.3cm,0.1cm)$) -- ($(titlenode.south east)+(-0.3cm,0.1cm)$);
+            \draw[very thick, draw=IMAGEFrameLight.fg] ($(titlenode.south)-0.5*(subtitlenode.south east)+0.5*(subtitlenode.south west)+(0.3cm,0.1cm)$) -- ($(titlenode.south)+0.5*(subtitlenode.south east)-0.5*(subtitlenode.south west)+(-0.3cm,0.1cm)$);
+          \end{scope}
+        \end{tikzpicture}
+      };
+      \fi
+    \end{pgfonlayer}
+    
+    \begin{scope}
+      \draw[very thick, draw=white, opacity=0.8] ($(titlebox.south east)-(.4\paperwidth,.2cm)$) -- ($(titlebox.south east)+(.2cm,-.2cm)$) -- ($(titlebox.south east)+(.2cm,2cm)$);
+      \draw[very thick, draw=white, opacity=0.8] ($(titlebox.north west)-(.2cm,2cm)$) -- ($(titlebox.north west)-(.2cm,-.2cm)$) -- ($(titlebox.north west)+(.4\paperwidth,.2cm)$);
+    \end{scope}
+    
+    %draw more white boxes
+    \draw[fill=white,draw=none, opacity=0.8] 
+    ($(titlebox.south west)+(0,0)$) rectangle ($(titlebox.north east)+(0,0)$);
+    
+    %draw logos
+    \begin{scope}
+      \clip (LL) rectangle (UR);
+      \node[anchor=south east] at (LRdeco) {\includegraphics[width=\beamer@SEG@giventitlelogoconf]{\beamer@SEG@giventitlelogo}};
+      \node[anchor=north west] at (ULdeco) {\includegraphics[width=0.75in]{\beamer@SEG@givenUHlogo}};
+    \end{scope}
+    
+    % Draw the bounding box.
+    \begin{scope}
+      \draw[fill=white, draw=none] (LL) rectangle ([shift={(\titlemargin,0)}] UL);
+      \draw[fill=white, draw=none] (UL) rectangle ([shift={(0,-\titlemargin)}] UR);
+      \draw[fill=white, draw=none] (UR) rectangle ([shift={(-\titlemargin,0)}] LR);
+      \draw[fill=white, draw=none] (LR) rectangle ([shift={(0,\titlemargin)}] LL);
+    \end{scope}
+  \end{tikzpicture}
+}
+
+% final page
+\defbeamertemplate{final page}{text}[1]
+{
+  \pgfdeclarelayer{text}    % declare background layer
+  \pgfsetlayers{main,text}  % set the order of the layers (main is the standard layer)
+  \usebeamercolor{IMAGEFrameLight}
+  \begin{tikzpicture}
+    \ifthenelse{\equal{\beamer@SEG@givenfinalimage}{}}{
+      \begin{scope}
+        \draw[fill=\beamer@SEG@givenfinalcolor, draw=none] (0,0) rectangle ($(\paperwidth,\paperheight)$);
+      \end{scope}
+    }{
+      \begin{scope}
+        \clip (0, 0) rectangle ($(\paperwidth,\paperheight)$);
+        \node[inner sep=0, anchor=south west] at (0,0) {\beamer@SEG@givenfinalimage};
+        \node [rectangle, draw=none, left color=IMAGEPrimary, right color=IMAGEQuaternary, anchor=south west, minimum width=\paperwidth+0.75pt, minimum height=\paperheight+0.75pt, opacity=0.5] (gradbox) at (0,0) {};
+        \draw[fill=\beamer@SEG@givenfinalcolor, draw=none, opacity=0.7] (0,0) rectangle ($(\paperwidth,\paperheight)$);
+      \end{scope}
+    }
+    
+    \renewcommand{\baselinestretch}{.9}
+    
+    \begin{pgfonlayer}{text}
+      \node[anchor=north west] at (.08\paperwidth, .7\paperheight) (thankbox) {
+        \begin{tikzpicture}
+          %draw thank text.
+          \usebeamerfont{title}
+          \node[minimum height=1cm, align=left, font=\LARGE, inner ysep=.2cm, inner xsep=.3cm] (thanksnode) {\bfseries \rmfamily \color{IMAGEFrameLight.fg} Thank you for listening!}; 
+          
+          %draw sub thank text.
+          \usebeamerfont{subtitle}   
+          \node[align=left, anchor=text, inner xsep=.3cm, font=\normalsize] at ($(thanksnode.text)+(0,-.6cm)$)
+          {\color{IMAGEFrameLight.fg} \MakeUppercase{#1}};
+          
+          %draw the line to the edge of the page
+          \begin{scope}
+            \draw[very thick, draw=IMAGEFrameLight.fg] ($(thanksnode.text)+(0,-.17cm)$) -- ($(thanksnode.text)+(thanksnode.east)-(thanksnode.west)+(-0.6cm,-.17cm)$);
+          \end{scope}
+        \end{tikzpicture}
+      };
+    \end{pgfonlayer}
+    
+    \draw[fill=white,draw=none, opacity=0.8] 
+    ($(thankbox.south west)+(0,0)$) rectangle ($(thankbox.north east)+(0,0)$);
+    
+  \end{tikzpicture}
+}
+
+% define the commands used for creating title / final pages.
+\providecommand{\titleframe}{
+  \begingroup
+  \makeatletter
+  \setlength{\hoffset}{-\Gm@lmargin}
+  \makeatother
+  \begin{frame}[plain,noframenumbering,shrink]
+    \titlepage
+  \end{frame}
+  \endgroup
+}
+
+\providecommand{\finalframe}[1][It's time for Q\&A.]{
+  \begingroup
+  \makeatletter
+  \setlength{\hoffset}{-\Gm@lmargin}
+  \makeatother
+  \setbeamertemplate{final page}[text]{#1}
+  \begin{frame}[plain,noframenumbering]
+    \usebeamertemplate{final page}
+  \end{frame}
+  \endgroup
+}
+
+\mode<all>
