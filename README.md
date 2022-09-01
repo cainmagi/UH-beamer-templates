@@ -1,5 +1,7 @@
 # UH Slides SEG
 
+:warning: This template is not maintained anymore, because it has been already included in the [next version (SEG2022) :package:][git-seg2022-slides]. In other words, the next version is fully compatible with the style of this template. I strongly recommend users to check the SEG2022 version.
+
 ## Introduction
 
 This is a presentation (slides) template for both Society of Exploration Geophysicists (SEG) meeting and University of Houston. Note that this is unofficial template and designed by Yuchen Jin, who is a Ph.D student in Dept. ECE.
@@ -69,6 +71,10 @@ The following results show the alternative styles.
 
 ## Update report
 
+### 2021 (deprecated) @ 20220831
+
+1. Mark this theme as deprecated. I recommend users to check the [next version (SEG2022) :package:][git-seg2022-slides].
+
 ### 2021v2 @ 20211110
 
 1. Support more meeting palettes: URSI 2021, PIERS 2021, UHECE.
@@ -95,3 +101,6 @@ The following results show the alternative styles.
 [ex-fig-piers]:./display/uh-seg-style-piers.png
 [ex-fig-ursi]:./display/uh-seg-style-ursi.png
 [ex-fig-uhece]:./display/uh-seg-style-uhece.png
+
+[git-seg2022-slides]:https://github.com/cainmagi/UH-beamer-templates/tree/UH-Slides-SEG2022
+
