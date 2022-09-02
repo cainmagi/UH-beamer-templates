@@ -24,7 +24,7 @@
 % GNU General Public License for more details.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerinnerthemeUHCullenColored}[2022/04/02 v1.0.0 The UH Cullen Engineering Colored Theme]
+\ProvidesPackage{beamerinnerthemeUHCullenColored}[2022/09/01 v1.1.0 The UH Cullen Engineering Colored Theme]
 
 \RequirePackage{ifthen}
 \RequirePackage[overload]{textcase}
@@ -93,7 +93,7 @@
 
     % Title text
     \begin{scope}
-      \node[anchor=north west, minimum height=2.4cm, minimum width=0.5\paperwidth] at (2mm, .46\paperheight) (titlebox) {
+      \node[anchor=north west, minimum height=2.4cm, minimum width=0pt] at (2mm, .46\paperheight) (titlebox) {
         \begin{tikzpicture}
           \usebeamerfont{title} %set font to title font
           \node[anchor=north west, minimum height=0.6cm, align=left, inner xsep=.05cm, inner ysep=.05cm, color=title body.fg] (titlenode) {\usefont{T1}{phv}{m}{n}\inserttitle};
@@ -109,12 +109,12 @@
           \usebeamerfont{institute}
           \node[anchor=north west, minimum height=.5cm, minimum width=1ex, align=left, inner xsep=.1cm, inner ysep=.1cm, color=title body.fg] at ($(authornode.south west)+(0,-.05cm)$) (instnode) {\par\noindent\insertinstitute};
           \begin{scope}
-            \draw[very thick, draw=title body.bg] ($(titlenode.south west)+(0.1cm,-0.1cm)$) -- ($(titlenode.south east)+(-0.1cm,-0.1cm)$);
             \ifx\insertsubtitle\@empty
-              \draw[very thick, draw=title body.bg] ($(titlenode.south)-0.5*(authornode.south east)+0.5*(authornode.south west)+(0.1cm,-0.1cm)$) -- ($(titlenode.south)+0.5*(authornode.south east)-0.5*(authornode.south west)+(-0.1cm,-0.1cm)$);
+              \path let \p1=(titlenode.south east),\p2=(authornode.south east),\p3=(instnode.south east) in coordinate (TitleLineLen) at ({max(\x1,\x2,\x3)}, \y1);
             \else
-              \draw[very thick, draw=title body.bg] ($(titlenode.south)-0.5*(subtitlenode.south east)+0.5*(subtitlenode.south west)+(0.1cm,-0.1cm)$) -- ($(titlenode.south)+0.5*(subtitlenode.south east)-0.5*(subtitlenode.south west)+(-0.1cm,-0.1cm)$);
+              \path let \p1=(titlenode.south east),\p2=(subtitlenode.south east),\p3=(authornode.south east),\p4=(instnode.south east) in coordinate (TitleLineLen) at ({max(\x1,\x2,\x3,\x4)}, \y1);
             \fi
+            \draw[very thick, draw=title body.bg] ($(titlenode.south west)+(0.1cm,-0.1cm)$) -- ($(TitleLineLen)+(-0.1cm,-0.1cm)$);
           \end{scope}
         \end{tikzpicture}
       };

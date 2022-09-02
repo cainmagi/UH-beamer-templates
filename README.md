@@ -39,6 +39,7 @@ We list all avaliable options here. The deault state means whether a option is e
 | -----  |   -----     |      -----     |  -----  |
 | `color` | The palette name of the whole theme, could be `forest`, `navy`, `dark`, `IEEE`, `UHRed`, or `default` (`UHCullen`).  | - | `default` |
 | `font` | The palette name of the whole theme, could be `serif`, `helvet`, `times`, `kp`, or `default` (`sans`).  | - | `default` |
+| `language` | The language which will be passed as an option to the package `babel`. It will influence the style of the date.  | - | `american` |
 | `progressstyle` | The style of the progress bar displayed on each page, could be `noNumber`, `none` or `default`. | - | `default` |
 | `shownavsym` | If specified, will show the navigation symbols. | - | False |
 
@@ -220,6 +221,12 @@ The color is changed to `navy` and the font is changed to `kpfonts`. The navigat
 | ![][ex-classic-43-3] |
 
 ## Update report
+
+### 1.1.0 @ 09/01/2022
+
+1. Fix a severe misplacement bug between the main title and the following text on the title page.
+2. Add the package `babel` into the default tier. This enables users to specify the option `language`.
+3. Fix the page group issue of the used files.
 
 ### 1.0.0 @ 04/05/2022
 

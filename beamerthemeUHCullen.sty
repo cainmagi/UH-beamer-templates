@@ -39,36 +39,7 @@
 % GNU General Public License for more details.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerthemeUHCullen}[2022/04/03 v1.0.0 The UH Cullen Engineering Theme]
-
-%% load required packages
-
-% basic tier
-\RequirePackage{tikz}
-\RequirePackage{tcolorbox}
-\RequirePackage{calc}
-\RequirePackage[overload]{textcase}
-\RequirePackage[nodayofweek,level]{datetime}
-
-% advanced tier
-%\usepackage[utf8]{inputenc}
-\RequirePackage{csquotes}
-\RequirePackage[style=ieee,citestyle=verbose,backend=bibtex]{biblatex}
-\RequirePackage{cleveref}
-\RequirePackage{algorithm}
-\RequirePackage{algorithmic}
-\RequirePackage{float}
-\RequirePackage{subfigure}
-\RequirePackage{siunitx}
-\RequirePackage{tabularx}
-\RequirePackage{array}
-\RequirePackage{colortbl}
-\renewcommand{\algorithmicrequire}{\textbf{Input:}}
-\renewcommand{\algorithmicensure}{\textbf{Output:}}
-\crefname{subsection}{Subsection}{Subsections}
-\def\thesubsection{\arabic{section}.\arabic{subsection}}
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
+\ProvidesPackage{beamerthemeUHCullen}[2022/09/01 v1.1.0 The UH Cullen Engineering Theme]
 
 %------------------------------------------
 % Theme options, definitions and templates.
@@ -99,7 +70,43 @@
 }
 \DeclareOptionBeamer{color}{\PassOptionsToPackage{color=#1}{beamercolorthemeUHCullen}}
 \DeclareOptionBeamer{font}{\PassOptionsToPackage{font=#1}{beamercolorthemeUHCullen}}
+\DeclareOptionBeamer{language}{
+  \PassOptionsToPackage{#1}{babel}
+}
+\ExecuteOptionsBeamer{language={american}}
+
 \ProcessOptionsBeamer
+
+%------------------------------------------
+% Load required packages
+%------------------------------------------
+% basic tier
+\RequirePackage{tikz}
+\RequirePackage{tcolorbox}
+\RequirePackage{calc}
+\RequirePackage[overload]{textcase}
+\RequirePackage{babel}
+\RequirePackage[nodayofweek,level]{datetime}
+
+% advanced tier
+%\usepackage[utf8]{inputenc}
+\RequirePackage{csquotes}
+\RequirePackage[style=ieee,citestyle=verbose,backend=bibtex]{biblatex}
+\RequirePackage{cleveref}
+\RequirePackage{algorithm}
+\RequirePackage{algorithmic}
+\RequirePackage{float}
+\RequirePackage{subfigure}
+\RequirePackage{siunitx}
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{colortbl}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\crefname{subsection}{Subsection}{Subsections}
+\def\thesubsection{\arabic{section}.\arabic{subsection}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 %% Configure some packages
 \date{\today}
