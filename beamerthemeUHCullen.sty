@@ -11,7 +11,20 @@
 %% - handout: Use UHCullenSimple template.
 %% The inner/outer templates can also be used individually.
 %% ----------------
-%% Apr. 5, 2022
+%% Nov. 29, 2022 (v1.2.0)
+%% - Fix bug: The second line of the title uses a different font.
+%% - Fix bug: Cannot use multi-line title in Simple (handout) inner
+%%   theme.
+%% - Fix bug: Wrong package name of the Simple (handout) outer theme.
+%% - Add feature: enable users to configure the height of the title
+%%   figures by \setlength{\titlefigurelength}{...}.
+%% Sept. 1, 2022 (v1.1.0)
+%% - Fix bug: A severe misplacement bug between the main title and the
+%%   following text on the title page.
+%% - Add feature: Add the package `babel` into the default tier. This
+%%   enables users to specify the option `language`.
+%% - Fix bug: The page group issue of the used files.
+%% Apr. 5, 2022 (v1.0.0)
 %% - Add font: times. Fix the font type when using serif configs.
 %% - Add color: IEEE.
 %% Apr. 3, 2022
@@ -39,7 +52,7 @@
 % GNU General Public License for more details.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerthemeUHCullen}[2022/09/01 v1.1.0 The UH Cullen Engineering Theme]
+\ProvidesPackage{beamerthemeUHCullen}[2022/11/29 v1.2.0 The UH Cullen Engineering Theme]
 
 %------------------------------------------
 % Theme options, definitions and templates.

@@ -97,6 +97,14 @@ Here we show examples for changing the color of each element:
 
 ### Change title images
 
+An example of changing the height of the title figures. This option can be used with the Classic or the Colored template. If used with Colored template, it will influence the height of the title bar.
+
+```tex
+% optional, the following options only works in classic / colored mode.
+% set the height of the title figures.
+\setlength{\titlefigureheight}{0.2\paperheight}
+```
+
 An example of using only one image on the title page of the Classic template.
 
 ```tex
@@ -147,6 +155,22 @@ The example of using the default Classic template (`beamer`) mode:
 | ![][ex-classic-2] |
 | ![][ex-classic-3] |
 
+### Examples of using 2 title images, and reducing the heights of figures
+
+```tex
+\documentclass[10pt,xcolor={dvipsnames},aspectratio=169]{beamer}
+\usetheme{UHCullen}
+...
+\setlength{\titlefigureheight}{0.2\paperheight}
+\setTitleImageA[width=0.5\paperwidth]{UHCullenGraphics/cullen-1}
+\setTitleImageB[width=0.5\paperwidth]{UHCullenGraphics/cullen-2}
+\setTitleImageC{}
+```
+
+| Example slide |
+| ----- |
+| ![][ex-classic-reduced-1] |
+
 ### Examples of transparency mode
 
 The example of using the Colored template (`trans`) mode. Note that the `compress` argument is recommended when using `trans` mode:
@@ -194,11 +218,11 @@ The color is changed to `navy` and the font is changed to `serif` (Libertine).
 
 ### Examples of using a different color of the Colored template:
 
-The color is changed to `navy` and the font is changed to `kpfonts`. The navigation bar and the progress bar are removed.
+The color is changed to `forest` and the font is changed to `kpfonts`. The navigation bar and the progress bar are removed.
 
 ```tex
 \documentclass[10pt,xcolor={dvipsnames},aspectratio=169,trans,compress]{beamer}
-\usetheme[font={kp}, color={navy}, progressstyle={none}, sidebarnone]{UHCullen}
+\usetheme[font={kp}, color={forest}, progressstyle={none}, sidebarnone]{UHCullen}
 ```
 
 | Example slides |
@@ -221,6 +245,13 @@ The color is changed to `navy` and the font is changed to `kpfonts`. The navigat
 | ![][ex-classic-43-3] |
 
 ## Update report
+
+### 1.2.0 @ 11/29/2022
+
+1. Fix bug: The second line of the title uses a different font.
+2. Fix bug: Cannot use multi-line title in Simple (handout) inner theme.
+3. Fix bug: Wrong package name of the Simple (handout) outer theme.
+4. Add feature: enable users to configure the height of the title figures by `\setlength{\titlefigurelength}{...}`.
 
 ### 1.1.0 @ 09/01/2022
 
@@ -254,6 +285,7 @@ The color is changed to `navy` and the font is changed to `kpfonts`. The navigat
 [ex-classic-1]:./display/classic-1.jpg
 [ex-classic-2]:./display/classic-2.jpg
 [ex-classic-3]:./display/classic-3.jpg
+[ex-classic-reduced-1]:./display/classic-reduced-1.jpg
 [ex-trans-1]:./display/trans-1.png
 [ex-trans-2]:./display/trans-2.png
 [ex-trans-3]:./display/trans-3.png
