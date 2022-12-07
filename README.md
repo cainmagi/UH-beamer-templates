@@ -140,6 +140,18 @@ An example of using three images on the title page of the Classic template.
 \setFinalImage[height=\paperheight-0.9cm]{UHCullenGraphics/cullen-final}
 ```
 
+### Extended math operators
+
+|         Command        |        Description       |
+| :--------------------: | ------------------------ |
+| `\tRe`, `\tIm`         | "Re" and "Im". |
+| `\arcsinh`, `\arccosh` | "sinh" and "cosh". |
+| `\qED`                 | Right-aligned QED command. |
+| `\argmax`, `argmin   ` | Math symbols for defining an optimization: "argmax" and "argmin" |
+| `\mean`, `\std`        | "mean" and "std". |
+| `\intd`                | "d" appearing as the differential operator in integration.
+| `\expect`              | "E" with a `\mathbb` style.
+
 ## Example
 
 The example of using the default Classic template (`beamer`) mode:
@@ -245,6 +257,10 @@ The color is changed to `forest` and the font is changed to `kpfonts`. The navig
 | ![][ex-classic-43-3] |
 
 ## Update report
+
+### 1.2.1 @ 12/6/2022
+
+1. Add more math operators.
 
 ### 1.2.0 @ 11/29/2022
 

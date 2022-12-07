@@ -11,6 +11,8 @@
 %% - handout: Use UHCullenSimple template.
 %% The inner/outer templates can also be used individually.
 %% ----------------
+%% Dec. 6, 2022 (v1.2.1)
+%% - Add more math operators.
 %% Nov. 29, 2022 (v1.2.0)
 %% - Fix bug: The second line of the title uses a different font.
 %% - Fix bug: Cannot use multi-line title in Simple (handout) inner
@@ -52,7 +54,7 @@
 % GNU General Public License for more details.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerthemeUHCullen}[2022/11/29 v1.2.0 The UH Cullen Engineering Theme]
+\ProvidesPackage{beamerthemeUHCullen}[2022/12/06 v1.2.1 The UH Cullen Engineering Theme]
 
 %------------------------------------------
 % Theme options, definitions and templates.
@@ -118,8 +120,20 @@
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 \crefname{subsection}{Subsection}{Subsections}
 \def\thesubsection{\arabic{section}.\arabic{subsection}}
+
+% Define math operaotrs.
+\DeclareMathOperator*{\tRe}{Re}
+\DeclareMathOperator*{\tIm}{Im}
+\DeclareMathOperator*{\arcsinh}{\sinh^{-1}}
+\DeclareMathOperator*{\arccosh}{\cosh^{-1}}
+\providecommand{\qED}{\rightline{$\square$}}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\mathand}{and}
+\DeclareMathOperator*{\mean}{mean}
+\DeclareMathOperator*{\std}{std}
+\DeclareMathOperator*{\intd}{d}
+\DeclareMathOperator*{\expect}{\mathbb{E}}
 
 %% Configure some packages
 \date{\today}
