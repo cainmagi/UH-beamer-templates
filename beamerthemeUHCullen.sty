@@ -11,6 +11,14 @@
 %% - handout: Use UHCullenSimple template.
 %% The inner/outer templates can also be used individually.
 %% ----------------
+%% Dec. 7, 2022 (v1.3.0)
+%% - Add feature: Now will make all citation full by default. User can
+%%   turn off this feature by specifying [defaultcite] option.
+%% - Add feature: Better draft mode. Now will block out some redundant
+%%   behaviors when [draft] is specified by beamer class.
+%% - Add feature: Change the default behavior of \emph.
+%% - Fix bug: Fix a typo of an interior command name. This bug did
+%%   not influence the performance.
 %% Dec. 6, 2022 (v1.2.1)
 %% - Add more math operators.
 %% Nov. 29, 2022 (v1.2.0)
@@ -54,7 +62,7 @@
 % GNU General Public License for more details.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerthemeUHCullen}[2022/12/06 v1.2.1 The UH Cullen Engineering Theme]
+\ProvidesPackage{beamerthemeUHCullen}[2022/12/07 v1.3.0 The UH Cullen Engineering Theme]
 
 %------------------------------------------
 % Theme options, definitions and templates.
@@ -83,6 +91,11 @@
   \PassOptionsToPackage{shownavsym}{beamerouterthemeUHCullenColored}
   \PassOptionsToPackage{shownavsym}{beamerouterthemeUHCullenSimple}
 }
+\def\beamer@UHCullen@citestyle{default}
+\DeclareOptionBeamer{alwaysfullcite}{\def\beamer@UHCullen@citestyle{full}}
+\DeclareOptionBeamer{defaultcite}{\def\beamer@UHCullen@citestyle{default}}
+\ExecuteOptionsBeamer{alwaysfullcite}
+
 \DeclareOptionBeamer{color}{\PassOptionsToPackage{color=#1}{beamercolorthemeUHCullen}}
 \DeclareOptionBeamer{font}{\PassOptionsToPackage{font=#1}{beamercolorthemeUHCullen}}
 \DeclareOptionBeamer{language}{
@@ -106,7 +119,7 @@
 % advanced tier
 %\usepackage[utf8]{inputenc}
 \RequirePackage{csquotes}
-\RequirePackage[style=ieee,citestyle=verbose,backend=bibtex]{biblatex}
+\RequirePackage[style=ieee,citestyle=verbose-note,pageref,backend=bibtex]{biblatex}
 \RequirePackage{cleveref}
 \RequirePackage{algorithm}
 \RequirePackage{algorithmic}
@@ -177,9 +190,21 @@
 \renewcommand{\cref}[1]{\hyperlink{#1}{\chyperref{#1}}} % Redefine the \cref command and explictely add the hyperlink.
 
 % Hotfix for footnotes
-\let\oldfootnote\footnote
-\renewcommand\footnote[1]{\oldfootnote[frame]{\scriptsize #1}}
+\let\beamer@UHCullen@oldfootnote\footnote
+\renewcommand\footnote[1]{\beamer@UHCullen@oldfootnote[frame]{\scriptsize #1}}
 \AtBeginEnvironment{frame}{\setcounter{footnote}{0}}
+
+% Hoxfix for footcite
+\let\beamer@UHCullen@footcite\footcite
+\ifthenelse{\equal{\beamer@UHCullen@citestyle}{full}}{
+   \let\footcite\footfullcite
+}{
+  \let\footcite\beamer@UHCullen@footcite
+}
+
+% Hotfix for emph
+\let\beamer@UHCullen@oldemph\footnote
+\renewcommand{\emph}{\textcolor{UHCullen.bg}}
 
 % Hotfix for hyperref
 \hypersetup{pdfdisplaydoctitle={true}}

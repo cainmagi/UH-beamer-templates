@@ -1,11 +1,13 @@
 \documentclass[10pt,xcolor={dvipsnames},aspectratio=169]{beamer}
+%\documentclass[10pt,xcolor={dvipsnames},aspectratio=169,draft]{beamer}
 %\documentclass[10pt,xcolor={dvipsnames},aspectratio=169,trans,compress]{beamer}
 %\documentclass[10pt,xcolor={dvipsnames},handout]{beamer}
 
 % option passed to the theme
 \usetheme[
   font={default}, % serif, sans, helvet, times, kp (sans is default)
-  color={default} % forest, navy, dark, IEEE, UHRed, UHCullen (UHCullen is default)
+  color={default}, % forest, navy, dark, IEEE, UHRed, UHCullen (UHCullen is default)
+%  defaultcite, % alwaysfullcite, defaultcite (alwaysfullcite is default)
 %  language={american}, % american, british, spanish, ... (american is default)
 %  progressstyle={none},   % default, noNumber, none
 %  sidebarnone, % sidebarleft, sidebarright (sidebarright is default)
@@ -97,9 +99,9 @@
 }
 
 % subtitle is optional.
-\subtitle[v. 1.2.1]
+\subtitle[v. 1.3.0]
 {
-\textbf{v. 1.2.1}
+\textbf{v. 1.3.0}
 }
 
 % author is required. Use \texorpdfstring to configure hyperref correctly.
@@ -413,8 +415,8 @@ More required packages for advanced utilities:
 %-------------------------------------------------------
 \begin{itemize}
   \item Test table, which is shown in \cref{tab:params}.
+  \item Another test, check whether there is a bug if using \texttt{$\backslash$footcite} repeatedly~\footcite{Dong7115171}.
 \end{itemize}
-
 \begin{table}[htbp]
   \centering
   \normalsize
@@ -438,6 +440,7 @@ More required packages for advanced utilities:
 \begin{frame}{Examples}{Figures}
 %-------------------------------------------------------
 \begin{itemize}
+  \item Test the \texttt{$\backslash$emph} style. Now \emph{its behavior} should differ from the original emph style.
   \item Test inner subgraphs, i.e. \cref{fig:ex1:resD:a} and \cref{fig:ex1:resD:b}.
 \end{itemize}
 

@@ -24,11 +24,12 @@
 % GNU General Public License for more details.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerouterthemeUHCullenClassic}[2022/03/11 v1.0.0 The UH Cullen Engineering Classic Theme]
+\ProvidesPackage{beamerouterthemeUHCullenClassic}[2022/12/07 v1.3.0 The UH Cullen Engineering Classic Theme]
 
 % load required packages
 \RequirePackage{ifthen}
 \RequirePackage{ifxetex}
+\RequirePackage{ifdraft}
 \RequirePackage{tikz}
 \RequirePackage{calc}
 \RequirePackage{tcolorbox}
@@ -55,10 +56,10 @@
 %------------------------------------------
 
 % options for the progress bar
-\def\beamer@Cullen@progressstyle{default}
-\def\beamer@Cullen@progressstyle@none{none}
-\def\beamer@Cullen@progressstyle@nonumber{noNumber}
-\DeclareOptionBeamer{progressstyle}{\def\beamer@Cullen@progressstyle{#1}} % hide the progress bar
+\def\beamer@UHCullen@progressstyle{default}
+\def\beamer@UHCullen@progressstyle@none{none}
+\def\beamer@UHCullen@progressstyle@nonumber{noNumber}
+\DeclareOptionBeamer{progressstyle}{\def\beamer@UHCullen@progressstyle{#1}} % hide the progress bar
 \DeclareOptionBeamer{shownavsym}{\def\beamer@shownavsym{true}}
 
 % options copied from sidebar outer theme.
@@ -108,17 +109,17 @@
 }{}
 
 \usebackgroundtemplate{ % background template
-  \beamer@Cullen@Classicbackground
+  \beamer@UHCullen@Classicbackground
 }
 
 \setbeamertemplate{headline} % headline
 {
-  \beamer@Cullen@Classicheaderline
+  \beamer@UHCullen@Classicheaderline
 }
 
 \setbeamertemplate{footline} % footline  
-{\ifx\beamer@Cullen@progressstyle\beamer@Cullen@progressstyle@nonumber
- \vspace{3.0mm} \else\ifx\beamer@Cullen@progressstyle\beamer@Cullen@progressstyle@none
+{\ifx\beamer@UHCullen@progressstyle\beamer@UHCullen@progressstyle@nonumber
+ \vspace{3.0mm} \else\ifx\beamer@UHCullen@progressstyle\beamer@UHCullen@progressstyle@none
  \vspace{3.0mm} \else \vspace{5.0mm} \fi \fi
   \leavevmode\hbox{%
   \begin{beamercolorbox}[wd=0.75\paperwidth,ht=1.25ex,dp=1ex,left]{headfoot/info}
@@ -165,7 +166,7 @@
 % macros used in the theme 
 %% coordinate the fancy header background
 
-\newcommand{\beamer@Cullen@Classicbackground}[0]
+\newcommand{\beamer@UHCullen@Classicbackground}[0]
 {
   \begin{tikzpicture}[overlay]
     % Base
@@ -187,14 +188,18 @@
       \usebeamercolor{UHBackground}
 
       % Draw the background
-      \draw[draw=none,left color=UHBackground.fg,right color=UHBackground.bg,shading angle=135] (UL) rectangle (LR); % background, layer 0
-      \draw[draw=none,fill=UHBackground.fg!95!black, path fading=fade center, fading angle=90] (EUL) rectangle (ELR); % background, layer 1
-      \node[anchor=south west,inner sep=0] at (LLdeco) {\includegraphics[height=0.75\paperheight]{\beamer@UHCullen@bgdecoratorl}}; % background, decorator, lower left
+      \ifdraft{}{
+        \draw[draw=none,left color=UHBackground.fg,right color=UHBackground.bg,shading angle=135] (UL) rectangle (LR); % background, layer 0
+
+        \draw[draw=none,fill=UHBackground.fg!95!black, path fading=fade center, fading angle=90] (EUL) rectangle (ELR); % background, layer 1
+
+        \node[anchor=south west,inner sep=0] at (LLdeco) {\includegraphics[height=0.75\paperheight]{\beamer@UHCullen@bgdecoratorl}}; % background, decorator, lower left
+      }
     }
   \end{tikzpicture}
 }
 
-\newcommand{\beamer@Cullen@Classicheaderline}[0]
+\newcommand{\beamer@UHCullen@Classicheaderline}[0]
 {
   \begin{tikzpicture}[overlay]
     % Base
@@ -253,7 +258,9 @@
 
       % Draw the logo in the header
       \draw[draw=none,fill=UHCullen.bg] (LogoUL) rectangle (LogoLR); % logo background
-      \node[anchor=north west,inner sep=0] at (LogoUL) {\includegraphics[height=\beamer@logoheight]{\beamer@UHCullen@framelogo}}; % logo
+      \ifdraft{}{
+        \node[anchor=north west,inner sep=0] at (LogoUL) {\includegraphics[height=\beamer@logoheight]{\beamer@UHCullen@framelogo}}; % logo
+      }
 
       % Draw the footer
       \draw[draw=none,fill=UHBackground.fg!40!black] (FUL) rectangle (FLR); % header line 1
@@ -261,20 +268,20 @@
       % Calculate the progress, and the progress position
       \pgfmathsetmacro{\effectivetotalframe}{max(\inserttotalframenumber-\theunnumberedframe,1)}
       \pgfmathsetmacro{\progress}{(\insertframenumber-\theunnumberedframe)/\effectivetotalframe};
-      
-      \ifx\beamer@Cullen@progressstyle\beamer@Cullen@progressstyle@nonumber
+
+      \ifx\beamer@UHCullen@progressstyle\beamer@UHCullen@progressstyle@nonumber
         \coordinate (ProgC) at ([shift={(\progress \paperwidth, 0)}] ProgL);
       \else
         \coordinate (ProgC) at ([shift={(\progress \beamer@progbarlength + 1.25\beamer@progiconradius, 0)}] ProgL);
       \fi
 
-      \ifx\beamer@Cullen@progressstyle\beamer@Cullen@progressstyle@none
+      \ifx\beamer@UHCullen@progressstyle\beamer@UHCullen@progressstyle@none
       \else
         % Draw the progress bar
         \draw[draw=none,fill=UHBackground.fg!50!black,opacity=0.5] ([shift={(0, 1mm)}] ProgL) rectangle (ProgR); % progbar background
         \draw[draw=none,fill=UHCullen.bg] ([shift={(0, 1mm)}] ProgL) rectangle (ProgC); % progbar
-  
-        \ifx\beamer@Cullen@progressstyle\beamer@Cullen@progressstyle@nonumber
+
+        \ifx\beamer@UHCullen@progressstyle\beamer@UHCullen@progressstyle@nonumber
         \else
           % Draw the current frame number
           \fill[fill=UHCullen.bg] ([shift={(0, 1.25\beamer@progiconradius)}] ProgC) circle (1.25\beamer@progiconradius);

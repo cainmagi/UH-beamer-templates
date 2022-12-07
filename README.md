@@ -42,6 +42,8 @@ We list all avaliable options here. The deault state means whether a option is e
 | `language` | The language which will be passed as an option to the package `babel`. It will influence the style of the date.  | - | `american` |
 | `progressstyle` | The style of the progress bar displayed on each page, could be `noNumber`, `none` or `default`. | - | `default` |
 | `shownavsym` | If specified, will show the navigation symbols. | - | False |
+| `alwaysfullcite` | If specified, will replace all `\footcite` with `\footfullcite`. | `defaultcite` | True |
+| `defaultcite` | If specified, will fallback to the original `\footcite` of `biblatex`. | `alwaysfullcite` | False |
 
 Options inherited from sidebar outer theme and miniframes outer theme.
 
@@ -183,6 +185,21 @@ The example of using the default Classic template (`beamer`) mode:
 | ----- |
 | ![][ex-classic-reduced-1] |
 
+### Examples of using the draft mode of the Classic template
+
+When using the draft mode, the sidebar and the footline will be filled by placeholders.
+
+```tex
+\documentclass[10pt,xcolor={dvipsnames},aspectratio=169,draft]{beamer}
+\usetheme{UHCullen}
+```
+
+| Example slides |
+| ----- |
+| ![][ex-draft-1] |
+| ![][ex-draft-2] |
+| ![][ex-draft-3] |
+
 ### Examples of transparency mode
 
 The example of using the Colored template (`trans`) mode. Note that the `compress` argument is recommended when using `trans` mode:
@@ -213,7 +230,7 @@ The example of using the Standard template (`handout`) mode:
 | ![][ex-handout-2] |
 | ![][ex-handout-3] |
 
-### Examples of using a different color of the Classic template:
+### Examples of using a different color of the Classic template
 
 The color is changed to `navy` and the font is changed to `serif` (Libertine).
 
@@ -228,7 +245,7 @@ The color is changed to `navy` and the font is changed to `serif` (Libertine).
 | ![][ex-classic-navy-2] |
 | ![][ex-classic-navy-3] |
 
-### Examples of using a different color of the Colored template:
+### Examples of using a different color of the Colored template
 
 The color is changed to `forest` and the font is changed to `kpfonts`. The navigation bar and the progress bar are removed.
 
@@ -243,7 +260,7 @@ The color is changed to `forest` and the font is changed to `kpfonts`. The navig
 | ![][ex-trans-forest-2] |
 | ![][ex-trans-forest-3] |
 
-### Examples of using 4:3 ratio of the Classic template:
+### Examples of using 4:3 ratio of the Classic template
 
 ```tex
 \documentclass[10pt,xcolor={dvipsnames}]{beamer}
@@ -257,6 +274,13 @@ The color is changed to `forest` and the font is changed to `kpfonts`. The navig
 | ![][ex-classic-43-3] |
 
 ## Update report
+
+### 1.3.0 @ 12/7/2022
+
+1. Add feature: Now will make all citation full by default. User can turn off this feature by specifying `[defaultcite]` option.
+2. Add feature: Change the default behavior of `\emph`.
+3. Add feature: Better draft mode. Now will block out some redundant behaviors when `[draft]` is specified by `beamer` class.
+4. Fix bug: Fix a typo of an interior command name. This bug did not influence the performance.
 
 ### 1.2.1 @ 12/6/2022
 
@@ -302,6 +326,9 @@ The color is changed to `forest` and the font is changed to `kpfonts`. The navig
 [ex-classic-2]:./display/classic-2.jpg
 [ex-classic-3]:./display/classic-3.jpg
 [ex-classic-reduced-1]:./display/classic-reduced-1.jpg
+[ex-draft-1]:./display/draft-1.png
+[ex-draft-2]:./display/draft-2.png
+[ex-draft-3]:./display/draft-3.png
 [ex-trans-1]:./display/trans-1.png
 [ex-trans-2]:./display/trans-2.png
 [ex-trans-3]:./display/trans-3.png

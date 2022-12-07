@@ -24,7 +24,7 @@
 % GNU General Public License for more details.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerouterthemeUHCullenSimple}[2022/11/29 v1.2.0 The UH Cullen Engineering Simple Theme]
+\ProvidesPackage{beamerouterthemeUHCullenSimple}[2022/12/07 v1.3.0 The UH Cullen Engineering Simple Theme]
 
 % load required packages
 \RequirePackage{ifthen}
@@ -135,7 +135,7 @@
 
 % macros used in the theme 
 %% coordinate the fancy header background
-\newcommand{\beamer@Cullen@Coloredheaderline}[0]
+\newcommand{\beamer@UHCullen@Coloredheaderline}[0]
 {
   \begin{tikzpicture}[overlay]
     % Base
@@ -163,7 +163,7 @@
   \end{tikzpicture}
 }
 
-\newcommand{\beamer@Cullen@Coloredfootline}[0]
+\newcommand{\beamer@UHCullen@Coloredfootline}[0]
 {
   \setbeamercolor{headfoot/info}{use=UHCullen, fg=UHCullen.bg!40!black}
   \setbeamercolor{headfoot/time}{use=UHCullen, fg=UHCullen.bg!40!black}
@@ -194,12 +194,12 @@
 
 \setbeamertemplate{headline} % headline
 {%
-  \beamer@Cullen@Coloredheaderline
+  \beamer@UHCullen@Coloredheaderline
 }
 
 \setbeamertemplate{footline} % footline  
 {
-  \beamer@Cullen@Coloredfootline
+  \beamer@UHCullen@Coloredfootline
 }
 
 \mode<all>
